@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        html, body {
+            height: 100%; margin: 0; padding: 0;
+        }
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map">Loading map......</div>
+    <script>
+        var map = null;
+        var marker = null;
+        var line = null;
+
+        function setpos(lati, longi) {
+            var uluru = { lat: lati, lng: longi };
+            if (map == null) {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 15,
+                    center: uluru
+                });
+            }
+            else {
+                map.panTo(uluru);
+            }
+
+            var streetview = map.getStreetView();
+            if (streetview && streetview.getVisible()) {
+                streetview.setPosition(uluru);
+            }
+
+            if (marker) {
+                var ppos = marker.getPosition();
+                marker.setPosition(uluru);
+                if (line == null) {
+                    line = new google.maps.Polyline({
+                        path: [ppos, uluru],
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.7,
+                        strokeWeight: 2
+                    });
+                    line.setMap(map);
+                }
+                else {
+                    line.setPath([ppos, uluru]);
+                }
+
+            }
+            else {
+                marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map
+                });
+            }
+        }
+
+        function initMap() {
+            var uluru = { lat: 40, lng: -73 };       // Time Square, New York
+            if (external && external.init_lat && external.init_lng) {
+                uluru = { lat: external.init_lat, lng: external.init_lng };
+            }
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                minZoom: 3,
+                fullscreenControl: false,
+                center: uluru
+            });
+
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5kjXuSfC79ZayOFQqbR0MCOYyuJED1j8&callback=initMap">
+    </script>
+</body>
+</html>

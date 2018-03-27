@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2EB20780-E082-4DCD-B9CA-D4DD27441FDE}</ProjectGuid>
+    <RootNamespace>ply606</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\proj\DVR\DVRCLIENT_V3\Viewers\freetype-2.3.5-1-lib\include\freetype2;D:\proj\DVR\DVRCLIENT_V3\Viewers\ffmpeg\include\ffmpeg;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\proj\DVR\DVRCLIENT_V3\Viewers\freetype-2.3.5-1-lib\lib;D:\proj\DVR\DVRCLIENT_V3\Viewers\ffmpeg\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\freetype-2.3.5-1-lib\include\freetype2;..\..\ffmpeg\include\ffmpeg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;PLY606_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\freetype-2.3.5-1-lib\lib;..\..\ffmpeg\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\debug\ply606.dll ..\..\viewer\debug</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\freetype-2.3.5-1-lib\include\freetype2;..\..\ffmpeg\include\ffmpeg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PLY606_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\freetype-2.3.5-1-lib\lib;..\..\ffmpeg\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <EnableUAC>false</EnableUAC>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="aout_filters.cpp" />
+    <ClCompile Include="aout_input.cpp" />
+    <ClCompile Include="aout_output.cpp" />
+    <ClCompile Include="araw.cpp" />
+    <ClCompile Include="audio_output.cpp" />
+    <ClCompile Include="block.cpp" />
+    <ClCompile Include="crypt.cpp" />
+    <ClCompile Include="decoder.cpp" />
+    <ClCompile Include="direct3d.cpp" />
+    <ClCompile Include="directx_audio.cpp" />
+    <ClCompile Include="dvrfilestream.cpp" />
+    <ClCompile Include="dvrharddrivestream.cpp" />
+    <ClCompile Include="dvrnet.cpp" />
+    <ClCompile Include="dvrplaybackstream.cpp" />
+    <ClCompile Include="dvrplayer.cpp" />
+    <ClCompile Include="dvrpreviewstream.cpp" />
+    <ClCompile Include="ffmpeg.cpp" />
+    <ClCompile Include="fourcc.cpp" />
+    <ClCompile Include="freetype.cpp" />
+    <ClCompile Include="i420_rgb.cpp" />
+    <ClCompile Include="i420_yuy2.cpp" />
+    <ClCompile Include="inputstream.cpp" />
+    <ClCompile Include="mp4filestream.cpp" />
+    <ClCompile Include="mp4util.cpp" />
+    <ClCompile Include="mpeg4.cpp" />
+    <ClCompile Include="mtime.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="ply606.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="subpicture.cpp" />
+    <ClCompile Include="subs.cpp" />
+    <ClCompile Include="tme_thread.cpp" />
+    <ClCompile Include="trace.cpp" />
+    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="vfilter_blend.cpp" />
+    <ClCompile Include="video_output.cpp" />
+    <ClCompile Include="videoclip.cpp" />
+    <ClCompile Include="vout_mem.cpp" />
+    <ClCompile Include="vout_picture.cpp" />
+    <ClCompile Include="vout_vector.cpp" />
+    <ClCompile Include="xvidenc.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="aout_output.h" />
+    <ClInclude Include="araw.h" />
+    <ClInclude Include="audio_output.h" />
+    <ClInclude Include="block.h" />
+    <ClInclude Include="chroma.h" />
+    <ClInclude Include="decoder.h" />
+    <ClInclude Include="direct3d.h" />
+    <ClInclude Include="direct_common.h" />
+    <ClInclude Include="directx_audio.h" />
+    <ClInclude Include="dvrfilestream.h" />
+    <ClInclude Include="dvrharddrivestream.h" />
+    <ClInclude Include="dvrnet.h" />
+    <ClInclude Include="dvrplaybackstream.h" />
+    <ClInclude Include="dvrpreviewstream.h" />
+    <ClInclude Include="ffmpeg.h" />
+    <ClInclude Include="fourcc.h" />
+    <ClInclude Include="freetype.h" />
+    <ClInclude Include="i420_rgb.h" />
+    <ClInclude Include="i420_yuy2.h" />
+    <ClInclude Include="inputstream.h" />
+    <ClInclude Include="mp4filestream.h" />
+    <ClInclude Include="mp4util.h" />
+    <ClInclude Include="mpeg4.h" />
+    <ClInclude Include="mtime.h" />
+    <ClInclude Include="osd.h" />
+    <ClInclude Include="ply606.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="subs.h" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="vfilter_blend.h" />
+    <ClInclude Include="video.h" />
+    <ClInclude Include="video_output.h" />
+    <ClInclude Include="videoclip.h" />
+    <ClInclude Include="vout_mem.h" />
+    <ClInclude Include="vout_picture.h" />
+    <ClInclude Include="xvidenc.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ply606.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

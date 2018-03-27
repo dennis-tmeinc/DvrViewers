@@ -1,0 +1,433 @@
+ PWManager
+
+ Timestamp is 4fd21c0e (Fri Jun 08 11:36:46 2012)
+
+ Preferred load address is 00400000
+
+ Start         Length     Name                   Class
+ 0001:00000000 000055dbH .text                   CODE
+ 0001:000055e0 0000006cH .text$yc                CODE
+ 0001:00005650 000000cdH .text$yd                CODE
+ 0002:00000000 00000208H .idata$5                DATA
+ 0002:00000208 00000004H .CRT$XCA                DATA
+ 0002:0000020c 0000000cH .CRT$XCU                DATA
+ 0002:00000218 00000004H .CRT$XCZ                DATA
+ 0002:0000021c 00000004H .CRT$XIA                DATA
+ 0002:00000220 00000004H .CRT$XIC                DATA
+ 0002:00000224 00000004H .CRT$XIZ                DATA
+ 0002:00000230 00000578H .rdata                  DATA
+ 0002:000007a8 0000004fH .rdata$debug            DATA
+ 0002:000007f8 00000260H .rdata$r                DATA
+ 0002:00000a58 000000a0H .idata$2                DATA
+ 0002:00000af8 00000014H .idata$3                DATA
+ 0002:00000b0c 00000208H .idata$4                DATA
+ 0002:00000d14 000007feH .idata$6                DATA
+ 0002:00001512 00000000H .edata                  DATA
+ 0003:00000000 000000f0H .data                   DATA
+ 0003:000000f0 000000f8H .bss                    DATA
+ 0004:00000000 00000280H .rsrc$01                DATA
+ 0004:00000280 00004868H .rsrc$02                DATA
+
+  Address         Publics by Value              Rva+Base       Lib:Object
+
+ 0000:00000000       __except_list              00000000     <absolute>
+ 0000:00000000       ___safe_se_handler_table   00000000     <absolute>
+ 0000:00000000       ___safe_se_handler_count   00000000     <absolute>
+ 0000:00009876       __ldused                   00009876     <absolute>
+ 0000:00009876       __fltused                  00009876     <absolute>
+ 0001:00000000       ?set@string@@IAEXPBD@Z     00401000 f i util.obj
+ 0001:00000070       ?set@string@@IAEXPB_W@Z    00401070 f i util.obj
+ 0001:00000100       ??1string@@QAE@XZ          00401100 f i util.obj
+ 0001:00000140       ??Bstring@@QAEPADXZ        00401140 f i util.obj
+ 0001:000001b0       ??Bstring@@QAEPA_WXZ       004011b0 f i util.obj
+ 0001:00000230       ?strsize@string@@QAEPADH@Z 00401230 f i util.obj
+ 0001:00000280       ?tcssize@string@@QAEPA_WH@Z 00401280 f i util.obj
+ 0001:000002e0       ?ResInst@Window@@SAPAUHINSTANCE__@@XZ 004012e0 f i util.obj
+ 0001:00000300       ?sWindowProc@Window@@CGJPAUHWND__@@IIJ@Z 00401300 f i ManagerDlg.obj
+ 0001:00000380       ?WndProc@Window@@MAEJIIJ@Z 00401380 f i ManagerDlg.obj
+ 0001:000003b0       ?OnAttach@Window@@MAEXXZ   004013b0 f i ManagerDlg.obj
+ 0001:000003b0       ?OnDetach@Window@@MAEXXZ   004013b0 f i ManagerDlg.obj
+ 0001:000003c0       ?detach@Window@@QAEXXZ     004013c0 f i ManagerDlg.obj
+ 0001:00000430       ?OnNotify@ManagerDlg@@MAEHPAUtagNMHDR@@@Z 00401430 f i PWManager.obj
+ 0001:00000430       ?OnNotify@Dialog@@MAEHPAUtagNMHDR@@@Z 00401430 f i ManagerDlg.obj
+ 0001:00000430       ?PreTranslateMessage@Window@@UAEHPAUtagMSG@@@Z 00401430 f i ManagerDlg.obj
+ 0001:00000440       ?MsgLoop@Window@@UAEHXZ    00401440 f i ManagerDlg.obj
+ 0001:000004c0       ?sDialogProc@Dialog@@KGHPAUHWND__@@IIJ@Z 004014c0 f i ManagerDlg.obj
+ 0001:00000560       ?OnOK@Dialog@@MAEXXZ       00401560 f i ManagerDlg.obj
+ 0001:00000580       ?OnCommand@DlgClTargetProgress@@MAEHHH@Z 00401580 f i ManagerDlg.obj
+ 0001:00000580       ?OnCommand@Dialog@@MAEHHH@Z 00401580 f i ManagerDlg.obj
+ 0001:000005c0       ?DlgProc@Dialog@@MAEHIIJ@Z 004015c0 f i ManagerDlg.obj
+ 0001:00000610       ?DoModal@Dialog@@UAEHHPAUHWND__@@@Z 00401610 f i ManagerDlg.obj
+ 0001:00000650       ?DlgLoop@Dialog@@UAEHH@Z   00401650 f i ManagerDlg.obj
+ 0001:00000760       ??1dirfind@@QAE@XZ         00401760 f i ManagerDlg.obj
+ 0001:00000800       ?open@dirfind@@QAEXPBD@Z   00401800 f i ManagerDlg.obj
+ 0001:000008d0       ?find@dirfind@@QAEHPBD@Z   004018d0 f i ManagerDlg.obj
+ 0001:00000ac0       ?OnInitDialog@DlgSrcId@@MAEHXZ 00401ac0 f i ManagerDlg.obj
+ 0001:00000b00       ?OnOK@DlgSrcId@@MAEXXZ     00401b00 f i ManagerDlg.obj
+ 0001:00000b90       ?DlgProc@DlgCleanSource@@MAEHIIJ@Z 00401b90 f i ManagerDlg.obj
+ 0001:00000c00       ?OnInitDialog@DlgClTargetProgress@@MAEHXZ 00401c00 f i ManagerDlg.obj
+ 0001:00000c50       ?OnCancel@DlgClTargetProgress@@MAEXXZ 00401c50 f i ManagerDlg.obj
+ 0001:00000c50       ?OnCancel@Dialog@@MAEXXZ   00401c50 f i ManagerDlg.obj
+ 0001:00000c70       ?OnTimer@DlgClTargetProgress@@IAEXH@Z 00401c70 f i ManagerDlg.obj
+ 0001:00000d50       ?DlgProc@DlgClTargetProgress@@MAEHIIJ@Z 00401d50 f i ManagerDlg.obj
+ 0001:00000dd0       ??_GDlgClTargetProgress@@UAEPAXI@Z 00401dd0 f i ManagerDlg.obj
+ 0001:00000dd0       ??_EDlgClTargetProgress@@UAEPAXI@Z 00401dd0 f i  CIL library: CIL module
+ 0001:00000e00       ??1DlgClTargetProgress@@UAE@XZ 00401e00 f i ManagerDlg.obj
+ 0001:00000ea0       ?SaveCfg@@YAHPAD0@Z        00401ea0 f   ManagerDlg.obj
+ 0001:00000fc0       ?ReadCfg@@YAHPAD0H@Z       00401fc0 f   ManagerDlg.obj
+ 0001:00001170       ?OnInitDialog@AboutDlg@@MAEHXZ 00402170 f i ManagerDlg.obj
+ 0001:00001240       ?OnSysCommand@ManagerDlg@@MAEXIJ@Z 00402240 f   ManagerDlg.obj
+ 0001:000012d0       ?OnInitDialog@ManagerDlg@@MAEHXZ 004022d0 f   ManagerDlg.obj
+ 0001:00001550       ?OnEnKillfocusEditFreespace@ManagerDlg@@IAEXXZ 00402550 f   ManagerDlg.obj
+ 0001:000015f0       ?UpdateTargetFreeSpace@ManagerDlg@@QAEXXZ 004025f0 f   ManagerDlg.obj
+ 0001:000017c0       ?OnBnClickedButtonBrowseDataDir@ManagerDlg@@IAEXXZ 004027c0 f   ManagerDlg.obj
+ 0001:00002650       ?ArchThread@@YGKPAX@Z      00403650 f   ManagerDlg.obj
+ 0001:00002670       ?DiskChange@ManagerDlg@@QAEHXZ 00403670 f   ManagerDlg.obj
+ 0001:00002860       ?updsrcdiskspace@ManagerDlg@@QAEXXZ 00403860 f   ManagerDlg.obj
+ 0001:00002ba0       ?OnTimer@ManagerDlg@@IAEXI@Z 00403ba0 f   ManagerDlg.obj
+ 0001:00003050       ?OnBnClickedButtonSetupId@ManagerDlg@@IAEXXZ 00404050 f   ManagerDlg.obj
+ 0001:000032c0       ??1DlgSrcId@@UAE@XZ        004042c0 f i ManagerDlg.obj
+ 0001:00003340       ??_EDlgSrcId@@UAEPAXI@Z    00404340 f i  CIL library: CIL module
+ 0001:00003340       ??_GDlgSrcId@@UAEPAXI@Z    00404340 f i ManagerDlg.obj
+ 0001:00003370       ?CleanDiskThreadFunction@@YGKPAX@Z 00404370 f   ManagerDlg.obj
+ 0001:00003e60       ?OnBnClickedButtonCleanTarget@ManagerDlg@@IAEXXZ 00404e60 f   ManagerDlg.obj
+ 0001:00003fc0       ?OnInitDialog@DlgCleanTarget@@MAEHXZ 00404fc0 f   ManagerDlg.obj
+ 0001:00004040       ?OnOK@DlgCleanTarget@@MAEXXZ 00405040 f   ManagerDlg.obj
+ 0001:000040c0       ?OnInitDialog@DlgCleanSource@@MAEHXZ 004050c0 f   ManagerDlg.obj
+ 0001:000041e0       ?OnOK@DlgCleanSource@@MAEXXZ 004051e0 f   ManagerDlg.obj
+ 0001:00004270       ?CleanSrcDir@@YAXPADHPAVDlgClTargetProgress@@@Z 00405270 f   ManagerDlg.obj
+ 0001:000047a0       ?CleanSrcDiskThreadFunction@@YGKPAX@Z 004057a0 f   ManagerDlg.obj
+ 0001:000047f0       ?OnBnClickedButtonSrcclean@ManagerDlg@@IAEXXZ 004057f0 f   ManagerDlg.obj
+ 0001:00004a00       ?OnBnClickedButtonSrcEject@ManagerDlg@@IAEXXZ 00405a00 f   ManagerDlg.obj
+ 0001:00004b50       ?LockVolume@@YAHPAX@Z      00405b50 f   ManagerDlg.obj
+ 0001:00004bb0       ?FlushVolume@@YAH_W@Z      00405bb0 f   ManagerDlg.obj
+ 0001:00004c80       ?EjectVolume@@YAH_W@Z      00405c80 f   ManagerDlg.obj
+ 0001:00004d90       ?OnCommand@ManagerDlg@@MAEHHH@Z 00405d90 f i PWManager.obj
+ 0001:00004e80       ?DlgProc@ManagerDlg@@MAEHIIJ@Z 00405e80 f i PWManager.obj
+ 0001:00004f70       _WinMain@16                00405f70 f   PWManager.obj
+ 0001:00005080       ??_GAboutDlg@@UAEPAXI@Z    00406080 f i ManagerDlg.obj
+ 0001:00005080       ??_EDlgCleanSource@@UAEPAXI@Z 00406080 f i  CIL library: CIL module
+ 0001:00005080       ??_EManagerDlg@@UAEPAXI@Z  00406080 f i  CIL library: CIL module
+ 0001:00005080       ??_GWindow@@UAEPAXI@Z      00406080 f i ManagerDlg.obj
+ 0001:00005080       ??_EDlgCleanTarget@@UAEPAXI@Z 00406080 f i  CIL library: CIL module
+ 0001:00005080       ??_GDlgCleanSource@@UAEPAXI@Z 00406080 f i ManagerDlg.obj
+ 0001:00005080       ??_EAboutDlg@@UAEPAXI@Z    00406080 f i  CIL library: CIL module
+ 0001:00005080       ??_GDlgCleanTarget@@UAEPAXI@Z 00406080 f i ManagerDlg.obj
+ 0001:00005080       ??_GManagerDlg@@UAEPAXI@Z  00406080 f i PWManager.obj
+ 0001:00005080       ??_EWindow@@UAEPAXI@Z      00406080 f i  CIL library: CIL module
+ 0001:000050d4       ??3@YAXPAX@Z               004060d4 f   msvcrt:msvcrt.dll
+ 0001:000050da       ??_Etype_info@@UAEPAXI@Z   004060da f i msvcrt:ti_inst.obj
+ 0001:00005125       __onexit                   00406125 f   msvcrt:atonexit.obj
+ 0001:0000514b       _atexit                    0040614b f   msvcrt:atonexit.obj
+ 0001:0000515d       _WinMainCRTStartup         0040615d f   msvcrt:crtexew.obj
+ 0001:00005323       ?__ArrayUnwind@@YGXPAXIHP6EX0@Z@Z 00406323 f   msvcrt:ehvecdtr.obj
+ 0001:00005381       ??_M@YGXPAXIHP6EX0@Z@Z     00406381 f   msvcrt:ehvecdtr.obj
+ 0001:000053e2       ??1type_info@@UAE@XZ       004063e2 f   msvcrt:msvcrt.dll
+ 0001:000053e8       ___dllonexit               004063e8 f   msvcrt:msvcrt.dll
+ 0001:000053ee       __XcptFilter               004063ee f   msvcrt:msvcrt.dll
+ 0001:000053f4       __initterm                 004063f4 f   msvcrt:msvcrt.dll
+ 0001:000053fa       __setdefaultprecision      004063fa f   msvcrt:fp8.obj
+ 0001:0000540c       __setargv                  0040640c f   msvcrt:dllargv.obj
+ 0001:0000540c       __matherr                  0040640c f   msvcrt:merr.obj
+ 0001:00005410       __SEH_prolog               00406410 f   msvcrt:sehprolg.obj
+ 0001:00005449       __SEH_epilog               00406449 f   msvcrt:sehprolg.obj
+ 0001:0000545a       ?terminate@@YAXXZ          0040645a f   msvcrt:msvcrt.dll
+ 0001:00005460       __controlfp                00406460 f   msvcrt:msvcrt.dll
+ 0001:00005466       __except_handler3          00406466 f   msvcrt:msvcrt.dll
+ 0001:00005470       __alldiv                   00406470 f   msvcrt:lldiv.obj
+ 0001:00005520       __ftol2_sse                00406520 f   libcmt:ftol2.obj
+ 0001:00005529       __ftol2_pentium4           00406529 f   libcmt:ftol2.obj
+ 0001:0000553c       __ftol2_sse_excpt          0040653c f   libcmt:ftol2.obj
+ 0001:00005556       __ftol2                    00406556 f   libcmt:ftol2.obj
+ 0001:000055cb       ___sse2_available_init     004065cb f   libcmt:cpu_disp.obj
+ 0001:00005710       ??__Fusegdiplus@?1??InitApp@@YAHXZ@YAXXZ 00406710 f i PWManager.obj
+ 0002:00000000       __imp__RegCreateKeyExW@36  00407000     advapi32:ADVAPI32.dll
+ 0002:00000004       __imp__RegCloseKey@4       00407004     advapi32:ADVAPI32.dll
+ 0002:00000008       __imp__RegQueryValueExW@24 00407008     advapi32:ADVAPI32.dll
+ 0002:0000000c       __imp__RegSetValueExW@24   0040700c     advapi32:ADVAPI32.dll
+ 0002:00000010       \177ADVAPI32_NULL_THUNK_DATA 00407010     advapi32:ADVAPI32.dll
+ 0002:00000014       __imp__InitCommonControlsEx@4 00407014     comctl32:COMCTL32.dll
+ 0002:00000018       \177COMCTL32_NULL_THUNK_DATA 00407018     comctl32:COMCTL32.dll
+ 0002:0000001c       __imp__Sleep@4             0040701c     kernel32:KERNEL32.dll
+ 0002:00000020       __imp__FindResourceW@12    00407020     kernel32:KERNEL32.dll
+ 0002:00000024       __imp__LoadResource@8      00407024     kernel32:KERNEL32.dll
+ 0002:00000028       __imp__LockResource@4      00407028     kernel32:KERNEL32.dll
+ 0002:0000002c       __imp__FindClose@4         0040702c     kernel32:KERNEL32.dll
+ 0002:00000030       __imp__FindFirstFileW@8    00407030     kernel32:KERNEL32.dll
+ 0002:00000034       __imp__FindNextFileW@8     00407034     kernel32:KERNEL32.dll
+ 0002:00000038       __imp__SetErrorMode@4      00407038     kernel32:KERNEL32.dll
+ 0002:0000003c       __imp__GetLogicalDrives@0  0040703c     kernel32:KERNEL32.dll
+ 0002:00000040       __imp__GetDiskFreeSpaceExW@16 00407040     kernel32:KERNEL32.dll
+ 0002:00000044       __imp__SetThreadPriority@8 00407044     kernel32:KERNEL32.dll
+ 0002:00000048       __imp__GetCurrentThread@0  00407048     kernel32:KERNEL32.dll
+ 0002:0000004c       __imp__CreateThread@24     0040704c     kernel32:KERNEL32.dll
+ 0002:00000050       __imp__GetPrivateProfileStringW@24 00407050     kernel32:KERNEL32.dll
+ 0002:00000054       __imp__CloseHandle@4       00407054     kernel32:KERNEL32.dll
+ 0002:00000058       __imp__GetSystemTime@4     00407058     kernel32:KERNEL32.dll
+ 0002:0000005c       __imp__DeleteFileW@4       0040705c     kernel32:KERNEL32.dll
+ 0002:00000060       __imp__RemoveDirectoryW@4  00407060     kernel32:KERNEL32.dll
+ 0002:00000064       __imp__GetDriveTypeW@4     00407064     kernel32:KERNEL32.dll
+ 0002:00000068       __imp__CreateFileW@28      00407068     kernel32:KERNEL32.dll
+ 0002:0000006c       __imp__DeviceIoControl@32  0040706c     kernel32:KERNEL32.dll
+ 0002:00000070       __imp__FlushFileBuffers@4  00407070     kernel32:KERNEL32.dll
+ 0002:00000074       __imp__EnterCriticalSection@4 00407074     kernel32:KERNEL32.dll
+ 0002:00000078       __imp__LeaveCriticalSection@4 00407078     kernel32:KERNEL32.dll
+ 0002:0000007c       __imp__InitializeCriticalSectionAndSpinCount@8 0040707c     kernel32:KERNEL32.dll
+ 0002:00000080       __imp__DeleteCriticalSection@4 00407080     kernel32:KERNEL32.dll
+ 0002:00000084       __imp__GetStartupInfoA@4   00407084     kernel32:KERNEL32.dll
+ 0002:00000088       __imp__GetModuleHandleA@4  00407088     kernel32:KERNEL32.dll
+ 0002:0000008c       __imp__SystemTimeToFileTime@8 0040708c     kernel32:KERNEL32.dll
+ 0002:00000090       __imp__GetModuleHandleExW@12 00407090     kernel32:KERNEL32.dll
+ 0002:00000094       __imp__MultiByteToWideChar@24 00407094     kernel32:KERNEL32.dll
+ 0002:00000098       __imp__WaitForSingleObject@8 00407098     kernel32:KERNEL32.dll
+ 0002:0000009c       __imp__WideCharToMultiByte@32 0040709c     kernel32:KERNEL32.dll
+ 0002:000000a0       __imp__IsProcessorFeaturePresent@4 004070a0     kernel32:KERNEL32.dll
+ 0002:000000a4       \177KERNEL32_NULL_THUNK_DATA 004070a4     kernel32:KERNEL32.dll
+ 0002:000000a8       __imp__SHBrowseForFolderW@4 004070a8     shell32:SHELL32.dll
+ 0002:000000ac       __imp__SHGetPathFromIDListW@8 004070ac     shell32:SHELL32.dll
+ 0002:000000b0       \177SHELL32_NULL_THUNK_DATA 004070b0     shell32:SHELL32.dll
+ 0002:000000b4       __imp__EndDialog@8         004070b4     user32:USER32.dll
+ 0002:000000b8       __imp__GetParent@4         004070b8     user32:USER32.dll
+ 0002:000000bc       __imp__EnableWindow@8      004070bc     user32:USER32.dll
+ 0002:000000c0       __imp__ShowWindow@8        004070c0     user32:USER32.dll
+ 0002:000000c4       __imp__IsDialogMessageW@8  004070c4     user32:USER32.dll
+ 0002:000000c8       __imp__SetDlgItemTextW@12  004070c8     user32:USER32.dll
+ 0002:000000cc       __imp__GetDlgItemTextW@16  004070cc     user32:USER32.dll
+ 0002:000000d0       __imp__SetWindowTextW@8    004070d0     user32:USER32.dll
+ 0002:000000d4       __imp__SetTimer@16         004070d4     user32:USER32.dll
+ 0002:000000d8       __imp__SetCursor@4         004070d8     user32:USER32.dll
+ 0002:000000dc       __imp__ShowCursor@4        004070dc     user32:USER32.dll
+ 0002:000000e0       __imp__GetSystemMenu@8     004070e0     user32:USER32.dll
+ 0002:000000e4       __imp__AppendMenuW@16      004070e4     user32:USER32.dll
+ 0002:000000e8       __imp__DialogBoxParamW@20  004070e8     user32:USER32.dll
+ 0002:000000ec       __imp__SendMessageA@16     004070ec     user32:USER32.dll
+ 0002:000000f0       __imp__SetDlgItemInt@16    004070f0     user32:USER32.dll
+ 0002:000000f4       __imp__GetDlgItemInt@16    004070f4     user32:USER32.dll
+ 0002:000000f8       __imp__GetDlgItem@8        004070f8     user32:USER32.dll
+ 0002:000000fc       __imp__KillTimer@8         004070fc     user32:USER32.dll
+ 0002:00000100       __imp__SendDlgItemMessageW@20 00407100     user32:USER32.dll
+ 0002:00000104       __imp__CheckDlgButton@12   00407104     user32:USER32.dll
+ 0002:00000108       __imp__IsDlgButtonChecked@8 00407108     user32:USER32.dll
+ 0002:0000010c       __imp__MessageBoxW@16      0040710c     user32:USER32.dll
+ 0002:00000110       __imp__CreateDialogParamW@20 00407110     user32:USER32.dll
+ 0002:00000114       __imp__LoadCursorW@8       00407114     user32:USER32.dll
+ 0002:00000118       __imp__wsprintfW           00407118     user32:USER32.dll
+ 0002:0000011c       __imp__DefWindowProcW@16   0040711c     user32:USER32.dll
+ 0002:00000120       __imp__DispatchMessageW@4  00407120     user32:USER32.dll
+ 0002:00000124       __imp__TranslateMessage@4  00407124     user32:USER32.dll
+ 0002:00000128       __imp__LoadIconW@8         00407128     user32:USER32.dll
+ 0002:0000012c       __imp__GetMessageW@16      0040712c     user32:USER32.dll
+ 0002:00000130       __imp__IsWindow@4          00407130     user32:USER32.dll
+ 0002:00000134       __imp__RemovePropW@8       00407134     user32:USER32.dll
+ 0002:00000138       __imp__DestroyWindow@4     00407138     user32:USER32.dll
+ 0002:0000013c       __imp__SetWindowLongW@12   0040713c     user32:USER32.dll
+ 0002:00000140       __imp__SetPropW@12         00407140     user32:USER32.dll
+ 0002:00000144       __imp__GetPropW@8          00407144     user32:USER32.dll
+ 0002:00000148       __imp__CallWindowProcW@20  00407148     user32:USER32.dll
+ 0002:0000014c       \177USER32_NULL_THUNK_DATA 0040714c     user32:USER32.dll
+ 0002:00000150       __imp__GdiplusStartup@12   00407150     gdiplus:gdiplus.dll
+ 0002:00000154       __imp__GdiplusShutdown@4   00407154     gdiplus:gdiplus.dll
+ 0002:00000158       \177gdiplus_NULL_THUNK_DATA 00407158     gdiplus:gdiplus.dll
+ 0002:0000015c       __imp_??2@YAPAXI@Z         0040715c     msvcrt:msvcrt.dll
+ 0002:00000160       __imp__sprintf             00407160     msvcrt:msvcrt.dll
+ 0002:00000164       __imp__strncpy             00407164     msvcrt:msvcrt.dll
+ 0002:00000168       __imp__strstr              00407168     msvcrt:msvcrt.dll
+ 0002:0000016c       __imp__sscanf              0040716c     msvcrt:msvcrt.dll
+ 0002:00000170       __imp__fopen               00407170     msvcrt:msvcrt.dll
+ 0002:00000174       __imp__fseek               00407174     msvcrt:msvcrt.dll
+ 0002:00000178       __imp__ftell               00407178     msvcrt:msvcrt.dll
+ 0002:0000017c       __imp__fclose              0040717c     msvcrt:msvcrt.dll
+ 0002:00000180       __imp__remove              00407180     msvcrt:msvcrt.dll
+ 0002:00000184       __imp_??3@YAXPAX@Z         00407184     msvcrt:msvcrt.dll
+ 0002:00000188       __imp__fread               00407188     msvcrt:msvcrt.dll
+ 0002:0000018c       __imp__ferror              0040718c     msvcrt:msvcrt.dll
+ 0002:00000190       __imp__fwrite              00407190     msvcrt:msvcrt.dll
+ 0002:00000194       __imp__rename              00407194     msvcrt:msvcrt.dll
+ 0002:00000198       __imp__toupper             00407198     msvcrt:msvcrt.dll
+ 0002:0000019c       __imp__fprintf             0040719c     msvcrt:msvcrt.dll
+ 0002:000001a0       __imp_??1type_info@@UAE@XZ 004071a0     msvcrt:msvcrt.dll
+ 0002:000001a4       __imp____dllonexit         004071a4     msvcrt:msvcrt.dll
+ 0002:000001a8       __imp___onexit             004071a8     msvcrt:msvcrt.dll
+ 0002:000001ac       __imp___c_exit             004071ac     msvcrt:msvcrt.dll
+ 0002:000001b0       __imp___exit               004071b0     msvcrt:msvcrt.dll
+ 0002:000001b4       __imp___XcptFilter         004071b4     msvcrt:msvcrt.dll
+ 0002:000001b8       __imp___cexit              004071b8     msvcrt:msvcrt.dll
+ 0002:000001bc       __imp__exit                004071bc     msvcrt:msvcrt.dll
+ 0002:000001c0       __imp___acmdln             004071c0     msvcrt:msvcrt.dll
+ 0002:000001c4       __imp____getmainargs       004071c4     msvcrt:msvcrt.dll
+ 0002:000001c8       __imp___initterm           004071c8     msvcrt:msvcrt.dll
+ 0002:000001cc       __imp____setusermatherr    004071cc     msvcrt:msvcrt.dll
+ 0002:000001d0       __imp___adjust_fdiv        004071d0     msvcrt:msvcrt.dll
+ 0002:000001d4       __imp____p__commode        004071d4     msvcrt:msvcrt.dll
+ 0002:000001d8       __imp____p__fmode          004071d8     msvcrt:msvcrt.dll
+ 0002:000001dc       __imp____set_app_type      004071dc     msvcrt:msvcrt.dll
+ 0002:000001e0       __imp_?terminate@@YAXXZ    004071e0     msvcrt:msvcrt.dll
+ 0002:000001e4       __imp___controlfp          004071e4     msvcrt:msvcrt.dll
+ 0002:000001e8       __imp___except_handler3    004071e8     msvcrt:msvcrt.dll
+ 0002:000001ec       __imp__rmdir               004071ec     msvcrt:msvcrt.dll
+ 0002:000001ec       __imp___rmdir              004071ec     msvcrt:msvcrt.dll
+ 0002:000001f0       __imp___stricmp            004071f0     msvcrt:msvcrt.dll
+ 0002:000001f0       __imp__stricmp             004071f0     msvcrt:msvcrt.dll
+ 0002:000001f4       __imp__mkdir               004071f4     msvcrt:msvcrt.dll
+ 0002:000001f4       __imp___mkdir              004071f4     msvcrt:msvcrt.dll
+ 0002:000001f8       __imp__rewind              004071f8     msvcrt:msvcrt.dll
+ 0002:000001fc       \177msvcrt_NULL_THUNK_DATA 004071fc     msvcrt:msvcrt.dll
+ 0002:00000200       __imp__CoTaskMemFree@4     00407200     ole32:ole32.dll
+ 0002:00000204       \177ole32_NULL_THUNK_DATA  00407204     ole32:ole32.dll
+ 0002:00000208       ___xc_a                    00407208     msvcrt:cinitexe.obj
+ 0002:00000218       ___xc_z                    00407218     msvcrt:cinitexe.obj
+ 0002:0000021c       ___xi_a                    0040721c     msvcrt:cinitexe.obj
+ 0002:00000224       ___xi_z                    00407224     msvcrt:cinitexe.obj
+ 0002:0000024c       ??_7type_info@@6B@         0040724c     msvcrt:ti_inst.obj
+ 0002:0000027c       ??_C@_04HDOCAJNK@?$CFs?$CFs?$AA@ 0040727c     util.obj
+ 0002:00000284       ??_C@_02DPKJAMEF@?$CFd?$AA@ 00407284     util.obj
+ 0002:00000288       ??_C@_19MPFPGMJE@?$AA?$CF?$AAc?$AA?3?$AA?2?$AA?$AA@ 00407288     ManagerDlg.obj
+ 0002:00000294       ??_C@_1BA@IDIJJCJF@?$AA?2?$AA?2?$AA?4?$AA?2?$AA?$CF?$AAc?$AA?3?$AA?$AA@ 00407294     ManagerDlg.obj
+ 0002:000002a4       ??_C@_13IIGBBHPI@?$AAW?$AA?$AA@ 004072a4     ManagerDlg.obj
+ 0002:000002a8       ??_C@_02CEGDFPFP@?4?2?$AA@ 004072a8     ManagerDlg.obj
+ 0002:000002ac       ??_C@_0M@OKNCLFEB@Start?5clean?$AA@ 004072ac     ManagerDlg.obj
+ 0002:000002b8       ??_C@_0L@CNIGBGDK@Completed?$CB?$AA@ 004072b8     ManagerDlg.obj
+ 0002:000002c4       ??_C@_04GMBKPCGK@Quit?$AA@ 004072c4     ManagerDlg.obj
+ 0002:000002c9       ??_C@_00CNPNBAHC@?$AA@     004072c9     ManagerDlg.obj
+ 0002:000002cc       ??_C@_02FBAAAJOG@F?3?$AA@  004072cc     ManagerDlg.obj
+ 0002:000002d0       ??_C@_0BA@CBKKJMJN@Software?2TME?2PW?$AA@ 004072d0     ManagerDlg.obj
+ 0002:000002e0       ??_C@_0BE@HPHAPNKF@Version?5?$CFd?4?$CFd?4?$CFd?4?$CFd?$AA@ 004072e0     ManagerDlg.obj
+ 0002:000002f4       ??_C@_0BA@PGJODBOP@About?5PWManager?$AA@ 004072f4     ManagerDlg.obj
+ 0002:00000304       ??_C@_06JJLAMBGK@target?$AA@ 00407304     ManagerDlg.obj
+ 0002:0000030c       ??_C@_0BB@IKNECFNJ@keepsourceunlock?$AA@ 0040730c     ManagerDlg.obj
+ 0002:00000320       ??_C@_0P@PBHJHBNO@targetminspace?$AA@ 00407320     ManagerDlg.obj
+ 0002:00000330       ??_C@_07PMKBDDNC@?$CF?42f?5GB?$AA@ 00407330     ManagerDlg.obj
+ 0002:00000338       ??_C@_0BA@BBICFHCN@?$CINot?5available?$CJ?$AA@ 00407338     ManagerDlg.obj
+ 0002:00000348       ??_C@_1FG@NEBEDFHP@?$AAS?$AAe?$AAl?$AAe?$AAc?$AAt?$AA?5?$AAd?$AAi?$AAr?$AAe?$AAc?$AAt?$AAo?$AAr?$AAy?$AA?5?$AAw?$AAh?$AAe?$AAr?$AAe?$AA?5?$AAt?$AAo?$AA?5?$AAc?$AAo?$AAp?$AAy?$AA?5?$AAv@ 00407348     ManagerDlg.obj
+ 0002:000003a0       ??_C@_02JDPG@rb?$AA@       004073a0     ManagerDlg.obj
+ 0002:000003a4       ??_C@_07KNADJCDB@?$CFs?4part?$AA@ 004073a4     ManagerDlg.obj
+ 0002:000003ac       ??_C@_02GMLFBBN@wb?$AA@    004073ac     ManagerDlg.obj
+ 0002:000003b0       ??_C@_03JHGAKCI@_L_?$AA@   004073b0     ManagerDlg.obj
+ 0002:000003b4       ??_C@_06KDHIPICO@_L?4001?$AA@ 004073b4     ManagerDlg.obj
+ 0002:000003bc       ??_C@_01NBENCBCI@?$CK?$AA@ 004073bc     ManagerDlg.obj
+ 0002:000003c0       ??_C@_03EMIMMIHL@?$CK?4?$CK?$AA@ 004073c0     ManagerDlg.obj
+ 0002:000003c4       ??_C@_05BMGBEOOC@?$CFs?2?$CFs?$AA@ 004073c4     ManagerDlg.obj
+ 0002:000003cc       ??_C@_03KPCNOEG@_N_?$AA@   004073cc     ManagerDlg.obj
+ 0002:000003d0       ??_C@_06OOLAFJCF@_N?4001?$AA@ 004073d0     ManagerDlg.obj
+ 0002:000003d8       ??_C@_04CGJNICGF@?$CFc?3?2?$AA@ 004073d8     ManagerDlg.obj
+ 0002:000003e0       ??_C@_03EFCMLNLK@_?$CK_?$AA@ 004073e0     ManagerDlg.obj
+ 0002:000003e4       ??_C@_0BD@DIIALDEJ@?$CFc?3?2tvs?2tvskey?4dat?$AA@ 004073e4     ManagerDlg.obj
+ 0002:000003f8       ??_C@_01KDCPPGHE@r?$AA@    004073f8     ManagerDlg.obj
+ 0002:00000400       ??_C@_0EM@LKLCEHAK@Disk?5?$CFc?3?5completed?0?5totalsize?3?5?$CF@ 00407400     ManagerDlg.obj
+ 0002:0000044c       ??_C@_09DPDMMLOO@pwid?4conf?$AA@ 0040744c     ManagerDlg.obj
+ 0002:00000458       ??_C@_06CBKIPFEN@?$CFc?3?2?$CFs?$AA@ 00407458     ManagerDlg.obj
+ 0002:00000460       ??_C@_06FHFOAHML@system?$AA@ 00407460     ManagerDlg.obj
+ 0002:00000468       ??_C@_03BBBGPMCE@id1?$AA@  00407468     ManagerDlg.obj
+ 0002:0000046c       ??_C@_0M@JCIFIHOB@Disk?5ID?3?5?$CFs?$AA@ 0040746c     ManagerDlg.obj
+ 0002:00000478       ??_C@_1CG@NFIEKEGF@?$AAP?$AAl?$AAe?$AAa?$AAs?$AAe?$AA?5?$AAI?$AAn?$AAs?$AAe?$AAr?$AAt?$AA?5?$AAD?$AAi?$AAs?$AAk?$AA?$AA@ 00407478     ManagerDlg.obj
+ 0002:000004a0       ??_C@_11LOCGONAA@?$AA?$AA@ 004074a0     ManagerDlg.obj
+ 0002:000004a4       ??_C@_0BE@INGFADPP@Calculate?5size?5?3?5?$CFs?$AA@ 004074a4     ManagerDlg.obj
+ 0002:000004b8       ??_C@_0BK@NKKAINFN@Total?5archive?5size?3?5?$CFd?5Mb?$AA@ 004074b8     ManagerDlg.obj
+ 0002:000004d4       ??_C@_0P@BAKPIJGN@Archiving?5?3?5?$CFs?$AA@ 004074d4     ManagerDlg.obj
+ 0002:000004e4       ??_C@_0CA@FCOMMELD@Total?5size?3?5?$CFd?5Mb?0?5Remain?5?$CFd?5Mb?$AA@ 004074e4     ManagerDlg.obj
+ 0002:00000504       ??_C@_0BH@CGJJJECD@?$CDCONF?6?$FLsystem?$FN?6id1?$DN?$CFs?6?$AA@ 00407504     ManagerDlg.obj
+ 0002:0000051c       ??_C@_0BM@DKEKCEOK@?$CF04d?$CF02d?$CF02d?$CF02d?$CF02d?$CF02d_?$CFd?$AA@ 0040751c     ManagerDlg.obj
+ 0002:00000538       ??_C@_08MLCLHPIK@20?$DP?$DP?$DP?$DP?$DP?$DP?$AA@ 00407538     ManagerDlg.obj
+ 0002:00000544       ??_C@_04PMHNCDI@CH?$DP?$DP?$AA@ 00407544     ManagerDlg.obj
+ 0002:0000054c       ??_C@_03EGPIMHGA@CH?$CK?$AA@ 0040754c     ManagerDlg.obj
+ 0002:00000550       ??_C@_0M@OGKMCGKD@deleting?5?$CFs?$AA@ 00407550     ManagerDlg.obj
+ 0002:0000055c       ??_C@_08KDDIBKCC@filelife?$AA@ 0040755c     ManagerDlg.obj
+ 0002:00000568       ??_C@_0BD@MHJHJJPG@deletesrcnfileonly?$AA@ 00407568     ManagerDlg.obj
+ 0002:0000057c       ??_C@_0BC@PFAIJHCP@To?5clean?5disk?5?$CFc?3?$AA@ 0040757c     ManagerDlg.obj
+ 0002:00000590       ??_C@_0M@POJNPNFL@Deleting?5?$CFs?$AA@ 00407590     ManagerDlg.obj
+ 0002:0000059c       ??_C@_03DAKFFIGF@?426?$AA@ 0040759c     ManagerDlg.obj
+ 0002:000005a0       ??_C@_0BC@JPKOFBON@Clean?5Source?5Disk?$AA@ 004075a0     ManagerDlg.obj
+ 0002:000005b4       ??_C@_0BI@HNFDEFDM@Safe?5to?5remove?5disk?5?$CFc?3?$AA@ 004075b4     ManagerDlg.obj
+ 0002:000005cc       ??_C@_1BA@HHOMBECE@?$AAM?$AAe?$AAs?$AAs?$AAa?$AAg?$AAe?$AA?$AA@ 004075cc     ManagerDlg.obj
+ 0002:000005dc       ??_C@_0CM@JBOFCNDK@Failed?5to?5eject?5disk?5?$CFc?3?5?0?5try?5a@ 004075dc     ManagerDlg.obj
+ 0002:0000060c       ??_7Window@@6B@            0040760c     ManagerDlg.obj
+ 0002:00000628       ??_7DlgSrcId@@6B@          00407628     ManagerDlg.obj
+ 0002:00000664       ??_7DlgCleanTarget@@6B@    00407664     ManagerDlg.obj
+ 0002:000006a0       ??_7DlgCleanSource@@6B@    004076a0     ManagerDlg.obj
+ 0002:000006dc       ??_7DlgClTargetProgress@@6B@ 004076dc     ManagerDlg.obj
+ 0002:00000718       ??_7AboutDlg@@6B@          00407718     ManagerDlg.obj
+ 0002:00000754       ??_7ManagerDlg@@6B@        00407754     PWManager.obj
+ 0002:00000790       __real@3e10000000000000    00407790      CIL library: CIL module
+ 0002:00000798       __real@4024000000000000    00407798      CIL library: CIL module
+ 0002:000007a0       __real@3eb0000000000000    004077a0      CIL library: CIL module
+ 0002:000007f8       ??_R4AboutDlg@@6B@         004077f8     ManagerDlg.obj
+ 0002:0000080c       ??_R3AboutDlg@@8           0040780c     ManagerDlg.obj
+ 0002:0000081c       ??_R2AboutDlg@@8           0040781c     ManagerDlg.obj
+ 0002:0000082c       ??_R1A@?0A@EA@AboutDlg@@8  0040782c     ManagerDlg.obj
+ 0002:00000848       ??_R4DlgClTargetProgress@@6B@ 00407848     ManagerDlg.obj
+ 0002:0000085c       ??_R3DlgClTargetProgress@@8 0040785c     ManagerDlg.obj
+ 0002:0000086c       ??_R2DlgClTargetProgress@@8 0040786c     ManagerDlg.obj
+ 0002:0000087c       ??_R1A@?0A@EA@DlgClTargetProgress@@8 0040787c     ManagerDlg.obj
+ 0002:00000898       ??_R4DlgCleanSource@@6B@   00407898     ManagerDlg.obj
+ 0002:000008ac       ??_R3DlgCleanSource@@8     004078ac     ManagerDlg.obj
+ 0002:000008bc       ??_R2DlgCleanSource@@8     004078bc     ManagerDlg.obj
+ 0002:000008cc       ??_R1A@?0A@EA@DlgCleanSource@@8 004078cc     ManagerDlg.obj
+ 0002:000008e8       ??_R4DlgCleanTarget@@6B@   004078e8     ManagerDlg.obj
+ 0002:000008fc       ??_R3DlgCleanTarget@@8     004078fc     ManagerDlg.obj
+ 0002:0000090c       ??_R2DlgCleanTarget@@8     0040790c     ManagerDlg.obj
+ 0002:0000091c       ??_R1A@?0A@EA@DlgCleanTarget@@8 0040791c     ManagerDlg.obj
+ 0002:00000938       ??_R4DlgSrcId@@6B@         00407938     ManagerDlg.obj
+ 0002:0000094c       ??_R3DlgSrcId@@8           0040794c     ManagerDlg.obj
+ 0002:0000095c       ??_R2DlgSrcId@@8           0040795c     ManagerDlg.obj
+ 0002:0000096c       ??_R1A@?0A@EA@DlgSrcId@@8  0040796c     ManagerDlg.obj
+ 0002:00000988       ??_R3Dialog@@8             00407988     ManagerDlg.obj
+ 0002:00000998       ??_R2Dialog@@8             00407998     ManagerDlg.obj
+ 0002:000009a4       ??_R1A@?0A@EA@Dialog@@8    004079a4     ManagerDlg.obj
+ 0002:000009c0       ??_R4Window@@6B@           004079c0     ManagerDlg.obj
+ 0002:000009d4       ??_R3Window@@8             004079d4     ManagerDlg.obj
+ 0002:000009e4       ??_R2Window@@8             004079e4     ManagerDlg.obj
+ 0002:000009ec       ??_R1A@?0A@EA@Window@@8    004079ec     ManagerDlg.obj
+ 0002:00000a08       ??_R4ManagerDlg@@6B@       00407a08     PWManager.obj
+ 0002:00000a1c       ??_R3ManagerDlg@@8         00407a1c     PWManager.obj
+ 0002:00000a2c       ??_R2ManagerDlg@@8         00407a2c     PWManager.obj
+ 0002:00000a3c       ??_R1A@?0A@EA@ManagerDlg@@8 00407a3c     PWManager.obj
+ 0002:00000a58       __IMPORT_DESCRIPTOR_KERNEL32 00407a58     kernel32:KERNEL32.dll
+ 0002:00000a6c       __IMPORT_DESCRIPTOR_USER32 00407a6c     user32:USER32.dll
+ 0002:00000a80       __IMPORT_DESCRIPTOR_ADVAPI32 00407a80     advapi32:ADVAPI32.dll
+ 0002:00000a94       __IMPORT_DESCRIPTOR_SHELL32 00407a94     shell32:SHELL32.dll
+ 0002:00000aa8       __IMPORT_DESCRIPTOR_ole32  00407aa8     ole32:ole32.dll
+ 0002:00000abc       __IMPORT_DESCRIPTOR_gdiplus 00407abc     gdiplus:gdiplus.dll
+ 0002:00000ad0       __IMPORT_DESCRIPTOR_COMCTL32 00407ad0     comctl32:COMCTL32.dll
+ 0002:00000ae4       __IMPORT_DESCRIPTOR_msvcrt 00407ae4     msvcrt:msvcrt.dll
+ 0002:00000af8       __NULL_IMPORT_DESCRIPTOR   00407af8     kernel32:KERNEL32.dll
+ 0003:00000000       ___defaultmatherr          00409000     msvcrt:merr.obj
+ 0003:00000004       ??_R0?AVAboutDlg@@@8       00409004     ManagerDlg.obj
+ 0003:0000001c       ??_R0?AVDlgClTargetProgress@@@8 0040901c     ManagerDlg.obj
+ 0003:00000040       ??_R0?AVDlgCleanSource@@@8 00409040     ManagerDlg.obj
+ 0003:00000060       ??_R0?AVDlgCleanTarget@@@8 00409060     ManagerDlg.obj
+ 0003:00000080       ??_R0?AVDlgSrcId@@@8       00409080     ManagerDlg.obj
+ 0003:00000098       ??_R0?AVDialog@@@8         00409098     ManagerDlg.obj
+ 0003:000000b0       ??_R0?AVWindow@@@8         004090b0     ManagerDlg.obj
+ 0003:000000c8       ?targetminspace@@3HA       004090c8     ManagerDlg.obj
+ 0003:000000cc       ?szVolumeFormat@@3PA_WA    004090cc     ManagerDlg.obj
+ 0003:000000d0       ?szRootFormat@@3PA_WA      004090d0     ManagerDlg.obj
+ 0003:000000d4       ??_R0?AVManagerDlg@@@8     004090d4     PWManager.obj
+ 0003:000000f0       __dowildcard               004090f0     msvcrt:wildcard.obj
+ 0003:000000f4       __newmode                  004090f4     msvcrt:_newmode.obj
+ 0003:000000f8       __commode                  004090f8     msvcrt:ncommode.obj
+ 0003:000000fc       __fmode                    004090fc     msvcrt:txtmode.obj
+ 0003:00000100       ?hArchThread@@3PAXA        00409100     ManagerDlg.obj
+ 0003:0000011c       ?devicemap@@3KA            0040911c     ManagerDlg.obj
+ 0003:00000138       ___@@_PchSym_@00@UkilqUweiUweixorvmgPeDUervdvihUkdnzmztviUivovzhvUhgwzucOlyq@ 00409138     stdafx.obj
+ 0003:0000018c       ?keepsourceunlock@@3HA     0040918c     ManagerDlg.obj
+ 0003:000001b8       ?targetdir@@3Vstring@@A    004091b8     ManagerDlg.obj
+ 0003:000001d0       ?usegdiplus@?1??InitApp@@YAHXZ@4VUseGDIPlus@@A 004091d0     PWManager.obj
+ 0003:000001d4       ??_B?1??InitApp@@YAHXZ@51  004091d4     PWManager.obj
+ 0003:000001d8       __adjust_fdiv              004091d8     <common>
+ 0003:000001dc       ___onexitend               004091dc     <common>
+ 0003:000001e0       ___onexitbegin             004091e0     <common>
+ 0003:000001e4       ___sse2_available          004091e4     <common>
+
+ entry point at        0001:0000515d
+
+ Static symbols
+
+ 0001:00001920       ?archivefile@@YAHPAD0@Z    00402920 f    CIL library: CIL module
+ 0001:00001c00       ?ArchiveDir@@YAXPAD0@Z     00402c00 f    CIL library: CIL module
+ 0001:00002010       ?ArchiveHarddrive@@YAXXZ   00403010 f    CIL library: CIL module
+ 0001:000055e0       ??__Etargetdir@@YAXXZ      004065e0 f    CIL library: CIL module
+ 0001:00005610       ??__Epwsubkey@@YAXXZ       00406610 f    CIL library: CIL module
+ 0001:00005640       ??__Earch_msg@@YAXXZ       00406640 f    CIL library: CIL module
+ 0001:00005650       ??__Ftargetdir@@YAXXZ      00406650 f    CIL library: CIL module
+ 0001:00005690       ??__Fpwsubkey@@YAXXZ       00406690 f    CIL library: CIL module
+ 0001:000056d0       ??__Farch_msg@@YAXXZ       004066d0 f    CIL library: CIL module

@@ -1,0 +1,11 @@
+﻿  DISKID.cpp
+  tmeid.cpp
+tmeid.cpp(88): warning C4018: '<': signed/unsigned mismatch
+     Creating library D:\proj\DVR\DVRCLIENT_V3\Viewers\Release\tmeid.lib and object D:\proj\DVR\DVRCLIENT_V3\Viewers\Release\tmeid.exp
+  Generating code
+  18 of 47 functions (38.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    7 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  tmeid.vcxproj -> D:\proj\DVR\DVRCLIENT_V3\Viewers\Release\tmeid.dll
+  tmeid.vcxproj -> D:\proj\DVR\DVRCLIENT_V3\Viewers\Release\tmeid.pdb (Full PDB)

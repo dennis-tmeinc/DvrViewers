@@ -1,0 +1,12 @@
+prefix=C:\Program Files (x86)/FFmpeg
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libavcodec
+Description: FFmpeg codec library
+Version: 51.24.0
+Requires:  ogg >= 1.1 vorbis vorbisenc libavutil = 49.0.2
+Conflicts:
+Libs: -L${libdir} -lavcodec -lm -lz -ldts -lm -lgsm -lmp3lame -lm -lvorbis -lvorbisenc -logg -logg -lxvidcore -lx264 -lfaac -lfaad -lvfw32
+Cflags: -I${includedir} -I${includedir}/ffmpeg

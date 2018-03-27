@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Map</title>
+    <style type="text/css">
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0
+        }
+
+        #map {
+            height: 100%;
+            width: 100%
+        }
+    </style>
+</head>
+<body>
+    <div id='map'>
+        Bing map service not available!
+    </div>
+    <script type="text/javascript">
+    var map ;
+    var polyline = null ;
+    var pin = null ;
+    var pos = [] ;
+
+    function setpos(lati, longi) {
+		var loc = new Microsoft.Maps.Location( lati, longi);
+        if( pin ) {
+            pin.setLocation(loc);
+        }
+        else {
+            pin = new Microsoft.Maps.Pushpin(loc, null);
+    		map.entities.push(pin);
+        }
+
+		pos.push(loc);
+		if( pos.length>3 ) pos.shift();
+
+        if( pos.length>1 ) {
+            if( polyline ) {
+                polyline.setLocations(pos);
+            }
+            else {
+		        polyline = new Microsoft.Maps.Polyline( pos,
+	        		{strokeColor:new Microsoft.Maps.Color(132, 100, 0, 100), strokeThickness:2} );
+        		map.entities.push(polyline) ;
+            }
+        }
+
+        if( map.getMapTypeId() == Microsoft.Maps.MapTypeId.streetside ) {
+		    map.setView({center:loc});
+        }
+        else {
+		    var bounds = map.getBounds() ;
+		    bounds.height /= 2;
+		    bounds.width /= 2;
+
+		    if( !bounds.contains(loc) ) {
+			    map.setView({center:loc});
+		    }
+        }
+    }
+
+    function loadMap()
+    {
+        map = new Microsoft.Maps.Map('#map', {zoom:16});
+    }
+    </script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=AnC6aHa2J8jWAluq14HQu6HDH1cDshGtPEPrYiotanIf-q6ZdoSiVGd96wzuDutw&callback=loadMap' async defer></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+//
+// tvsviewer.RC2 - resources Microsoft Visual C++ does not edit directly
+//
+
+#ifdef APSTUDIO_INVOKED
+#error this file is not editable by Microsoft Visual C++
+#endif //APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+// Add manually edited resources here...
+#ifdef __MINGW__ 
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "../common/embed.manifest"
+#endif
+
+// Hand cursor
+CURSORHANDGRAB         CURSOR                  "..\\pic\\handgrab.cur"
+CURSORHANDPOINT        CURSOR                  "..\\pic\\handpoint.cur"
+
+// Bitmaps
+BACKGROUND		        CUSTOM				    "res\\background.png"
+APPNAME					CUSTOM					"res\\appname.png"
+COMPANYLOGO				CUSTOM					"res\\companylogo.png"
+
+PW_CAM1				CUSTOM					"res\\pw-cam1.png"
+PW_CAM2	    		CUSTOM					"res\\pw-cam2.png"
+PW_CAM1_SEL        	CUSTOM					"res\\pw-cam1-sel.png"
+PW_CAM2_SEL  		CUSTOM					"res\\pw-cam2-sel.png"
+PW_CAM1_LIGHT   	CUSTOM					"res\\pw-cam1-light.png"
+PW_CAM2_LIGHT  		CUSTOM					"res\\pw-cam2-light.png"
+PW_CAM1_TRANS   	CUSTOM					"res\\pw-cam1-trans.png"
+PW_CAM2_TRANS  		CUSTOM					"res\\pw-cam2-trans.png"
+PW_TM				CUSTOM					"res\\pw-tm.png"
+PW_TM_SEL			CUSTOM					"res\\pw-tm-sel.png"
+PW_LP   			CUSTOM					"res\\pw-lp.png"
+PW_LP_SEL  			CUSTOM					"res\\pw-lp-sel.png"
+
+VOLUME_BACKGROUND	CUSTOM					"..\\pic\\volume_dialog.png"
+VOLUME_THUMB		CUSTOM					"..\\pic\\volume_thumb.png"
+BVOLUME_SPEAKER		CUSTOM					"..\\pic\\bvolume_speaker.png"
+BVOLUME_MUTE		CUSTOM					"..\\pic\\bvolume_mute.png"
+
+PW_PANLEFT			CUSTOM					"res\\panleft.png"
+PW_PANLEFT_SEL		CUSTOM					"res\\panleft_sel.png"
+PW_PANCENTER		CUSTOM					"res\\pancenter.png"
+PW_PANCENTER_SEL	CUSTOM					"res\\pancenter_sel.png"
+PW_PANRIGHT			CUSTOM					"res\\panright.png"
+PW_PANRIGHT_SEL		CUSTOM					"res\\panright_sel.png"
+
+PW_TRIOVIEW			CUSTOM					"res\\trioview.png"
+PW_TRIOVIEW_SEL		CUSTOM					"res\\trioview_sel.png"
+PW_REARVIEW			CUSTOM					"res\\rearview.png"
+PW_REARVIEW_SEL		CUSTOM					"res\\rearview_sel.png"
+PW_HOODVIEW			CUSTOM					"res\\hoodview.png"
+PW_HOODVIEW_SEL		CUSTOM					"res\\hoodview_sel.png"
+PW_AUXVIEW 			CUSTOM					"res\\auxview.png"
+PW_AUXVIEW_SEL		CUSTOM					"res\\auxview_sel.png"
+
+PW_APPCLOSE			CUSTOM					"res\\appclose.png"
+
+// PW TABLET
+PW_BPLAYLIVE		CUSTOM					"res\\pw-bplaylive.png"
+PW_BPLAYBACK		CUSTOM					"res\\pw-bplayback.png"
+
+PW_SLIDER_NEXT		CUSTOM					"res\\slider_next.png"
+PW_SLIDER_PREV		CUSTOM					"res\\slider_prev.png"
+
+PW_BTAG  			CUSTOM					"res\\pw-btag.png"
+PW_BOFFICER			CUSTOM					"res\\pw-bofficer.png"
+PW_BCAL				CUSTOM					"res\\pw-bcal.png"
+PW_BDAYRANGE   		CUSTOM					"res\\pw-bdayrange.png"
+PW_BHOURRANGE   	CUSTOM					"res\\pw-bhourrange.png"
+PW_BQUATRANGE   	CUSTOM					"res\\pw-bquatrange.png"
+PW_BCOVERT  		CUSTOM					"res\\pw-bcovert.png"
+
+VOLUME_0				CUSTOM					"res\\volume-0.png"
+VOLUME_1				CUSTOM					"res\\volume-1.png"
+VOLUME_2				CUSTOM					"res\\volume-2.png"
+VOLUME_3				CUSTOM					"res\\volume-3.png"
+VOLUME_BAR				CUSTOM					"..\\pic\\volume-bar.png"
+VOLUME_KNOB				CUSTOM					"..\\pic\\volume-knob.png"
+VOLUME_KNOB_SEL			CUSTOM					"..\\pic\\volume-knob-sel.png"
+AUDIO_MIXALL			CUSTOM					"..\\pic\\audio-mixed.png"
+AUDIO_MIXSINGLE			CUSTOM					"..\\pic\\audio-separate.png"
+
+OPEN_DISCONNECT			CUSTOM					"..\\pic\\open-disconnect.png"
+OPEN_LIVEVIEW			CUSTOM					"..\\pic\\open-liveview.png"
+OPEN_ARCHIVE			CUSTOM					"..\\pic\\open-archive.png"
+OPEN_SMARTSERVER		CUSTOM					"..\\pic\\open-archive.png"
+OPEN_FILE				CUSTOM					"..\\pic\\open-file.png"
+
+PLAY_PLAY				CUSTOM					"res\\play-play.png"
+PLAY_PLAY_SEL			CUSTOM					"res\\play-play-sel.png"
+PLAY_PAUSE				CUSTOM					"res\\play-pause.png"
+PLAY_PAUSE_SEL			CUSTOM					"res\\play-pause-sel.png"
+PLAY_SLOW				CUSTOM					"res\\play-slow.png"
+PLAY_SLOW_SEL			CUSTOM					"res\\play-slow-sel.png"
+PLAY_BACKWARD			CUSTOM					"res\\play-backward.png"
+PLAY_BACKWARD_SEL		CUSTOM					"res\\play-backward-sel.png"
+PLAY_FORWARD			CUSTOM					"res\\play-forward.png"
+PLAY_FORWARD_SEL		CUSTOM					"res\\play-forward-sel.png"
+PLAY_FAST				CUSTOM					"res\\play-fast.png"
+PLAY_FAST_SEL			CUSTOM					"res\\play-fast-sel.png"
+PLAY_STEP				CUSTOM					"res\\play-step.png"
+PLAY_STEP_SEL			CUSTOM					"res\\play-step-sel.png"
+PLAY_BK                 CUSTOM                  "..\\pic\\play-bk.png"
+
+MAP_ENABLE				CUSTOM					"..\\pic\\map-enable.png"
+MAP_DISABLE				CUSTOM					"..\\pic\\map-disable.png"
+
+ZOOMTELE_U              CUSTOM                  "..\\pic\\zoomtele_u.bmp"
+ZOOMTELE_D              CUSTOM                  "..\\pic\\zoomtele_d.bmp"
+ZOOMWIDE_U              CUSTOM                  "..\\pic\\zoomwide_u.bmp"
+ZOOMWIDE_D              CUSTOM                  "..\\pic\\zoomwide_d.bmp"
+FOCUSFAR_U              CUSTOM                  "..\\pic\\focusfar_u.bmp"
+FOCUSFAR_D              CUSTOM                  "..\\pic\\focusfar_d.bmp"
+FOCUSNEAR_U             CUSTOM                  "..\\pic\\focusnear_u.bmp"
+FOCUSNEAR_D             CUSTOM                  "..\\pic\\focusnear_d.bmp"
+IRISOPEN_U              CUSTOM                  "..\\pic\\irisopen_u.bmp"
+IRISOPEN_D              CUSTOM                  "..\\pic\\irisopen_d.bmp"
+IRISCLOSE_U             CUSTOM                  "..\\pic\\irisclose_u.bmp"
+IRISCLOSE_D             CUSTOM                  "..\\pic\\irisclose_d.bmp"
+
+PTZ_DE                  CUSTOM                  "..\\pic\\ptz-default-ball.png"
+PTZ_UL                  CUSTOM                  "..\\pic\\ptz-up-left.png"
+PTZ_UO                  CUSTOM                  "..\\pic\\ptz-up.png"
+PTZ_UR                  CUSTOM                  "..\\pic\\ptz-up-right.png"
+PTZ_OL                  CUSTOM                  "..\\pic\\ptz-left.png"
+PTZ_OO                  CUSTOM                  "..\\pic\\ptz-default.png"
+PTZ_OR                  CUSTOM                  "..\\pic\\ptz-right.png"
+PTZ_DL                  CUSTOM                  "..\\pic\\ptz-down-left.png"
+PTZ_DO                  CUSTOM                  "..\\pic\\ptz-down.png"
+PTZ_DR                  CUSTOM                  "..\\pic\\ptz-down-right.png"
+
+SLIDER_BAR				CUSTOM					"res\\sliderbar.png"
+SLIDER_VIDEO			CUSTOM					"res\\slidervideo.png"
+SLIDER_MARK				CUSTOM					"res\\slidermark.png"
+SLIDER_THUMB			CUSTOM					"res\\sliderthumb.png"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDI_PTZBALL			    ICON					"..\\pic\\ptz_ball.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+
+// Location Map 
+MAP_HTML                23      DISCARDABLE     "..\\common\\map.html"

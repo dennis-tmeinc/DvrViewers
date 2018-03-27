@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CEFD7ED3-0FCB-40F9-9088-A59B0BC86BC6}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ply606</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\proj\DVR\DVRCLIENT_V3\Viewers\freetype-2.3.5-1-lib\include\freetype2;D:\proj\DVR\DVRCLIENT_V3\Viewers\ffmpeg\include\ffmpeg;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\proj\DVR\DVRCLIENT_V3\Viewers\freetype-2.3.5-1-lib\lib;D:\proj\DVR\DVRCLIENT_V3\Viewers\ffmpeg\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\proj\DVR\DVRCLIENT_V3\Viewers\freetype-2.3.5-1-lib\include\freetype2;D:\proj\DVR\DVRCLIENT_V3\Viewers\ffmpeg\include\ffmpeg;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\proj\DVR\DVRCLIENT_V3\Viewers\freetype-2.3.5-1-lib\lib;D:\proj\DVR\DVRCLIENT_V3\Viewers\ffmpeg\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\proj\DVR\DVRCLIENT_V3\Viewers\freetype-2.3.5-1-lib\include\freetype2;D:\proj\DVR\DVRCLIENT_V3\Viewers\ffmpeg\include\ffmpeg;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\proj\DVR\DVRCLIENT_V3\Viewers\freetype-2.3.5-1-lib\lib;D:\proj\DVR\DVRCLIENT_V3\Viewers\ffmpeg\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\proj\DVR\DVRCLIENT_V3\Viewers\freetype-2.3.5-1-lib\include\freetype2;D:\proj\DVR\DVRCLIENT_V3\Viewers\ffmpeg\include\ffmpeg;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\proj\DVR\DVRCLIENT_V3\Viewers\freetype-2.3.5-1-lib\lib;D:\proj\DVR\DVRCLIENT_V3\Viewers\ffmpeg\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;PLY606_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;PLY606_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PLY606_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PLY606_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="aout_filters.cpp" />
+    <ClCompile Include="aout_input.cpp" />
+    <ClCompile Include="aout_output.cpp" />
+    <ClCompile Include="araw.cpp" />
+    <ClCompile Include="audio_output.cpp" />
+    <ClCompile Include="block.cpp" />
+    <ClCompile Include="crypt.cpp" />
+    <ClCompile Include="decoder.cpp" />
+    <ClCompile Include="direct3d.cpp" />
+    <ClCompile Include="directx_audio.cpp" />
+    <ClCompile Include="dvrfilestream.cpp" />
+    <ClCompile Include="dvrharddrivestream.cpp" />
+    <ClCompile Include="dvrnet.cpp" />
+    <ClCompile Include="dvrplaybackstream.cpp" />
+    <ClCompile Include="dvrplayer.cpp" />
+    <ClCompile Include="dvrpreviewstream.cpp" />
+    <ClCompile Include="ffmpeg.cpp" />
+    <ClCompile Include="fourcc.cpp" />
+    <ClCompile Include="freetype.cpp" />
+    <ClCompile Include="i420_rgb.cpp" />
+    <ClCompile Include="i420_yuy2.cpp" />
+    <ClCompile Include="inputstream.cpp" />
+    <ClCompile Include="mp4filestream.cpp" />
+    <ClCompile Include="mp4util.cpp" />
+    <ClCompile Include="mpeg4.cpp" />
+    <ClCompile Include="mtime.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="ply606.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="subpicture.cpp" />
+    <ClCompile Include="subs.cpp" />
+    <ClCompile Include="tme_thread.cpp" />
+    <ClCompile Include="trace.cpp" />
+    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="vfilter_blend.cpp" />
+    <ClCompile Include="videoclip.cpp" />
+    <ClCompile Include="video_output.cpp" />
+    <ClCompile Include="vout_mem.cpp" />
+    <ClCompile Include="vout_picture.cpp" />
+    <ClCompile Include="vout_vector.cpp" />
+    <ClCompile Include="xvidenc.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="aout_common.h" />
+    <ClInclude Include="aout_internal.h" />
+    <ClInclude Include="aout_output.h" />
+    <ClInclude Include="araw.h" />
+    <ClInclude Include="audio_output.h" />
+    <ClInclude Include="avcodec.h" />
+    <ClInclude Include="avformat.h" />
+    <ClInclude Include="block.h" />
+    <ClInclude Include="chroma.h" />
+    <ClInclude Include="crypt.h" />
+    <ClInclude Include="decoder.h" />
+    <ClInclude Include="direct3d.h" />
+    <ClInclude Include="direct3d_1.14.h" />
+    <ClInclude Include="directx.h" />
+    <ClInclude Include="directx_audio.h" />
+    <ClInclude Include="direct_common.h" />
+    <ClInclude Include="dvrfilestream.h" />
+    <ClInclude Include="dvrharddrivestream.h" />
+    <ClInclude Include="dvrnet.h" />
+    <ClInclude Include="dvrplaybackstream.h" />
+    <ClInclude Include="dvrplayer.h" />
+    <ClInclude Include="dvrpreviewstream.h" />
+    <ClInclude Include="es.h" />
+    <ClInclude Include="ffmpeg.h" />
+    <ClInclude Include="filter.h" />
+    <ClInclude Include="fourcc.h" />
+    <ClInclude Include="freetype.h" />
+    <ClInclude Include="i420_rgb.h" />
+    <ClInclude Include="i420_yuy2.h" />
+    <ClInclude Include="inputstream.h" />
+    <ClInclude Include="mp4filestream.h" />
+    <ClInclude Include="mp4filestream_good.h" />
+    <ClInclude Include="mp4util.h" />
+    <ClInclude Include="mpeg4.h" />
+    <ClInclude Include="mtime.h" />
+    <ClInclude Include="osd.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="ply606.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="subpicture.h" />
+    <ClInclude Include="subs.h" />
+    <ClInclude Include="tmeviewdef.h" />
+    <ClInclude Include="tme_thread.h" />
+    <ClInclude Include="trace.h" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="vfilter_blend.h" />
+    <ClInclude Include="video.h" />
+    <ClInclude Include="videoclip.h" />
+    <ClInclude Include="video_output.h" />
+    <ClInclude Include="vout_mem.h" />
+    <ClInclude Include="vout_picture.h" />
+    <ClInclude Include="vout_vector.h" />
+    <ClInclude Include="xvid.h" />
+    <ClInclude Include="xvidenc.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ply606.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

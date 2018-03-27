@@ -1,0 +1,105 @@
+#ifndef __MPEGPS_H__
+#define __MPEGPS_H__
+
+#define PS_TK_COUNT (512 - 0xc0)
+#define PS_ID_TO_TK( id ) ((id) <= 0xff ? (id) - 0xc0 : ((id)&0xff) + (256 - 0xc0))
+#define SUCCESS 0
+#define EGENERIC 1
+
+#define GOT_PSM 0x01
+#define GOT_E1 0x02 // Filler(type 9) with PTS
+#define GOT_E2 0x04 // Sequence parameter set
+#define GOT_E3 0x04 // picture parameter set
+
+
+typedef __int64 mtime_t;
+
+struct block_t
+{
+    block_t     *p_next;
+    block_t     *p_prev;
+
+    UINT32    i_flags;
+
+    mtime_t     i_pts;
+    mtime_t     i_dts;
+    mtime_t     i_length;
+
+    int         i_samples; /* Used for audio */
+    int         i_rate;
+
+    int         i_buffer;
+    BYTE     *p_buffer; // for pointer manipulation
+	BYTE	 *p_buf;
+    int      i_buf;
+};
+
+typedef struct
+{
+    bool  b_seen;
+    int         i_skip;
+    int         i_id;
+    //es_format_t fmt;
+    mtime_t     i_first_pts;
+    mtime_t     i_last_pts;
+} ps_track_t;
+
+struct ps_stream {
+	FILE *fp;
+	__int64 end; // size
+};
+
+typedef struct
+{
+	bool m_bLostSync, m_bHavePack;
+	int m_iMuxRate;
+	__int64 m_iLength, m_iTimeTrack, m_iScr, m_iCurrentPts;
+	ps_track_t  m_tk[PS_TK_COUNT];
+	struct ps_stream m_stream;
+	BYTE m_buf[500*1024];
+	int m_bufSize;
+	int m_iFlag; // for future use
+} ps_t;
+
+int stream_seek( struct ps_stream *s, __int64 i_pos);
+__int64 stream_tell( struct ps_stream *s);
+__int64 stream_size( struct ps_stream *s);
+int stream_peek( struct ps_stream *s, BYTE *pBuf, int size );
+int ps_pkt_resynch( struct ps_stream *s, UINT32 *pi_code );
+int ps_pkt_size( BYTE *p, int i_peek );
+void ps_track_init( ps_track_t tk[PS_TK_COUNT] );
+block_t *ps_pkt_read( struct ps_stream *s, UINT32 i_code );
+int ps_pkt_id( block_t *p_pkt );
+int ps_pkt_parse_pes( block_t *p_pes, int i_skip_extra );
+int ps_pkt_parse_pack( block_t *p_pkt, INT64 *pi_scr,
+                                     int *pi_mux_rate );
+int ps_pkt_parse_system( block_t *p_pkt, /*ps_psm_t *p_psm,*/
+                                       ps_track_t tk[PS_TK_COUNT] );
+void PsInit(ps_t *ps);
+__int64 PsFindLength(ps_t *ps);
+int PsGetOneFrame(ps_t *ps, char **framedata, int *framesize, int *frametype, __int64 *timestamp);
+__int64 PsGetFirstTimeStamp(ps_t *ps);
+__int64 PsFindFirstTimeStamp(ps_t *ps);
+
+class CMpegPs
+{
+public:
+	CMpegPs();
+	~CMpegPs();
+	void Init();
+
+private:
+	bool m_bLostSync, m_bHavePack;
+	int m_iMuxRate;
+	__int64 m_iLength, m_iTimeTrack, m_iScr, m_iCurrentPts;
+	ps_track_t  m_tk[PS_TK_COUNT];
+	struct ps_stream m_stream;
+	BYTE m_buf[500*1024];
+	int m_bufSize;
+	int m_iFlag; // for future use
+
+	int Demux2(bool b_end, int *found_ts = NULL);
+
+};
+
+#endif

@@ -1,0 +1,23 @@
+﻿  EnterDVRPassword.cpp
+  PLY301.cpp
+  dvrharddrivestream.cpp
+dvrharddrivestream.cpp(432): warning C4244: 'argument': conversion from '__int64' to '::size_t', possible loss of data
+dvrharddrivestream.cpp(434): warning C4244: '+=': conversion from '__int64' to 'int', possible loss of data
+dvrharddrivestream.cpp(435): warning C4244: '-=': conversion from '__int64' to 'int', possible loss of data
+dvrharddrivestream.cpp(453): warning C4244: '=': conversion from '__int64' to 'DWORD', possible loss of data
+dvrharddrivestream.cpp(468): warning C4244: 'argument': conversion from '__int64' to '::size_t', possible loss of data
+dvrharddrivestream.cpp(470): warning C4244: '+=': conversion from '__int64' to 'int', possible loss of data
+dvrharddrivestream.cpp(471): warning C4244: '-=': conversion from '__int64' to 'int', possible loss of data
+dvrharddrivestream.cpp(658): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+dvrharddrivestream.cpp(698): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+dvrharddrivestream.cpp(801): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  dvrplayer.cpp
+  dvrsetup.cpp
+     Creating library D:\proj\DVR\DVRCLIENT_V3\Viewers\Release\PLY301.lib and object D:\proj\DVR\DVRCLIENT_V3\Viewers\Release\PLY301.exp
+  Generating code
+  76 of 650 functions (11.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    10 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  PLY301.vcxproj -> D:\proj\DVR\DVRCLIENT_V3\Viewers\Release\PLY301.dll
+  PLY301.vcxproj -> D:\proj\DVR\DVRCLIENT_V3\Viewers\Release\PLY301.pdb (Full PDB)

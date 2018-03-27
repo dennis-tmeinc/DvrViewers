@@ -1,0 +1,4 @@
+﻿  DVRDiskFix.cpp
+d:\proj\dvr\dvrclient_v3\viewers\dvrdiskfix\dvrdiskfix.cpp(113): warning C4018: '<': signed/unsigned mismatch
+  DVRDiskFix.vcxproj -> D:\proj\DVR\DVRCLIENT_V3\Viewers\Debug\DVRDiskFix.exe
+  DVRDiskFix.vcxproj -> D:\proj\DVR\DVRCLIENT_V3\Viewers\Debug\DVRDiskFix.pdb (Partial PDB)

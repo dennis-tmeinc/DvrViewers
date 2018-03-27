@@ -1,0 +1,33 @@
+// dvrclient.h : main header file for the PROJECT_NAME application
+//
+
+#pragma once
+
+#include "resource.h"		// main symbols
+
+#define DVRVIEWER_APP
+
+// No login screen, also to enable this on PortableViewer
+// #define NOLOGIN
+
+// Snap Shot button capture all image silently
+// #define CAPTUREALL 
+
+// No "play archive" menu item
+// #define NOPLAYARCHIVE
+#define NOPLAYSMARTSERVER
+
+// Snap shot save as 800x600 resolutions
+#define BIGSNAPSHOT
+
+#define APPNAME "DVRVIEWER"
+
+#define NEWPAINTING
+
+#define	SCREENBACKGROUNDCOLOR	( RGB(112, 112, 112) )
+
+// for special version, do not allow save clip
+// #define NOSAVECLIP
+
+// add json support for dpl file 
+#define JSON_SUPPORT

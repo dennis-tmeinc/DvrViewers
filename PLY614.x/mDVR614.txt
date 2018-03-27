@@ -1,0 +1,28 @@
+1. File header
+
+char Head264[40] = {
+  0x49, 0x4d, 0x4b, 0x48, 0x01, 0x01, 0x01, 0x00, 
+  0x02, 0x00, 0x01, 0x00, 0x21, 0x72, 0x01, 0x0e,
+  0x80, 0x3e, 0x00, 0x00, 0x00, 0x7d, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+} ;
+
+Head264[12] = Head264[13] = 0, when audio is disabled. (0x21,0x72 when enabled)
+
+2. File name extension: 265 (264 for mDVR510x/602)
+3. DVR port: 15112 (15111 for mDVR510x/602)
+4. Encryption
+   a) Video frame:
+      Do not encrypt all PS headers up to NAL unit type 65(or 41)
+      00 00 01 BA ... 00 00 01 E0 ...  00 00 01 E0 ... 00 00 00 01 65
+      Encrypt max 1024 bytes after 00 00 00 01 65 (or 00 00 00 01 41)
+   b) audio frame:
+      Do not encrypt PS header
+      00 00 01 C0 .... (16 bytes)
+      encrypt every bytes(alway less than 1024) after the PS header.
+5. Remote playback
+   a) For encryption, see above.
+   b) Verify dvrsvr::ReqStreamSeek(), this should follow the latest version of mDVR510x.
+      If different, it won't work.
+

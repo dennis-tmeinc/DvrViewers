@@ -1,0 +1,664 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\pwplayer.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,1,18,321
+ PRODUCTVERSION 1,1,18,321
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x21L
+#else
+ FILEFLAGS 0x20L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "000904b0"
+        BEGIN
+            VALUE "CompanyName", "Toronto MicroElectronics Inc."
+            VALUE "FileVersion", "1.1.18.321"
+            VALUE "InternalName", "PWPLAYER"
+            VALUE "LegalCopyright", "Copyright (C) 2011"
+            VALUE "OriginalFilename", "PWPLAYER.EXE"
+            VALUE "ProductName", "PWPLAYER"
+            VALUE "ProductVersion", "1.1.18.321"
+            VALUE "SpecialBuild", "PWPLAYER"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x9, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU_MAIN MENU
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "Connect",                     ID_FILE_CONNECT
+        MENUITEM "Disconnect",                  ID_FILE_DISCONNECT
+        MENUITEM "Open local disk",             ID_FILE_OPENLOCALDISK
+        MENUITEM "Open DVR file",               ID_FILE_OPENDVRFILE
+        MENUITEM SEPARATOR
+        MENUITEM "Capture Picture",             ID_FILE_CAPTUREPICTURE
+        MENUITEM SEPARATOR
+        MENUITEM "Exit",                        ID_FILE_EXIT
+    END
+    POPUP "Edit"
+    BEGIN
+        MENUITEM "Begin selection",             ID_EDIT_BEGINSELECTION
+        MENUITEM "End selection",               ID_EDIT_ENDSELECTION
+        MENUITEM "Export to .DVR",              ID_EDIT_EXPORTTO
+    END
+    POPUP "Play"
+    BEGIN
+        MENUITEM "Live Preview",                ID_PLAY_LIVEPREVIEW
+        MENUITEM "Play Recorded Video",         ID_PLAY_PLAYRECORDEDVIDEO
+        MENUITEM "Single audio",                ID_PLAY_SINGLEAUDIO
+        MENUITEM "Mix all audio channel",       ID_PLAY_MIXALLAUDIOCHANNEL
+        MENUITEM SEPARATOR
+        MENUITEM "Play",                        ID_PLAY_PLAY32786
+        MENUITEM "Pause",                       ID_PLAY_PAUSE
+        MENUITEM "Single Frame Forward",        ID_PLAY_SINGLEFRAMEFORWARD
+        MENUITEM "Fast Forward",                ID_PLAY_FASTFORWARD
+        MENUITEM "Slow Forward",                ID_PLAY_SLOWFORWARD
+        MENUITEM "Fast Backward",               ID_PLAY_FASTBACKWARD
+        MENUITEM SEPARATOR
+        MENUITEM "Prev. hour",                  ID_PLAY_PREV
+        MENUITEM "Next hour",                   ID_PLAY_NEXT
+        MENUITEM "Prev. day",                   ID_PLAY_PREV32794
+        MENUITEM "Next day",                    ID_PLAY_NEXTDAY
+    END
+    POPUP "Setup"
+    BEGIN
+        MENUITEM "DVR setup",                   ID_SETUP_DVRSETUP
+        MENUITEM "User management",             ID_SETUP_USERMANAGEMENT
+    END
+    POPUP "Screen"
+    BEGIN
+        MENUITEM "Singal window",               ID_SCREEN_1WINDOW
+        MENUITEM "2 windows vertical",          ID_SCREEN_2X2
+        MENUITEM "2 windows horizontal",        ID_SCREEN_2WINDOWSHORIZONTAL
+        MENUITEM "2x2",                         ID_SCREEN_2X3
+        MENUITEM "3x3",                         ID_SCREEN_3X3
+        MENUITEM "4x4",                         ID_SCREEN_4X4
+        MENUITEM "6 windows",                   ID_SCREEN_6WINDOWS
+        MENUITEM "8 windows",                   ID_SCREEN_8WINDOWS
+    END
+END
+
+IDR_MENU_POPUP MENU
+BEGIN
+    POPUP "PTZ"
+    BEGIN
+        MENUITEM "Camera On",                   ID_PTZ_CAMERAON
+        MENUITEM "Camera Off",                  ID_PTZ_CAMERAOFF
+        MENUITEM "Auto Scan On",                ID_PTZ_AUTOSCANON
+        MENUITEM "Auto Scan Off",               ID_PTZ_AUTOSCANOFF
+        MENUITEM SEPARATOR
+        MENUITEM "Flip",                        ID_PTZ_FLIP
+        MENUITEM "Zero Pan Position",           ID_PTZ_ZEROPANPOSITION
+        MENUITEM "Reset",                       ID_PTZ_RESET
+        POPUP "Zone Start"
+        BEGIN
+            MENUITEM "1",                           ID_ZONESTART_1
+            MENUITEM "2",                           ID_ZONESTART_2
+            MENUITEM "3",                           ID_ZONESTART_3
+            MENUITEM "4",                           ID_ZONESTART_4
+            MENUITEM "5",                           ID_ZONESTART_5
+            MENUITEM "6",                           ID_ZONESTART_6
+            MENUITEM "7",                           ID_ZONESTART_7
+            MENUITEM "8",                           ID_ZONESTART_8
+        END
+        POPUP "Zone End"
+        BEGIN
+            MENUITEM "1",                           ID_ZONEEND_1
+            MENUITEM "2",                           ID_ZONEEND_2
+            MENUITEM "3",                           ID_ZONEEND_3
+            MENUITEM "4",                           ID_ZONEEND_4
+            MENUITEM "5",                           ID_ZONEEND_5
+            MENUITEM "6",                           ID_ZONEEND_6
+            MENUITEM "7",                           ID_ZONEEND_7
+            MENUITEM "8",                           ID_ZONEEND_8
+        END
+        MENUITEM "Zone Scan On",                ID_PTZ_ZONESCANON
+        MENUITEM "Zone Scan Off",               ID_PTZ_ZONESCANOFF
+        POPUP "Pattern Start"
+        BEGIN
+            MENUITEM "1",                           ID_PATTERNSTART_1
+            MENUITEM "2",                           ID_PATTERNSTART_2
+            MENUITEM "3",                           ID_PATTERNSTART_3
+            MENUITEM "4",                           ID_PATTERNSTART_4
+            MENUITEM "5",                           ID_PATTERNSTART_5
+            MENUITEM "6",                           ID_PATTERNSTART_6
+            MENUITEM "7",                           ID_PATTERNSTART_7
+            MENUITEM "8",                           ID_PATTERNSTART_8
+        END
+        MENUITEM "Patern Stop",                 ID_PTZ_PATTERNSTOP
+        POPUP "Run Pattern"
+        BEGIN
+            MENUITEM "1",                           ID_RUNPATTERN_1
+            MENUITEM "2",                           ID_RUNPATTERN_2
+            MENUITEM "3",                           ID_RUNPATTERN_3
+            MENUITEM "4",                           ID_RUNPATTERN_4
+            MENUITEM "5",                           ID_RUNPATTERN_5
+            MENUITEM "6",                           ID_RUNPATTERN_6
+            MENUITEM "7",                           ID_RUNPATTERN_7
+            MENUITEM "8",                           ID_RUNPATTERN_9
+        END
+        POPUP "Set Zoom Speed"
+        BEGIN
+            MENUITEM "0",                           ID_SETZOOMSPEED_0
+            MENUITEM "1",                           ID_SETZOOMSPEED_1
+            MENUITEM "2",                           ID_SETZOOMSPEED_2
+            MENUITEM "3",                           ID_SETZOOMSPEED_3
+        END
+        POPUP "Set Focus Speed"
+        BEGIN
+            MENUITEM "0",                           ID_SETFOCUSSPEED_0
+            MENUITEM "1",                           ID_SETFOCUSSPEED_1
+            MENUITEM "2",                           ID_SETFOCUSSPEED_2
+            MENUITEM "3",                           ID_SETFOCUSSPEED_3
+        END
+        MENUITEM "Auto Focus On",               ID_PTZ_AUTOFOCUSON
+        MENUITEM "Auto Focus Off",              ID_PTZ_AUTOFOCUSOFF
+        MENUITEM "Auto Iris On",                ID_PTZ_AUTOIRISON
+        MENUITEM "Auto Iris Off",               ID_PTZ_AUTOIRISOFF
+    END
+    POPUP "Screen"
+    BEGIN
+        MENUITEM "Close",                       ID_SCREEN_CLOSE
+        MENUITEM SEPARATOR
+    END
+    POPUP "EventMarker"
+    BEGIN
+        MENUITEM "Show all marked events",      ID_EVENTMARKER_SHOWALLMARKEDEVENTS
+        MENUITEM "Clear all marked events",     ID_EVENTMARKER_CLEARALLMARKEDEVENTS
+        MENUITEM "Clear marked event of current day", ID_EVENTMARKER_CLEARMARKEDEVENTOFCURRENTDAY
+    END
+    POPUP "PlaySource"
+    BEGIN
+        MENUITEM "Live View",                   ID_PLAYSOURCE_LIVEVIEW
+        MENUITEM "Play Archive",                ID_PLAYSOURCE_PLAYARCH
+        MENUITEM "Play File",                   ID_PLAYSOURCE_PLAYFILE
+        MENUITEM "Play SmartServer",            ID_PLAYSOURCE_PLAYSMARTSERVER
+    END
+    POPUP "PW Information"
+    BEGIN
+        MENUITEM "Access History",              ID_TVSINFORMATION_ACCESSHISTORY
+        MENUITEM "Configuration Report",        ID_TVSINFORMATION_CONFIGURATIONREPORT
+        MENUITEM "System Log",                  ID_TVSINFORMATION_SYSTEMLOG
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 241, 156
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About PWViewer"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "PWViewer",IDC_STATIC_APP,48,7,119,8,SS_NOPREFIX
+    LTEXT           "Version 3.0.0.0",IDC_STATIC_VERSION,48,23,119,8
+    DEFPUSHBUTTON   "OK",IDOK,184,7,50,16,WS_GROUP
+    LTEXT           "Copyright (C) 2008",IDC_STATIC_COPYRIGHT,48,39,119,8
+    LTEXT           "TME",IDC_STATIC_COMPANY,48,55,182,8
+    LISTBOX         IDC_LISTLIBRARY,44,86,157,51,LBS_NOINTEGRALHEIGHT | LBS_NOSEL | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "File version:",IDC_STATIC,48,71,40,8
+END
+
+IDD_DVRCLIENT_DIALOG DIALOGEX 0, 0, 435, 381
+STYLE DS_SETFONT | DS_NOIDLEMSG | DS_3DLOOK | DS_FIXEDSYS | DS_CENTER | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+EXSTYLE WS_EX_NOPARENTNOTIFY | WS_EX_CONTROLPARENT | WS_EX_APPWINDOW
+CAPTION "PWViewer"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Play",IDC_BUTTON_PLAY,9,54,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Disconnect",IDC_DISCONNECT,21,58,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Setup",IDC_SETUP,21,75,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Users",IDC_USERS,83,75,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Live View",IDC_PREVIEW,187,28,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Playback",IDC_PLAYBACK,187,43,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Playfile",IDC_PLAYFILE,188,57,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Exit",IDC_EXIT,239,28,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "SmartServer",IDC_SMARTSERVER,239,43,50,14,NOT WS_VISIBLE
+    GROUPBOX        "Quick Tools",IDC_STATIC_QUICKTOOLS,7,93,133,34,0,WS_EX_TRANSPARENT
+    PUSHBUTTON      "Quick Clip",IDC_QUICKCAP,15,106,50,14
+    PUSHBUTTON      "Snap Shot",IDC_CAPTURE,79,106,50,14
+    GROUPBOX        "Custom Clip",IDC_STATIC_GROUP_CUSTOMCLIP,7,129,133,72,0,WS_EX_TRANSPARENT
+    PUSHBUTTON      "Start Time",IDC_TIMEBEGIN,13,143,50,14
+    CONTROL         "",IDC_TIME_SELBEGIN,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,69,142,67,15
+    PUSHBUTTON      "End Time",IDC_TIMEEND,13,162,50,14
+    CONTROL         "",IDC_TIME_SELEND,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,69,163,67,15
+    PUSHBUTTON      "Make Clip",IDC_SAVEFILE,13,182,50,14
+    CONTROL         "",IDC_MONTHCALENDAR,"SysMonthCal32",MCS_DAYSTATE | MCS_NOTODAY | MCS_NOTODAYCIRCLE | NOT WS_VISIBLE | WS_TABSTOP,0,209,151,91
+    GROUPBOX        "PTZ",IDC_GROUP_PTZ,163,129,110,175,NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    CONTROL         "Tele",IDC_PTZ_TELE,"Button",BS_OWNERDRAW | NOT WS_VISIBLE | WS_TABSTOP,183,215,25,14
+    CONTROL         "Wide",IDC_PTZ_WIDE,"Button",BS_OWNERDRAW | NOT WS_VISIBLE | WS_TABSTOP,227,215,25,14
+    CONTROL         "Far",IDC_PTZ_FAR,"Button",BS_OWNERDRAW | NOT WS_VISIBLE | WS_TABSTOP,183,233,25,14
+    CONTROL         "Near",IDC_PTZ_NEAR,"Button",BS_OWNERDRAW | NOT WS_VISIBLE | WS_TABSTOP,227,233,25,14
+    CONTROL         "Open",IDC_PTZ_OPEN,"Button",BS_OWNERDRAW | NOT WS_VISIBLE | WS_TABSTOP,183,252,25,14
+    CONTROL         "Close",IDC_PTZ_CLOSE,"Button",BS_OWNERDRAW | NOT WS_VISIBLE | WS_TABSTOP,227,252,25,14
+    LTEXT           "Preset ID:",IDC_STATIC_PRESETID,177,273,34,8,NOT WS_VISIBLE
+    EDITTEXT        IDC_PRESET_ID,215,270,40,14,ES_AUTOHSCROLL | ES_NUMBER | NOT WS_VISIBLE
+    CONTROL         "",IDC_SPIN_PTZ_PRESET,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | NOT WS_VISIBLE,260,268,11,14
+    PUSHBUTTON      "Set",IDC_PTZ_SET,173,286,25,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Clear",IDC_PTZ_CLEAR,207,286,25,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Goto",IDC_PTZ_GOTO,239,286,25,14,NOT WS_VISIBLE
+    CTEXT           "January 1, 2008, 11:25:41 AM",IDC_STATIC_PLAYTIME,2,209,147,10
+    PUSHBUTTON      "<<",IDC_PREV,29,325,18,14
+    COMBOBOX        IDC_COMBO_TIMERANGE,49,325,73,30,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      ">>",IDC_NEXT,125,325,18,14,BS_BITMAP
+    CONTROL         "",IDC_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | TBS_ENABLESELRANGE | TBS_FIXEDLENGTH | TBS_TOOLTIPS,157,321,208,20
+    CONTROL         "-",IDC_SLOW,"Button",BS_OWNERDRAW | WS_TABSTOP,91,351,23,23
+    CONTROL         "<<",IDC_BACKWARD,"Button",BS_OWNERDRAW | WS_TABSTOP,115,351,23,23
+    CONTROL         ">",IDC_PLAY,"Button",BS_OWNERDRAW | WS_TABSTOP,139,347,23,27
+    CONTROL         "||",IDC_PAUSE,"Button",BS_OWNERDRAW | WS_TABSTOP,63,350,25,23
+    CONTROL         ">>",IDC_FORWARD,"Button",BS_OWNERDRAW | WS_TABSTOP,163,351,23,23
+    CONTROL         "+",IDC_FAST,"Button",BS_OWNERDRAW | WS_TABSTOP,187,351,23,23
+    CONTROL         "|>",IDC_STEP,"Button",BS_OWNERDRAW | WS_TABSTOP,211,351,23,23
+    CONTROL         "Mix Audio",IDC_MIXAUDIO,"Button",BS_OWNERDRAW | WS_TABSTOP,279,349,27,24
+    CONTROL         "",IDC_PIC_SPEAKER_VOLUME,"Static",SS_BLACKFRAME | NOT WS_VISIBLE,312,355,17,14
+    CONTROL         "minimap",IDC_MAP,"Button",BS_OWNERDRAW | WS_TABSTOP,251,352,27,22
+    PUSHBUTTON      "Information",IDC_BUTTON_TVSINFO,87,75,52,14
+END
+
+IDD_DIALOG_LOGIN DIALOGEX 0, 0, 203, 140
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "User Login"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    COMBOBOX        IDC_USERNAME,68,31,115,85,CBS_DROPDOWN | CBS_AUTOHSCROLL | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_PASSWORD,68,61,115,14,ES_PASSWORD | ES_AUTOHSCROLL
+    LTEXT           "User name:",IDC_STATIC,18,31,37,8
+    LTEXT           "Password:",IDC_STATIC,18,61,34,8
+    DEFPUSHBUTTON   "Login",IDOK,37,94,50,14
+    PUSHBUTTON      "Quit",IDCANCEL,115,94,50,14
+END
+
+IDD_DIALOG_CALLTME DIALOGEX 0, 0, 268, 166
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,108,138,50,14
+    LTEXT           "This system hasn't been setup. Please contact TME (Toronto MicroElectronics Inc.) for an administrator password.",IDC_STATIC,7,14,254,25
+    LTEXT           "Contract information:",IDC_STATIC,7,41,70,8
+    LTEXT           "6185 Danville Road\nMississauga, ON\nL5T 2H7\nCanada\nTel: 1 (905) 362-8090\nFax: 1 (905) 362-8093\nWeb: www.tme-inc.com",IDC_STATIC,87,41,113,55
+    LTEXT           "Please provide the follow codes to TME:",IDC_STATIC,7,104,128,8
+    CTEXT           "xxxx",IDC_CODE,7,121,254,8,SS_NOPREFIX
+END
+
+IDD_DIALOG_SELECTDVR DIALOGEX 0, 0, 262, 157
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Select Server to View"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Connect",IDOK,205,136,50,14,WS_DISABLED
+    PUSHBUTTON      "Cancel",IDCANCEL,205,113,50,14
+    PUSHBUTTON      "Directory",IDC_BUTTON_OPENHARDDRIVE,205,68,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Remote",IDC_BUTTON_OPENREMOTE,205,90,50,14
+    PUSHBUTTON      "Clean disk",IDC_BUTTON_CLEANDISK,206,46,49,14,NOT WS_VISIBLE
+    LISTBOX         IDC_LIST_DVRSERVER,7,7,189,143,LBS_MULTIPLESEL | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_DIALOG_CAPTURE DIALOGEX 0, 0, 484, 302
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Capture"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Save",IDC_BUTTON_SAVEFILE,427,225,50,14
+    PUSHBUTTON      "Print",IDC_BUTTON_PRINT,427,249,50,14
+    PUSHBUTTON      "Close",IDOK,427,272,50,14
+    CONTROL         "",IDC_STATIC_PIC,"Static",SS_ETCHEDFRAME | SS_CENTERIMAGE | SS_REALSIZEIMAGE | WS_BORDER,7,7,403,288,WS_EX_TRANSPARENT
+    CONTROL         "Camera1",IDC_CHECK_CAM1,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,418,59,45,10
+    CONTROL         "Camera2",IDC_CHECK_CAM2,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,418,70,45,10
+    GROUPBOX        "Select camera",IDC_STATIC_SELCAM,415,47,62,61,NOT WS_VISIBLE
+    CONTROL         "Camera3",IDC_CHECK_CAM3,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,418,81,45,10
+    CONTROL         "Camera4",IDC_CHECK_CAM4,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,418,92,45,10
+END
+
+IDD_DIALOG_USER DIALOGEX 0, 0, 227, 119
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "User Management"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "User List:",IDC_STATIC,7,6,31,8
+    LISTBOX         IDC_LIST_USER,7,20,139,92,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "New User",IDC_BUTTON_NEWUSER,150,20,70,14
+    PUSHBUTTON      "Delete User",IDC_BUTTON_DELUSER,150,46,70,14
+    PUSHBUTTON      "Change Password",IDC_BUTTON_CHANGEPASSWORD,150,72,70,14
+    DEFPUSHBUTTON   "Done",IDOK,150,98,70,14
+END
+
+IDD_DIALOG_USERNEW DIALOGEX 0, 0, 196, 130
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "New User"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "New User Name:",IDC_STATIC,7,7,54,8
+    EDITTEXT        IDC_EDIT_USERNAME,7,23,88,14,ES_AUTOHSCROLL
+    LTEXT           "New Password:",IDC_STATIC,7,45,50,8
+    EDITTEXT        IDC_EDIT_PASSWORD,7,61,88,14,ES_PASSWORD | ES_AUTOHSCROLL
+    LTEXT           "Confirm New Password:",IDC_STATIC,17,83,77,8
+    EDITTEXT        IDC_EDIT_PASSWORD2,7,99,88,14,ES_PASSWORD | ES_AUTOHSCROLL
+    GROUPBOX        "User Type",IDC_STATIC,108,7,81,60
+    CONTROL         "User",IDC_RADIO_USER,"Button",BS_AUTORADIOBUTTON | WS_GROUP,120,24,31,10
+    CONTROL         "Administrator",IDC_RADIO_ADMIN,"Button",BS_AUTORADIOBUTTON,120,42,59,10
+    DEFPUSHBUTTON   "OK",IDOK,123,73,50,14,WS_GROUP
+    PUSHBUTTON      "Cancel",IDCANCEL,123,97,50,14
+END
+
+IDD_DIALOG_CHANGEPASSWORD DIALOGEX 0, 0, 194, 117
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,36,96,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,106,96,50,14
+    LTEXT           "Change password for user:",IDC_STATIC,7,7,88,8
+    CTEXT           "Static",IDC_STATIC_USERNAME,7,23,180,8
+    LTEXT           "Old Password:",IDC_STATIC,7,44,47,8
+    LTEXT           "New Password:",IDC_STATIC,7,60,50,8
+    LTEXT           "Confirm Password:",IDC_STATIC,7,77,61,8
+    EDITTEXT        IDC_EDIT_OLDPASSWORD,71,41,116,14,ES_PASSWORD | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_NEWPASSWORD,71,57,116,14,ES_PASSWORD | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_CONFIIRMPASSWORD,71,73,116,14,ES_PASSWORD | ES_AUTOHSCROLL
+END
+
+IDD_DIALOG_COPY DIALOGEX 0, 0, 224, 95
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Copy"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,153,74,50,14,NOT WS_VISIBLE
+    PUSHBUTTON      "Cancel",IDCANCEL,153,74,50,14
+    CONTROL         "",IDC_PROGRESS,"msctls_progress32",PBS_SMOOTH | WS_BORDER,7,54,210,9
+    LTEXT           "Copy Message",IDC_STATIC_MSG,7,14,210,16
+    LTEXT           "Copy progress",IDC_STATIC_PROGRESS,7,34,210,18
+END
+
+IDD_DIALOG_VIDEOPASSWORD DIALOGEX 0, 0, 171, 89
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Enter video password"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "Video is encrypted, please enter password:",IDC_STATIC,16,14,134,20
+    EDITTEXT        IDC_EDIT_PASSWORD,15,41,138,14,ES_PASSWORD | ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,24,68,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,93,68,50,14
+END
+
+IDD_DIALOG_REMOTEIP DIALOGEX 0, 0, 186, 94
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Enter IP address"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_IPADDR,24,40,140,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "Connect",IDOK,103,66,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,32,66,50,14
+    LTEXT           "Enter DVR IP address:",IDC_STATIC,25,23,72,8
+END
+
+IDD_DIALOG_USERPASSWORD DIALOGEX 0, 0, 198, 142
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Enter Username & Password"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_USERNAME,65,65,115,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PASSWORD,65,88,115,14,ES_PASSWORD | ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,32,112,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,114,112,50,14
+    LTEXT           "User name:",IDC_STATIC,15,67,37,8
+    LTEXT           "Password:",IDC_STATIC,15,88,34,8
+    CTEXT           "SERVER",IDC_STATIC_SERVER,17,40,165,8
+    LTEXT           "Enter Username/Password for:",IDC_STATIC,18,20,100,8
+END
+
+IDD_DIALOG_USBPASSWORD DIALOGEX 0, 0, 186, 94
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Enter Password"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_EDIT_PASSWORD,21,37,144,14,ES_PASSWORD | ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,29,63,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,105,63,50,14
+    LTEXT           "Enter password for USB key:",IDC_STATIC_ENTERPASSWORD,21,17,93,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+    END
+
+    IDD_DVRCLIENT_DIALOG, DIALOG
+    BEGIN
+        RIGHTMARGIN, 431
+        BOTTOMMARGIN, 380
+    END
+
+    IDD_DIALOG_LOGIN, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_CALLTME, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_SELECTDVR, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_CAPTURE, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_USER, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_USERNEW, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_CHANGEPASSWORD, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_COPY, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_VIDEOPASSWORD, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_REMOTEIP, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_USERPASSWORD, DIALOG
+    BEGIN
+    END
+
+    IDD_DIALOG_USBPASSWORD, DIALOG
+    BEGIN
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#include ""res\\pwplayer.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDC_PWPLAYER            "PWPLAYER"
+    IDC_PREVIEW             "Connect to DVR server for viewing live video"
+    IDC_PLAYBACK            "Playback video from DVR server or from hard disk"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_ABOUTBOX            "&About"
+    IDP_SOCKETS_INIT_FAILED "Windows sockets initialization failed."
+    IDS_APP_TITLE           "pwplayer"
+END
+
+STRINGTABLE
+BEGIN
+    IDC_PTZ_SET             "Set preset position"
+    IDC_PTZ_CLEAR           "Clear preset position"
+    IDC_PTZ_GOTO            "Goto preset position"
+    IDC_SMARTSERVER         "Connect to smart server for playback"
+END
+
+STRINGTABLE
+BEGIN
+    IDC_SETUP               "Setup DVR server"
+    IDC_PLAYFILE            "Open .DVR file for playback"
+    IDC_CAPTURE             "Save Image as JPEG file"
+    IDC_SAVEFILE            "Save video into single .DVR file"
+    IDC_QUICKCAP            "Save 1 minute video at current position"
+    IDC_TIMEBEGIN           "Set current position as begin time"
+    IDC_TIMEEND             "Set current position as end time"
+    IDC_TIME_SELBEGIN       "Begin time to save file"
+    IDC_TIME_SELEND         "End time to save file"
+    IDC_MIXAUDIO            "Turn on audio on all channels / single channel"
+    IDC_SLOW                "Slow"
+    IDC_BACKWARD            "Jump backward 20 seconds"
+    IDC_PAUSE               "Pause"
+END
+
+STRINGTABLE
+BEGIN
+    IDC_PLAY                "Play"
+    IDC_FORWARD             "Jump forward 20 seconds"
+    IDC_FAST                "Fast"
+    IDC_STEP                "One frame forward"
+    IDC_MAP                 "Start/stop minitrack"
+    IDC_PREV                "Previous"
+    IDC_NEXT                "Next"
+    IDC_COMBO_TIMERANGE     "Slider bar time range"
+    IDC_USERS               "User management"
+    IDC_PTZ_TELE            "Zoom tele"
+    IDC_PTZ_WIDE            "Zoom wide"
+    IDC_PTZ_FAR             "Focus far"
+    IDC_PTZ_NEAR            "Focus near"
+    IDC_PTZ_OPEN            "Iris open"
+    IDC_PTZ_CLOSE           "Iris close"
+END
+
+STRINGTABLE
+BEGIN
+    ID_PLAYSOURCE_PLAYFILE  "Play .DVR files"
+END
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "res\pwplayer.rc2"  // non-Microsoft Visual C++ edited resources
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

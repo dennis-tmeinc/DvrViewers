@@ -1,0 +1,111 @@
+//
+// PrimeViewer.RC2 - resources Microsoft Visual C++ does not edit directly
+//
+
+#ifdef APSTUDIO_INVOKED
+#error this file is not editable by Microsoft Visual C++
+#endif //APSTUDIO_INVOKED
+
+/////////////////////////////////////////////////////////////////////////////
+// Add manually edited resources here...
+#ifdef __MINGW__ 
+CREATEPROCESS_MANIFEST_RESOURCE_ID RT_MANIFEST "../common/embed.manifest"
+#endif
+
+// Hand cursor
+CURSORHANDGRAB         CURSOR                  "..\\pic\\handgrab.cur"
+CURSORHANDPOINT        CURSOR                  "..\\pic\\handpoint.cur"
+
+// Bitmaps
+
+BACKGROUND		        CUSTOM				    "res\\background.png"
+APPNAME					CUSTOM					"res\\applogo.png"
+COMPANYLOGO				CUSTOM					"res\\companylogo.png"
+VOLUME_0				CUSTOM					"res\\buttons\\volume-mute.png"
+VOLUME_1				CUSTOM					"res\\buttons\\volume-min.png"
+VOLUME_2				CUSTOM					"res\\buttons\\volume-med.png"
+VOLUME_3				CUSTOM					"res\\buttons\\volume-max.png"
+VOLUME_BAR				CUSTOM					"res\\buttons\\volumebar.png"
+VOLUME_KNOB				CUSTOM					"res\\speaker_knob.png"
+VOLUME_KNOB_SEL			CUSTOM					"res\\speaker_knob_sel.png"
+AUDIO_MIXALL			CUSTOM					"res\\buttons\\audio-mixed.png"
+AUDIO_MIXSINGLE			CUSTOM					"res\\buttons\\audio-separate.png"
+
+OPEN_DISCONNECT			CUSTOM					"res\\buttons\\disconnect-rollover.png"
+OPEN_LIVEVIEW			CUSTOM					"res\\buttons\\live-active.png"
+OPEN_ARCHIVE			CUSTOM					"res\\buttons\\archive-active.png"
+OPEN_SMARTSERVER		CUSTOM					"res\\buttons\\archive-active.png"
+OPEN_FILE				CUSTOM					"res\\buttons\\file-active.png"
+
+PLAY_PLAY				CUSTOM					"res\\buttons\\play-active.png"
+PLAY_PLAY_SEL			CUSTOM					"res\\buttons\\play-onclick.png"
+PLAY_PAUSE				CUSTOM					"res\\buttons\\pause-active.png"
+PLAY_PAUSE_SEL			CUSTOM					"res\\buttons\\pause-onclick.png"
+PLAY_SLOW				CUSTOM					"res\\buttons\\slower-default.png"
+PLAY_SLOW_SEL			CUSTOM					"res\\buttons\\slower-onclick.png"
+PLAY_BACKWARD			CUSTOM					"res\\buttons\\rewind-default.png"
+PLAY_BACKWARD_SEL		CUSTOM					"res\\buttons\\rewind-onclick.png"
+PLAY_FORWARD			CUSTOM					"res\\buttons\\fastforward-default.png"
+PLAY_FORWARD_SEL		CUSTOM					"res\\buttons\\fastforward-onclick.png"
+PLAY_FAST				CUSTOM					"res\\buttons\\faster-default.png"
+PLAY_FAST_SEL			CUSTOM					"res\\buttons\\faster-onclick.png"
+PLAY_STEP				CUSTOM					"res\\play_step.png"
+PLAY_STEP_SEL			CUSTOM					"res\\play_step_press.png"
+
+ZOOMTELE_U              CUSTOM                  "res\\zoomtele_u.bmp"
+ZOOMTELE_D              CUSTOM                  "res\\zoomtele_d.bmp"
+ZOOMWIDE_U              CUSTOM                  "res\\zoomwide_u.bmp"
+ZOOMWIDE_D              CUSTOM                  "res\\zoomwide_d.bmp"
+FOCUSFAR_U              CUSTOM                  "res\\focusfar_u.bmp"
+FOCUSFAR_D              CUSTOM                  "res\\focusfar_d.bmp"
+FOCUSNEAR_U             CUSTOM                  "res\\focusnear_u.bmp"
+FOCUSNEAR_D             CUSTOM                  "res\\focusnear_d.bmp"
+IRISOPEN_U              CUSTOM                  "res\\irisopen_u.bmp"
+IRISOPEN_D              CUSTOM                  "res\\irisopen_d.bmp"
+IRISCLOSE_U             CUSTOM                  "res\\irisclose_u.bmp"
+IRISCLOSE_D             CUSTOM                  "res\\irisclose_d.bmp"
+
+PTZ_BALL                CUSTOM                  "res\\ptz-ball.png"
+PTZ_DE                  CUSTOM                  "res\\ptz-default-ball.png"
+PTZ_UL                  CUSTOM                  "res\\ptz-up-left.png"
+PTZ_UO                  CUSTOM                  "res\\ptz-up.png"
+PTZ_UR                  CUSTOM                  "res\\ptz-up-right.png"
+PTZ_OL                  CUSTOM                  "res\\ptz-left.png"
+PTZ_OO                  CUSTOM                  "res\\ptz-default.png"
+PTZ_OR                  CUSTOM                  "res\\ptz-right.png"
+PTZ_DL                  CUSTOM                  "res\\ptz-down-left.png"
+PTZ_DO                  CUSTOM                  "res\\ptz-down.png"
+PTZ_DR                  CUSTOM                  "res\\ptz-down-right.png"
+
+//PTZ_DE                  BITMAP                  "res\\ptz-default-ball.bmp"
+//PTZ_UL                  BITMAP                  "res\\ptz-up-left.bmp"
+//PTZ_UO                  BITMAP                  "res\\ptz-up.bmp"
+//PTZ_UR                  BITMAP                  "res\\ptz-up-right.bmp"
+//PTZ_OL                  BITMAP                  "res\\ptz-left.bmp"
+//PTZ_OO                  BITMAP                  "res\\ptz-default.bmp"
+//PTZ_OR                  BITMAP                  "res\\ptz-right.bmp"
+//PTZ_DL                  BITMAP                  "res\\ptz-down-left.bmp"
+//PTZ_DO                  BITMAP                  "res\\ptz-down.bmp"
+//PTZ_DR                  BITMAP                  "res\\ptz-down-right.bmp"
+
+MAP_BLUE				CUSTOM					"res\\buttons\\map-blue.png"
+MAP_GREEN				CUSTOM					"res\\buttons\\map-green.png"
+MAP_ENABLE				CUSTOM					"res\\buttons\\map-enable.png"
+MAP_DISABLE				CUSTOM					"res\\buttons\\map-disable.png"
+
+SLIDER_BAR				CUSTOM					"..\\pic\\sliderbar.png"
+SLIDER_VIDEO			CUSTOM					"..\\pic\\slidervideo.png"
+SLIDER_MARK				CUSTOM					"..\\pic\\slidermark.png"
+SLIDER_THUMB			CUSTOM					"..\\pic\\sliderthumb.png"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDI_PTZBALL			    ICON					"res\\ptz_ball.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+
+// Location Map 
+MAP_HTML                23      DISCARDABLE     "..\\common\\map.html"
