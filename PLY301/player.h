@@ -107,7 +107,7 @@ public:
 		return oldaudio ;
 	}
 	virtual int capturesnapshot(char * bmpfilename)=0;							// capture current screen into a bmp file
-	virtual void  refresh()=0;		                                            // refresh screen, show logo screen
+	virtual int refresh()=0;		                                            // refresh screen, show logo screen
     virtual int refreshdecoder()=0 ;                                           // refresh screen by decoder
     virtual int  setblurarea(struct blur_area * ba, int banumber )=0;
     virtual int  clearblurarea( )=0;
@@ -254,8 +254,8 @@ public:
 	WORD  GetVolume()			   {	 return PlayM4_GetVolume(m_port); }
 	BOOL  SetVolume(WORD nVolume = 0xffff){ return PlayM4_SetVolume(m_port,nVolume); }
 	void  showbackground();
-	void  refresh();		// refresh screen, show logo screen
-    int   refreshdecoder() ;                                           // refresh screen by decoder
+	int   refresh();												// refresh screen, show logo screen
+    int   refreshdecoder() ;                                        // refresh screen by decoder
     int   setblurarea(struct blur_area * ba, int banumber );
     int   clearblurarea( );
 

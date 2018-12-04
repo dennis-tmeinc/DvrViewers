@@ -26,19 +26,19 @@ Cliplist::Cliplist(DvrclientDlg * parent, Screen * screen, int lockclip, dvrtime
     m_mode = 0 ;
     m_clip_perline = NUM_CLIP_PERLINE ;
 
-    HWND hWnd = CreateWindowEx( 0, 
-        WinClass(),
-        _T("CLIPLIST"),
-        WS_CHILD|WS_VSCROLL|WS_BORDER,
-        0,          // default horizontal position  
-        0,          // default vertical position    
-        1,          // default width                
-        1,          // default height    
-        m_parent->getHWND(), 
-        NULL, 
-        AppInst(), 
-        NULL );
-    attach(hWnd) ;
+    HWND hWnd = CreateWindowEx(0,
+                               WinClass(),
+                               _T("CLIPLIST"),
+                               WS_CHILD | WS_VSCROLL | WS_BORDER,
+                               0, // default horizontal position
+                               0, // default vertical position
+                               1, // default width
+                               1, // default height
+                               m_parent->getHWND(),
+                               NULL,
+                               AppInst(),
+                               NULL);
+    attach(hWnd);
 
     int eventnumber = EVENT_NUMBER ;
     string eventnumberfile ("eventnumber") ;

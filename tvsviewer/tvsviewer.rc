@@ -33,14 +33,15 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\dvrclient.ico"
 
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,16,203
- PRODUCTVERSION 1,1,16,203
+ FILEVERSION 1,1,18,727
+ PRODUCTVERSION 1,1,18,727
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -56,12 +57,12 @@ BEGIN
         BLOCK "000904b0"
         BEGIN
             VALUE "CompanyName", "Toronto MicroElectronics Inc."
-            VALUE "FileVersion", "1.1.16.203"
+            VALUE "FileVersion", "1.1.18.727"
             VALUE "InternalName", "TVSVIEWER"
             VALUE "LegalCopyright", "Copyright (C) 2010,2011"
             VALUE "OriginalFilename", "TVSVIEWER.EXE"
             VALUE "ProductName", "TVSVIEWER"
-            VALUE "ProductVersion", "1.1.16.203"
+            VALUE "ProductVersion", "1.1.18.727"
         END
     END
     BLOCK "VarFileInfo"

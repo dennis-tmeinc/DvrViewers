@@ -220,7 +220,7 @@ void SelectDvr::OnTimer(int nIDEvent)
 	static int serverflag[4] = { 1, 3, 4, 0 };
 
 	if( m_dev < 0 ) {
-		WaitCursor waitcursor ;
+		// WaitCursor waitcursor ;
 
 		int sflag = serverflag[m_opentype] ;
 
@@ -267,7 +267,7 @@ void SelectDvr::OnTimer(int nIDEvent)
 	}
 
 	if( m_dev<decoder::polldevice() ) {
-        WaitCursor waitcursor ;
+        // WaitCursor waitcursor ;
        	decoder dec ;
 		if( dec.open(m_dev,m_opentype)>=0 ) {
 			if( strlen( dec.getserverinfo()) ==0 ) {

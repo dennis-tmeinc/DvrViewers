@@ -332,10 +332,11 @@ int HikPlayer::audioon( int audioon )
 	return oldaudio ;
 }
 
-void HikPlayer::refresh()
+int HikPlayer::refresh()
 {
 	if( m_port >=0 )
-		PlayM4_RefreshPlay(m_port);
+		return PlayM4_RefreshPlay(m_port);
+	return 0;
 }
 
 void HikPlayer::showbackground()

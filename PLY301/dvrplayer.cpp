@@ -1180,9 +1180,10 @@ int dvrplayer::refresh(int channel)
 	lock();
 	decoder * dec = getdecoder(channel);
 	while (dec != NULL) {
-		dec->refresh();
+		if (dec->refresh()) {
+			res = 0;
+		}
 		dec = dec->m_next;
-		res = 0;
 	}
 	unlock();
 	return res;

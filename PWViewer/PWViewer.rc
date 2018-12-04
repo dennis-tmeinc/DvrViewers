@@ -565,8 +565,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,17,421
- PRODUCTVERSION 1,1,17,421
+ FILEVERSION 1,1,18,911
+ PRODUCTVERSION 1,1,18,911
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x21L
@@ -582,12 +582,12 @@ BEGIN
         BLOCK "000904b0"
         BEGIN
             VALUE "CompanyName", "Toronto MicroElectronics Inc."
-            VALUE "FileVersion", "1.1.17.421"
+            VALUE "FileVersion", "1.1.18.911"
             VALUE "InternalName", "PWVIEWER"
             VALUE "LegalCopyright", "Copyright (C) 2008,2009,2010,2011"
             VALUE "OriginalFilename", "PWVIEWER.EXE"
             VALUE "ProductName", "PWVIEWER"
-            VALUE "ProductVersion", "1.1.17.421"
+            VALUE "ProductVersion", "1.1.18.911"
             VALUE "SpecialBuild", "PWVIEWER"
         END
     END

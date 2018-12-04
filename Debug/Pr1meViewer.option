@@ -1,4 +1,4 @@
 dvr.server=192.168.1.155;192.168.2.100;192.168.1.100
 dvr.rootfolder=D:\SampleVideo\target
 dvr.rootfolder=D:\SampleVideo\pr1
-dvr.rootfolder=\\Tmeengineer\data (d)
+

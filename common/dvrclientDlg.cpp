@@ -83,6 +83,7 @@ DvrclientDlg::DvrclientDlg()
 	m_noupdtime = 0 ;
     m_appname = APPNAME ;
     m_reclight=0 ;
+	m_startonlastday = 1;
 
     m_companylinkrect.left=0 ;
 	m_companylinkrect.right=0 ;
@@ -2009,7 +2010,7 @@ void DvrclientDlg::ScreenDblClk( Screen * player)
 
 void DvrclientDlg::FocusPlayer( Screen * screen)
 {
-	WaitCursor waitcursor ;
+	// WaitCursor waitcursor ;
 	int i;
     RECT rt  ;
 
@@ -2449,8 +2450,8 @@ void DvrclientDlg::OnNMReleasedcaptureMonthcalendar(NMHDR *pNMHDR, LRESULT *pRes
 void DvrclientDlg::ClosePlayer()
 {
 	int i;
-
-    if( m_cliplist!=NULL && m_cliplist->getHWND()!=NULL ) {     // in clip listing mode
+	
+	if( m_cliplist!=NULL && m_cliplist->getHWND()!=NULL ) {     // in clip listing mode
         CloseClipList();
         delete m_cliplist ;
         m_cliplist=NULL ;
@@ -2462,10 +2463,13 @@ void DvrclientDlg::ClosePlayer()
 			m_screen[i]->DetachDecoder();
 		}
 	}
-	decoder::g_close();
+	decoder::g_close() ;
     m_playertime.year = 1970 ;
     m_seektime.year = 1979 ;
 	m_clientmode=CLIENTMODE_CLOSE ;
+	// reset start from last day
+	m_startonlastday = 1;
+
 	CtrlSet();
 #ifdef IDC_EDIT_LOCATION
     if( m_updateLocation ) {
@@ -2565,9 +2569,10 @@ void DvrclientDlg::StartPlayer()
         if( g_decoder[i].isopen() ) {
             for( ch=0; ch<g_decoder[i].getchannel(); ch++ ) {
                 if( j<MAXSCREEN ) {
-                    if( m_screen[j]==NULL ) {
-                        m_screen[j]=new Screen(m_hWnd);
-                    }
+					if (m_screen[j] != NULL) {
+						delete m_screen[j];
+					}
+                    m_screen[j]=new Screen(m_hWnd);
                     if( m_screen[j]->AttachDecoder(&g_decoder[i], ch)>=0 ) {
                         j++ ;
                     }
@@ -2605,7 +2610,7 @@ void DvrclientDlg::StartPlayer()
     else {
 
 		// seek to last day with videos, if possible, 
-		if( m_clientmode == CLIENTMODE_PLAYBACK && m_screen[0] != NULL && m_screen[0]->m_decoder != NULL ) {
+		if(m_startonlastday == 1 && m_clientmode == CLIENTMODE_PLAYBACK && m_screen[0] != NULL && m_screen[0]->m_decoder != NULL ) {
 			dvrtime dt ;
 			dt = time_now();
 			dt.hour = 0 ;
@@ -2759,7 +2764,8 @@ int DvrclientDlg::Playfile(LPCTSTR filename)
 //		m_clientmode=CLIENTMODE_PLAYFILE;
         if( ext!=NULL && stricmp(ext,".dpl")==0 ) {
 		}
-        m_clientmode=CLIENTMODE_PLAYBACK;
+		m_startonlastday = 0;				// don't start from last day
+		m_clientmode=CLIENTMODE_PLAYBACK;
         m_playfile_beginpos = 0 ;
         m_playfile_endpos = 0 ;
 		StartPlayer();
@@ -2932,8 +2938,9 @@ void DvrclientDlg::OnBnClickedSavefile()
         ofn.lpstrFile = filename.tcssize(ofn.nMaxFile) ;
         // set initialized file name (dvrname_date_time_lengh)
         wcscpy(ofn.lpstrFile, initname );
-        ofn.lpstrFilter=_T("DVR Files (*.DVR)\0*.DVR\0AVI Files (*.AVI)\0*.AVI\0All files\0*.*\0\0") ;  // all .avi support
-        ofn.Flags=0;
+        // ofn.lpstrFilter=_T("DVR Files (*.DVR)\0*.DVR\0AVI Files (*.AVI)\0*.AVI\0All files\0*.*\0\0") ;  // all .avi support
+		ofn.lpstrFilter = _T("DVR Files (*.DVR)\0*.DVR\0AVI Files (*.AVI)\0*.AVI\0MP4 Files (*.MP4)\0*.MP4\0All files\0*.*\0\0");  // all .avi support
+		ofn.Flags=0;
         ofn.nFilterIndex=1;
         ofn.hInstance = AppInst();
         ofn.hwndOwner = m_hWnd ;
@@ -3658,6 +3665,12 @@ BOOL DvrclientDlg::PreProcessMessage(MSG* pMsg)
 		else if (pMsg->wParam == VK_SUBTRACT || pMsg->wParam == VK_OEM_MINUS) {		// -
 			if (m_screen[m_focus] && (m_screen[m_focus]->is_zoomin() || (GetKeyState(VK_SHIFT) & 0x8000))) {
 				m_screen[m_focus]->ZoomPTZ(0, 0, -1);
+				res = 1;
+			}
+		}
+		else if ((int)pMsg->wParam == (int)'R' ) {		// rotate hot key
+			if (m_screen[m_focus]) {
+				m_screen[m_focus]->rotate();
 				res = 1;
 			}
 		}
@@ -5341,34 +5354,35 @@ void DvrclientDlg::OnBnClickedCapture()
 
 #ifdef TVS_SNAPSHOT2
 
-	int i, res[MAX_CAPTURE];
+	int i, j, res;
 	int highestCamID = 0; // 0, 1, 2, 3
 
 	Capture4 capdlg ;
 	capdlg.m_picturenumber = 0 ;
 
 	// capture each available screens
-	for (i = 0; i < MAX_CAPTURE; i++) {
-		res[i] = -1;
-		if(m_screen[i] && m_screen[i]->m_decoder) {
+	for (i = 0, j = 0; i < MAXSCREEN && j < MAX_CAPTURE; i++) {
+		if(m_screen[i] && m_screen[i]->m_decoder && m_screen[i]->isattached() ){
             m_screen[i]->m_decoder->getcurrenttime( &dvrt );
-            sprintf(capturefilename[i].strsize(MAX_PATH),"%s\\dvrcap%d.bmp", tmp, i + 1 );
-			res[i]=m_screen[i]->m_decoder->capture( 
-				m_screen[i]->m_channel, capturefilename[i] );
+			string capturefile;
+            sprintf(capturefile.strsize(MAX_PATH),"%s\\dvrcap%d.bmp", tmp, i + 1 );
+			res=m_screen[i]->m_decoder->capture( 
+				m_screen[i]->m_channel, capturefile);
 
-			if (res[i] >= 0) {
-				capdlg.m_picturename[i]=capturefilename[i];
-				capdlg.m_cameraname[i] = m_screen[i]->m_channelinfo.cameraname ;
+			if (res >= 0) {
+				capdlg.m_picturename[j]= capturefile ;
+				capdlg.m_cameraname[j] = m_screen[i]->m_channelinfo.cameraname ;
 				capdlg.m_picturenumber++;
                 highestCamID = i ;
 //				if (m_screen[i]->m_channel > highestCamID) {
 //					highestCamID = m_screen[i]->m_channel;
 //				}
+				j++;
 			}
 		}
 	}
 
-	if (capdlg.m_picturenumber) {
+	if (capdlg.m_picturenumber>0) {
 		m_screen[highestCamID]->m_decoder->getcurrenttime( &dvrt );
         sprintf(capdlg.m_filename.strsize(MAX_PATH),"%s_%s_%04d%02d%02d_%02d%02d%02d.JPG", 
             (LPCSTR)m_appname,
@@ -5379,14 +5393,14 @@ void DvrclientDlg::OnBnClickedCapture()
 		capdlg.m_capturetime = dvrt ;
 //		capdlg.m_highestCamID = highestCamID;
 		capdlg.ptvs_info = (struct tvs_info *)m_screen[highestCamID]->m_decoder->m_playerinfo.serverinfo ;
-		capdlg.DoModal(IDD_DIALOG_CAPTURE);
+		capdlg.DoModal(IDD_DIALOG_CAPTURE, this->m_hWnd);
 	} else {
 		MessageBox(m_hWnd, _T("No picture captured!"),NULL,MB_OK);
 	}
 
 	for (i = 0; i < MAX_CAPTURE; i++) {
-		if (res[i] >= 0) {
-			remove(capturefilename[i]);
+		if (!capdlg.m_picturename[i].isempty()) {
+			remove(capdlg.m_picturename[i]);
 		}
 	}
 #if 0

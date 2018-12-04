@@ -27,6 +27,9 @@
 #include "cwin.h"
 #include "cdir.h"
 
+// static member of WaitCursor
+int WaitCursor::m_count = 0;
+
 // global functions
 
 void dbgout( char * format, ... ) 
@@ -79,9 +82,12 @@ int reg_read( char * appname, char * name, string &value )
 	string pwsubkey(subkey);
 	pwsubkey += appname ;
     HKEY  key = NULL ;
-    if( RegCreateKeyEx( HKEY_CURRENT_USER, pwsubkey, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &key, NULL)!=ERROR_SUCCESS ) {
-        return 0 ;
-    }
+
+	if (RegCreateKeyEx(HKEY_LOCAL_MACHINE, pwsubkey, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &key, NULL) != ERROR_SUCCESS) {
+		if (RegCreateKeyEx(HKEY_CURRENT_USER, pwsubkey, 0, NULL, 0, KEY_ALL_ACCESS, NULL, &key, NULL) != ERROR_SUCCESS) {
+			return 0;
+		}
+	}
 
     DWORD type, rsize ;
     string sname, svalue ;
@@ -840,11 +846,17 @@ public:
 	int opendir(HWND hparent, char * dir)
 	{
 		TCHAR strFile[512];
+		WIN32_FILE_ATTRIBUTE_DATA fad;
 		filename = dir;
 		if (filename.isempty()) {
 			strFile[0] = 0;
 		}
-		else {
+		if (GetFileAttributesEx(filename, GetFileExInfoStandard, &fad) == 0)
+		{
+			strFile[0] = 0;
+		}
+		else
+		{
 			_tcscpy(strFile, filename);
 		}
 		memset(&ofn, 0, sizeof(ofn));

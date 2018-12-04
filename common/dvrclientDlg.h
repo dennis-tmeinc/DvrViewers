@@ -51,6 +51,9 @@
 #define CLIENTMODE_PLAYFILE	(3)
 #define CLIENTMODE_PLAYSMARTSERVER  (4)
 
+// notify main window to reset screen format
+#define WM_SETSCREENFORMAT	(WM_APP + 201)
+
 // DvrclientDlg dialog
 class DvrclientDlg : public Dialog
 {
@@ -77,6 +80,7 @@ protected:
     string m_appname ;
     int   m_tbarupdate ;
 	string m_clippath ;
+	int   m_startonlastday;					// to start play on last day
 
 //	CImage  m_ptzcircle ;
 	TCHAR   m_ptzres[16] ;
@@ -624,6 +628,10 @@ protected:
 
 		case WM_PARENTNOTIFY:
 			res = FALSE ;
+			break;
+
+		case WM_SETSCREENFORMAT:
+			SetScreenFormat();
 			break;
 
 		default:

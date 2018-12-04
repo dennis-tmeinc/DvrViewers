@@ -32,6 +32,8 @@ decoder_library::decoder_library(LPCTSTR libname)
 	openremote = (HPLAYER (*)(char *, int))getapi( "openremote");
 	openharddrive = (HPLAYER (*)(char *))getapi( "openharddrive");
 	openfile = (HPLAYER (*)(char *))getapi( "openfile");
+	opendvr = (HPLAYER(*)(char *))getapi("opendvr");
+
 	close =(int (*)(HPLAYER)) getapi( "close");
 	if( close==NULL ) {
 		close=(int (*)(HPLAYER)) getapi( "player_close");
@@ -78,21 +80,21 @@ decoder_library::decoder_library(LPCTSTR libname)
 	minitrack_stop=(int (*)(void))getapi( "minitrack_stop");
 	minitrack_init_interface =(int (*)(struct dvr_func *))getapi( "minitrack_init_interface");
 	getlocation =(int (*)(HPLAYER, char *, int))getapi( "getlocation");
-    geteventtimelist=(int (*)( HPLAYER , struct dvrtime * , int , int * , int ))getapi( "geteventtimelist");
-    setblurarea=(int (*)(HPLAYER, int, struct blur_area * , int))getapi( "setblurarea");
-    clearblurarea=(int (*)(HPLAYER, int))getapi( "clearblurarea");
+	geteventtimelist=(int (*)( HPLAYER , struct dvrtime * , int , int * , int ))getapi( "geteventtimelist");
+	setblurarea=(int (*)(HPLAYER, int, struct blur_area * , int))getapi( "setblurarea");
+	clearblurarea=(int (*)(HPLAYER, int))getapi( "clearblurarea");
 	showzoomin = (int(*)(HPLAYER handle, int channel, struct zoom_area * za))getapi( "showzoomin");
 	drawrectangle = (int(*)(HPLAYER handle, int channel, float x, float y, float w, float h))getapi( "drawrectangle");
 	selectfocus = (int(*)(HPLAYER handle, HWND hwnd))getapi( "selectfocus");
 }
 
-
 decoder_library::~decoder_library()
 {
-	if( hmod ) {
-		if( player_deinit )
+	if (hmod)
+	{
+		if (player_deinit)
 			player_deinit();
-		FreeLibrary(hmod) ;
+		FreeLibrary(hmod);
 	}
 }
 
@@ -104,42 +106,48 @@ string  decoder::remotehost ;
 
 int decoder::initlibrary()
 {
-	int res ;
-	if( num_library>0 ) {
+	int res;
+	if (num_library > 0)
+	{
 		releaselibrary();
 	}
-	num_library=0;
+	num_library = 0;
 	// find all player libraries
-    dirfind dir(getapppath(), "ply*.dll") ;
-    while( num_library<MAXLIBRARY && dir.findfile() ) {
-        library[num_library]=new decoder_library((LPCTSTR)dir.filename());
-		res = 0 ;
-		if( library[num_library]->player_init ) {
+	dirfind dir(getapppath(), "ply*.dll");
+	while (num_library < MAXLIBRARY && dir.findfile())
+	{
+		library[num_library] = new decoder_library((LPCTSTR)dir.filename());
+		res = 0;
+		if (library[num_library]->player_init)
+		{
 			res = library[num_library]->player_init();
 		}
-		if( res> 0 ) {
-			library[num_library]->libtype=res ;
-//			if( finder.GetLastWriteTime(ftime) ) {
-//				library[num_library]->filedate = ftime.GetYear()*10000+ftime.GetMonth()*100+ftime.GetDay() ;
-//			}
-			if( res==PLAYER_TYPE_MINITRACK ) {	// a minitrack library.
-				g_minitracksupport=1 ;			// enable minitrack support.
+		if (res > 0)
+		{
+			library[num_library]->libtype = res;
+			//if( finder.GetLastWriteTime(ftime) ) {
+			//	library[num_library]->filedate = ftime.GetYear()*10000+ftime.GetMonth()*100+ftime.GetDay() ;
+			//}
+			if (res == PLAYER_TYPE_MINITRACK)	// a minitrack library.
+			{						
+				g_minitracksupport = 1; // enable minitrack support.
 			}
 			num_library++;
 		}
-		else {
-			delete library[num_library] ;
+		else
+		{
+			delete library[num_library];
 		}
 	}
-    g_decoder = new decoder [MAXDECODER] ;
-    g_minitrack_init_interface();
-	return num_library ;
+	g_decoder = new decoder[MAXDECODER];
+	g_minitrack_init_interface();
+	return num_library;
 }
 
 void decoder::releaselibrary()
 {
 	int i; 
-    stopfinddevice();
+	stopfinddevice();
 	if( g_decoder ) {
 		for(i=0; i<MAXDECODER; i++ ) {
 			g_decoder[i].close();
@@ -161,11 +169,11 @@ int decoder::finddevice(int flags)
 	int i;
 	int dev ;
 	int busy=0 ;
-    
-    if( devlist ) {
-        delete devlist ;
-    }
-    devlist = new device_list ;
+	
+	if( devlist ) {
+		delete devlist ;
+	}
+	devlist = new device_list ;
 
 	for(i=0; i<num_library; i++ ){
 		library[i]->busy = 0 ;
@@ -182,32 +190,32 @@ int decoder::finddevice(int flags)
 	}
 
 	// added feature, search specified directories
-    if( (flags & 2)!=0 ) {          // search hard drive
-        // detect dvr files on specified in "dvrdirlist" file
-        string dirlist("dvrdirlist") ;
-        if( getfilepath( dirlist ) ) {
-            FILE * flist = fopen( dirlist, "r" );
-            if( flist ) {
-                string directory ;
-                while( fscanf(flist, "%s", directory.strsize(512))==1 ) {
-                    dirfind dir(directory,"_*_") ;
-                    while( dir.finddir() ) {
-                        devlist->adddir( dir.filepath() );
-                    }
-                }
-                fclose( flist );
-            }
-        }
+	if( (flags & 2)!=0 ) {          // search hard drive
+		// detect dvr files on specified in "dvrdirlist" file
+		string dirlist("dvrdirlist") ;
+		if( getfilepath( dirlist ) ) {
+			FILE * flist = fopen( dirlist, "r" );
+			if( flist ) {
+				string directory ;
+				while( fscanf(flist, "%s", directory.strsize(512))==1 ) {
+					dirfind dir(directory,"_*_") ;
+					while( dir.finddir() ) {
+						devlist->adddir( dir.filepath() );
+					}
+				}
+				fclose( flist );
+			}
+		}
 
-        // detect dvr folders specified in registry Software\TME\PW
-        string pwtargetdir ;
-        if(reg_read( "target", pwtargetdir) ) {
-            dirfind dir(pwtargetdir, "_*_") ;
-            while( dir.finddir() ) {
-                devlist->adddir( dir.filepath() );
-            }
-        }
-    }
+		// detect dvr folders specified in registry Software\TME\PW
+		string pwtargetdir ;
+		if(reg_read("PW", "target", pwtargetdir) ) {
+			dirfind dir(pwtargetdir, "_*_") ;
+			while( dir.finddir() ) {
+				devlist->adddir( dir.filepath() );
+			}
+		}
+	}
 
 	if( busy ) {
 		return DVR_ERROR_BUSY ;
@@ -219,10 +227,10 @@ int decoder::finddevice(int flags)
 
 void decoder::stopfinddevice()
 {
-    if( devlist ) {
-        delete devlist ;
-        devlist=NULL ;
-    }
+	if( devlist ) {
+		delete devlist ;
+		devlist=NULL ;
+	}
 }
 
 // return total device found, or ERROR_BUSY for non-block operation
@@ -242,26 +250,26 @@ int decoder::detectdevice(char * ipaddr)
 // return number of devices already found.
 int decoder::polldevice(void)
 {
-    int i ;
-    int dev ;
-    if( devlist ) {
-        for(i=0; i<num_library; i++ ){
-            if( library[i]->busy && library[i]->finddevice ) {
-                dev = library[i]->finddevice(0);
-                if( dev == DVR_ERROR_BUSY && library[i]->polldevice ) {
-                    dev = library[i]->polldevice() ;
-                }
-                else {
-                    library[i]->busy = 0 ;
-                }
-                if( dev>0 && devlist ) {
-                    devlist->update(i,dev);
-                }
-            }
-        }
-        return devlist->totaldev();
-    }
-    return 0;
+	int i ;
+	int dev ;
+	if( devlist ) {
+		for(i=0; i<num_library; i++ ){
+			if( library[i]->busy && library[i]->finddevice ) {
+				dev = library[i]->finddevice(0);
+				if( dev == DVR_ERROR_BUSY && library[i]->polldevice ) {
+					dev = library[i]->polldevice() ;
+				}
+				else {
+					library[i]->busy = 0 ;
+				}
+				if( dev>0 && devlist ) {
+					devlist->update(i,dev);
+				}
+			}
+		}
+		return devlist->totaldev();
+	}
+	return 0;
 }
 
 int decoder::settvskey(struct tvskey_data * tvskey)
@@ -285,13 +293,13 @@ int decoder::open( int index, int opentype )
 {
 	close();
 
-    if( devlist == NULL ) {
-        return DVR_ERROR ;
-    }
+	if( devlist == NULL ) {
+		return DVR_ERROR ;
+	}
 
-    if( devlist->isdir(index) ) {
-        return openharddrive( devlist->getdir(index) );
-    }
+	if( devlist->isdir(index) ) {
+		return openharddrive( devlist->getdir(index) );
+	}
 
 	m_library = devlist->findlib(index);		// general index has been replaced with index of found library
 	if( m_library>=0 ) {
@@ -384,7 +392,7 @@ int decoder::openremote(char * netname, int opentype )
 */
 			}
 			m_displayname=netname ;
-            remotehost=netname ;
+			remotehost=netname ;
 			return 1 ;
 		}
 	}
@@ -483,14 +491,44 @@ int decoder::openfile( char * dvrfilename )
 				} 
 */
 			}
-            if( strstr( dvrfilename, ".dpl" )==NULL ) {
-			    m_displayname=dvrfilename ;
-            }
+			if( strstr( dvrfilename, ".dpl" )==NULL ) {
+				m_displayname=dvrfilename ;
+			}
 			return 1 ;
 		}
 	}
 	return DVR_ERROR ;
 }
+
+// open dvr by name (for playback)
+int decoder::opendvr(char * dvrname)
+{
+	int i;
+
+	close();
+	for (i = 0; i<num_library; i++) {
+		m_library = i;
+		if (library[m_library]->opendvr) {
+			m_hplayer = library[m_library]->opendvr(dvrname);
+		}
+		else {
+			m_hplayer = NULL;
+		}
+		if (isopen()) {
+#ifdef APP_TVS
+			tvskeycheck();
+#endif
+			m_playerinfo.size = sizeof(m_playerinfo);
+			if (getplayerinfo(&m_playerinfo)<0) {
+				m_playerinfo.servername[0] = 0;
+				m_playerinfo.total_channel = 0;
+			}
+			return 1;
+		}
+	}
+	return DVR_ERROR;
+}
+
 
 int decoder::close()
 {
@@ -501,7 +539,7 @@ int decoder::close()
 	}
 	m_hplayer=NULL ;
 	m_library=0;
-    m_displayname.clean();
+	m_displayname.clean();
 	memset(&m_playerinfo, 0, sizeof(m_playerinfo));
 	m_attachnum=0 ;
 	return 0 ;
@@ -519,9 +557,9 @@ int decoder::tvskeycheck()
 {
 	int res = DVR_ERROR ;
 #ifdef APP_TVS
-    if( library[m_library]->senddvrdata && tvskeydata!=NULL ) {
+	if( library[m_library]->senddvrdata && tvskeydata!=NULL ) {
 		res = senddvrdata( PROTOCOL_TVSKEYDATA, (void *)tvskeydata, tvskeydata->size+sizeof(tvskeydata->checksum) );
-    }
+	}
 #endif
 	return res ;
 }
@@ -530,8 +568,8 @@ int decoder::tvskeycheck()
 int decoder::getplayerinfo(struct player_info * pplayerinfo )
 {
 	if( m_hplayer!=NULL && library[m_library]->getplayerinfo ) {
-        return library[m_library]->getplayerinfo(m_hplayer, pplayerinfo) ;
-    }
+		return library[m_library]->getplayerinfo(m_hplayer, pplayerinfo) ;
+	}
 	else
 		return DVR_ERROR ; 
 }
@@ -581,13 +619,13 @@ int decoder::attach(int channel, HWND hwnd )
 	int res=DVR_ERROR ;
 #ifdef APP_TVS
 	if( g_usertype==IDOPERATOR ) {      // operator can't open first two channel
-        if( channel<2 ) {
-            return res ;
-        }
-    }
+		if( channel<2 ) {
+			return res ;
+		}
+	}
 #endif
 	if( m_hplayer!=NULL && library[m_library]->attach ) {
-        res = library[m_library]->attach(m_hplayer, channel, hwnd);
+		res = library[m_library]->attach(m_hplayer, channel, hwnd);
 		if( res>=0 ) {
 			m_attachnum++;
 		}
@@ -630,58 +668,58 @@ int decoder::selectfocus(HWND hwnd)
 
 int decoder::play()
 {
-    int i;
-    int retry ;
-    int res = DVR_ERROR ;
-    char * password ;
-    if( m_hplayer!=NULL && library[m_library]->play ) {
-        res = library[m_library]->play(m_hplayer);
-        if( res == DVR_ERROR_FILEPASSWORD ) {			// need to provide password
-            // try old password
-            for( i=0; i<DECODER_PASSWORD_NUMBER; i++) {
-                password = (char *)m_password[i] ;
-                if(*password!=0 ) {
-                    setvideokey(password, strlen(password)+1);
-                    res = library[m_library]->play(m_hplayer);
-                    if( res!=DVR_ERROR_FILEPASSWORD ) {
-                        return res ;
-                    }
-                }
-            }
-            // ask for user input
-            for( retry=0; retry<3; retry++ ) {
-                VideoPassword askpassword ;
-                if( askpassword.DoModal(IDD_DIALOG_VIDEOPASSWORD)==IDOK ) {
-                    password = (char *)(askpassword.m_password) ;
-                    setvideokey(password, strlen(password)+1);
-                    res = library[m_library]->play(m_hplayer);
-                    if( res == DVR_ERROR_FILEPASSWORD ) {       // password error
-                        continue ;              // retry 3 times
-                    }
-                    else if( res == 0 ) {
-                        // add working pasword into password list
-                        for( i=0; i<DECODER_PASSWORD_NUMBER; i++) {
-                            if( *(char *)m_password[i] == 0 ) {
-                                m_password[i]=password ;
-                                break;
-                            }
-                        }
-                        if( i==DECODER_PASSWORD_NUMBER ) {
-                            // no empty slot? pick one
-                            i= ((unsigned char)*password) % DECODER_PASSWORD_NUMBER ;
-                            m_password[i]=password ;
-                        }
-                    }
-                    break;
-                }
-                else {
-                    break;
-                }
-            }
-        }
-    }
+	int i;
+	int retry ;
+	int res = DVR_ERROR ;
+	char * password ;
+	if( m_hplayer!=NULL && library[m_library]->play ) {
+		res = library[m_library]->play(m_hplayer);
+		if( res == DVR_ERROR_FILEPASSWORD ) {			// need to provide password
+			// try old password
+			for( i=0; i<DECODER_PASSWORD_NUMBER; i++) {
+				password = (char *)m_password[i] ;
+				if(*password!=0 ) {
+					setvideokey(password, strlen(password)+1);
+					res = library[m_library]->play(m_hplayer);
+					if( res!=DVR_ERROR_FILEPASSWORD ) {
+						return res ;
+					}
+				}
+			}
+			// ask for user input
+			for( retry=0; retry<3; retry++ ) {
+				VideoPassword askpassword ;
+				if( askpassword.DoModal(IDD_DIALOG_VIDEOPASSWORD)==IDOK ) {
+					password = (char *)(askpassword.m_password) ;
+					setvideokey(password, strlen(password)+1);
+					res = library[m_library]->play(m_hplayer);
+					if( res == DVR_ERROR_FILEPASSWORD ) {       // password error
+						continue ;              // retry 3 times
+					}
+					else if( res == 0 ) {
+						// add working pasword into password list
+						for( i=0; i<DECODER_PASSWORD_NUMBER; i++) {
+							if( *(char *)m_password[i] == 0 ) {
+								m_password[i]=password ;
+								break;
+							}
+						}
+						if( i==DECODER_PASSWORD_NUMBER ) {
+							// no empty slot? pick one
+							i= ((unsigned char)*password) % DECODER_PASSWORD_NUMBER ;
+							m_password[i]=password ;
+						}
+					}
+					break;
+				}
+				else {
+					break;
+				}
+			}
+		}
+	}
 
-    return res ; 
+	return res ; 
 }
 
 int decoder::audioon(int channel, int audioon)
@@ -802,78 +840,78 @@ int decoder::capturewindow(HWND hwnd, char * capturefilename )
 
 int decoder::seek(struct dvrtime * t )
 {
-    int i;
-    int retry ;
-    int res = DVR_ERROR ;
-    char * password ;
-    if( m_hplayer!=NULL && library[m_library]->seek ) {
-        res = library[m_library]->seek(m_hplayer, t);
-        if( res == DVR_ERROR_FILEPASSWORD ) {			// need to provide password
-            // try old password
-            for( i=0; i<DECODER_PASSWORD_NUMBER; i++) {
-                password = (char *)m_password[i] ;
-                if(*password!=0 ) {
-                    setvideokey(password, strlen(password)+1);
-                    res = library[m_library]->seek(m_hplayer, t);
-                    if( res!=DVR_ERROR_FILEPASSWORD ) {
-                        return res ;
-                    }
-                }
-            }
-            // ask for user input
-            for( retry=0; retry<3; retry++ ) {
-                VideoPassword askpassword ;
-                if( askpassword.DoModal(IDD_DIALOG_VIDEOPASSWORD)==IDOK ) {
-                    password = (char *)(askpassword.m_password) ;
-                    setvideokey(password, strlen(password)+1);
-                    res = library[m_library]->seek(m_hplayer, t);
-                    if( res == DVR_ERROR_FILEPASSWORD ) {       // password error
-                        continue ;              // retry 3 times
-                    }
-                    else if( res == 0 ) {
-                        // add working pasword into password list
-                        for( i=0; i<DECODER_PASSWORD_NUMBER; i++) {
-                            if( *(char *)m_password[i] == 0 ) {
-                                m_password[i]=password ;
-                                break;
-                            }
-                        }
-                        if( i==DECODER_PASSWORD_NUMBER ) {
-                            // no empty slot? pick one
-                            i= ((unsigned char)*password) % DECODER_PASSWORD_NUMBER ;
-                            m_password[i]=password ;
-                        }
-                    }
-                    break;
-                }
-                else {
-                    break;
-                }
-            }
-        }
-    }
+	int i;
+	int retry ;
+	int res = DVR_ERROR ;
+	char * password ;
+	if( m_hplayer!=NULL && library[m_library]->seek ) {
+		res = library[m_library]->seek(m_hplayer, t);
+		if( res == DVR_ERROR_FILEPASSWORD ) {			// need to provide password
+			// try old password
+			for( i=0; i<DECODER_PASSWORD_NUMBER; i++) {
+				password = (char *)m_password[i] ;
+				if(*password!=0 ) {
+					setvideokey(password, strlen(password)+1);
+					res = library[m_library]->seek(m_hplayer, t);
+					if( res!=DVR_ERROR_FILEPASSWORD ) {
+						return res ;
+					}
+				}
+			}
+			// ask for user input
+			for( retry=0; retry<3; retry++ ) {
+				VideoPassword askpassword ;
+				if( askpassword.DoModal(IDD_DIALOG_VIDEOPASSWORD)==IDOK ) {
+					password = (char *)(askpassword.m_password) ;
+					setvideokey(password, strlen(password)+1);
+					res = library[m_library]->seek(m_hplayer, t);
+					if( res == DVR_ERROR_FILEPASSWORD ) {       // password error
+						continue ;              // retry 3 times
+					}
+					else if( res == 0 ) {
+						// add working pasword into password list
+						for( i=0; i<DECODER_PASSWORD_NUMBER; i++) {
+							if( *(char *)m_password[i] == 0 ) {
+								m_password[i]=password ;
+								break;
+							}
+						}
+						if( i==DECODER_PASSWORD_NUMBER ) {
+							// no empty slot? pick one
+							i= ((unsigned char)*password) % DECODER_PASSWORD_NUMBER ;
+							m_password[i]=password ;
+						}
+					}
+					break;
+				}
+				else {
+					break;
+				}
+			}
+		}
+	}
 
-    return res ; 
+	return res ; 
 }
 
 int decoder::getcurrenttime(struct dvrtime * t )
 {
 	if( m_hplayer!=NULL && library[m_library]->getcurrenttime ) {
-        return library[m_library]->getcurrenttime(m_hplayer, t);
-    }
+		return library[m_library]->getcurrenttime(m_hplayer, t);
+	}
 	else {
 		return DVR_ERROR ;
-    }
+	}
 }
 
 int decoder::getdaylist(int * daylist, int sizeoflist )
 {
 	if( m_hplayer!=NULL && library[m_library]->getdaylist ) {
-        return library[m_library]->getdaylist(m_hplayer,daylist,sizeoflist);
-    }
+		return library[m_library]->getdaylist(m_hplayer,daylist,sizeoflist);
+	}
 	else {
 		return DVR_ERROR ;
-    }
+	}
 }
 
 int decoder::getcliptimeinfo(int channel, struct dvrtime * begintime, struct dvrtime * endtime, struct cliptimeinfo * tinfo, int tinfosize)
@@ -907,25 +945,25 @@ int decoder::getlockfiletimeinfo(int channel, struct dvrtime * begintime, struct
 
 int decoder::geteventtimelist( struct dvrtime * date, int eventnum, int * elist, int elistsize)
 {
-    int res = DVR_ERROR ;
+	int res = DVR_ERROR ;
 	if( m_hplayer!=NULL && library[m_library]->geteventtimelist ) {
-        res = library[m_library]->geteventtimelist(m_hplayer, date, eventnum, elist, elistsize);
+		res = library[m_library]->geteventtimelist(m_hplayer, date, eventnum, elist, elistsize);
 	}
-    if( res==DVR_ERROR ) {
-        // check on SMART SERVER
-        int lib ;
-        for( lib=0; lib<num_library ; lib++) {
-            if( (library[lib]->libtype==PLAYER_TYPE_MINITRACK || library[lib]->libtype==PLAYER_TYPE_SMARTSERVER) &&
-                library[lib]->geteventtimelist ) 
-            {
-                res = library[lib]->geteventtimelist(m_hplayer, date, eventnum, elist, elistsize);
-                if( res>DVR_ERROR ) {
-                    break;
-                }
-            }
-        }
-    }
-    return res ;
+	if( res==DVR_ERROR ) {
+		// check on SMART SERVER
+		int lib ;
+		for( lib=0; lib<num_library ; lib++) {
+			if( (library[lib]->libtype==PLAYER_TYPE_MINITRACK || library[lib]->libtype==PLAYER_TYPE_SMARTSERVER) &&
+				library[lib]->geteventtimelist ) 
+			{
+				res = library[lib]->geteventtimelist(m_hplayer, date, eventnum, elist, elistsize);
+				if( res>DVR_ERROR ) {
+					break;
+				}
+			}
+		}
+	}
+	return res ;
 }
 
 int decoder::savedvrfile(struct dvrtime * begintime, struct dvrtime * endtime, char * duppath, int flags, struct dup_state * dupstate)
@@ -973,7 +1011,7 @@ int decoder::configureDVR()
 int decoder::senddvrdata(int protocol, void * sendbuf, int sendsize)
 {
 	if( m_hplayer!=NULL && library[m_library]->senddvrdata ) {
-        return library[m_library]->senddvrdata(m_hplayer, protocol, sendbuf, sendsize);
+		return library[m_library]->senddvrdata(m_hplayer, protocol, sendbuf, sendsize);
 	}
 	else
 		return DVR_ERROR ; 
@@ -1000,52 +1038,52 @@ int decoder::freedvrdata(void * dvrbuf)
 // get recording state, 1: recording, 0: no recording
 int decoder::getrecstate()
 {
-    int i;
-    int rec = 0 ;
+	int i;
+	int rec = 0 ;
 
-    unsigned char * recvbuf = NULL ;
-    int  recvsize = 0 ;
-    int res ;
+	unsigned char * recvbuf = NULL ;
+	int  recvsize = 0 ;
+	int res ;
 
-    res = recvdvrdata( PROTOCOL_PW_GETSTATUS,  (void **)&recvbuf, &recvsize );
-    if( res>=0 && recvsize>0 && recvbuf!=NULL ) {
-        for( i=0; i<recvsize ; i++ ) {
-            if( recvbuf[i] & 4 )
-                rec |= ( 1<<i ) ;
-            if( recvbuf[i] & 8 )
-                rec |= ( 1<<(i+16) ) ;
-        }
-        freedvrdata( recvbuf ); 
-        return rec ;
-    }
+	res = recvdvrdata( PROTOCOL_PW_GETSTATUS,  (void **)&recvbuf, &recvsize );
+	if( res>=0 && recvsize>0 && recvbuf!=NULL ) {
+		for( i=0; i<recvsize ; i++ ) {
+			if( recvbuf[i] & 4 )
+				rec |= ( 1<<i ) ;
+			if( recvbuf[i] & 8 )
+				rec |= ( 1<<(i+16) ) ;
+		}
+		freedvrdata( recvbuf ); 
+		return rec ;
+	}
 
 
-    channel_info ci ;
-    // only get the first 2 channel (for PWII)
-    for( i=0; i<2 ; i++ ) {
-        memset(&ci, 0, sizeof(ci));
-        ci.size = sizeof(ci);
-        if( getchannelinfo( i, &ci )>=0 ) {
-            if( ci.status & 4 ) {
-                rec |= (1<<i);
-            }
-        }
-    }
-    return rec ;
+	channel_info ci ;
+	// only get the first 2 channel (for PWII)
+	for( i=0; i<2 ; i++ ) {
+		memset(&ci, 0, sizeof(ci));
+		ci.size = sizeof(ci);
+		if( getchannelinfo( i, &ci )>=0 ) {
+			if( ci.status & 4 ) {
+				rec |= (1<<i);
+			}
+		}
+	}
+	return rec ;
 }
 
 // get recording state, 1: recording, 0: no recording
 int decoder::getsystemstate(string & st)
 {
 	unsigned char * recvbuf = NULL ;
-    int  recvsize = 0 ;
-    int res ;
+	int  recvsize = 0 ;
+	int res ;
 
-    res = recvdvrdata( PROTOCOL_PW_GETSYSTEMSTATUS,  (void **)&recvbuf, &recvsize );
-    if( res>=0 && recvsize>0 && recvbuf!=NULL ) {
+	res = recvdvrdata( PROTOCOL_PW_GETSYSTEMSTATUS,  (void **)&recvbuf, &recvsize );
+	if( res>=0 && recvsize>0 && recvbuf!=NULL ) {
 		st = (char *)recvbuf ;
-        freedvrdata( recvbuf ); 
-    }
+		freedvrdata( recvbuf ); 
+	}
 	return res ;
 }
 
@@ -1053,12 +1091,12 @@ int decoder::getsystemstate(string & st)
 int decoder::getofficeridlist( string * idlist[], int maxlist )
 {
 	int i;
-    unsigned char * recvbuf = NULL ;
-    int  recvsize = 0 ;
-    int res ;
+	unsigned char * recvbuf = NULL ;
+	int  recvsize = 0 ;
+	int res ;
 	int off = 0;
-    res = recvdvrdata( PROTOCOL_PW_GETPOLICEIDLIST,  (void **)&recvbuf, &recvsize );
-    if( res>=0 && recvsize>0 && recvbuf!=NULL ) {
+	res = recvdvrdata( PROTOCOL_PW_GETPOLICEIDLIST,  (void **)&recvbuf, &recvsize );
+	if( res>=0 && recvsize>0 && recvbuf!=NULL ) {
 		for( i=0; i<maxlist; i++ ) {
 			if( off<recvsize ) {
 				idlist[i] = new string((char*)recvbuf+off);
@@ -1068,8 +1106,8 @@ int decoder::getofficeridlist( string * idlist[], int maxlist )
 				break;
 			}
 		}
-        return i ;
-    }
+		return i ;
+	}
 
 	return 0;
 }
@@ -1077,14 +1115,14 @@ int decoder::getofficeridlist( string * idlist[], int maxlist )
 // idlist is an array of string pointer
 int decoder::setofficerid( char * oid )
 {
-    unsigned char * recvbuf = NULL ;
-    int  recvsize = 0 ;
-    int res ;
+	unsigned char * recvbuf = NULL ;
+	int  recvsize = 0 ;
+	int res ;
 	int off = 0;
-    res = senddvrdata(PROTOCOL_PW_SETPOLICEID, oid, strlen(oid)+1);
-    if( res>=0 ) {
+	res = senddvrdata(PROTOCOL_PW_SETPOLICEID, oid, strlen(oid)+1);
+	if( res>=0 ) {
 		return 1 ;
-    }
+	}
 	return 0;
 }
 
@@ -1092,10 +1130,10 @@ int decoder::setofficerid( char * oid )
 int decoder::getvrilistsize( int * rowsize )
 {
 	unsigned char * recvbuf = NULL ;
-    int  recvsize = 0 ;
-    int res ;
+	int  recvsize = 0 ;
+	int res ;
 	*rowsize = 0 ;
-    res = recvdvrdata( PROTOCOL_PW_GETVRILISTSIZE,  (void **)&recvbuf, &recvsize );
+	res = recvdvrdata( PROTOCOL_PW_GETVRILISTSIZE,  (void **)&recvbuf, &recvsize );
 	if( recvsize > 0 ) {
 		sscanf( (char *)recvbuf, "%d,%d", &recvsize, rowsize ) ;
 		freedvrdata(recvbuf) ;
@@ -1107,10 +1145,10 @@ int decoder::getvrilistsize( int * rowsize )
 // get vri list in array
 int decoder::getvrilist( char * vri, int vsize )
 {
-    unsigned char * recvbuf = NULL ;
-    int  recvsize = 0 ;
-    int res ;
-    res = recvdvrdata( PROTOCOL_PW_GETVRILIST,  (void **)&recvbuf, &recvsize );
+	unsigned char * recvbuf = NULL ;
+	int  recvsize = 0 ;
+	int res ;
+	res = recvdvrdata( PROTOCOL_PW_GETVRILIST,  (void **)&recvbuf, &recvsize );
 	if( recvsize > 0 ) {
 		if( vsize>recvsize ) vsize = recvsize ;
 		memcpy( vri, recvbuf, vsize );
@@ -1123,10 +1161,10 @@ int decoder::getvrilist( char * vri, int vsize )
 // idlist is an array of string pointer
 int decoder::setvrilist( char * vrilist, int vrisize )
 {
-    int res = senddvrdata(PROTOCOL_PW_SETVRILIST, vrilist, vrisize);
-    if( res>=0 ) {
+	int res = senddvrdata(PROTOCOL_PW_SETVRILIST, vrilist, vrisize);
+	if( res>=0 ) {
 		return 1 ;
-    }
+	}
 	return 0;
 }
 
@@ -1141,10 +1179,10 @@ int decoder::covert( int onoff )
 	else {
 		cov[0] = 0 ;
 	}
-    int res = senddvrdata(PROTOCOL_PW_SETCOVERTMODE, cov, 4);
-    if( res>=0 ) {
+	int res = senddvrdata(PROTOCOL_PW_SETCOVERTMODE, cov, 4);
+	if( res>=0 ) {
 		return 1 ;
-    }
+	}
 	return 0;
 }
 
@@ -1189,11 +1227,11 @@ int decoder::checkpassword()
 	if( m_hplayer!=NULL && library[m_library]->setuserpassword &&
 		m_playerinfo.videokeytype == 1 ) {
 		UserPass usernamepassword;
-        usernamepassword.m_servername = m_playerinfo.servername ;
+		usernamepassword.m_servername = m_playerinfo.servername ;
 		int res=-1 ;
 		while( res<0 ) {
 			if( usernamepassword.DoModal(IDD_DIALOG_USERPASSWORD)==IDOK ) {
-                char * pass= usernamepassword.m_password ;
+				char * pass= usernamepassword.m_password ;
 				res = library[m_library]->setuserpassword(m_hplayer, usernamepassword.m_username, pass, strlen(pass)+1 );
 			}
 			else {
@@ -1218,31 +1256,31 @@ int decoder::pwkeypad( int keycode, int press )
 int decoder::getlocation(char * locationbuffer, int buffersize)
 {
 	if( m_hplayer!=NULL && library[m_library]->getlocation ) {
-        return library[m_library]->getlocation(m_hplayer, locationbuffer, buffersize);
-    }
+		return library[m_library]->getlocation(m_hplayer, locationbuffer, buffersize);
+	}
 	else {
 		return DVR_ERROR ;
-    }
+	}
 }
 
 int decoder::setblurarea( int channel, struct blur_area * ba, int banumber )
 {
 	if( m_hplayer!=NULL && library[m_library]->setblurarea ) {
-        return library[m_library]->setblurarea(m_hplayer, channel, ba, banumber );
-    }
+		return library[m_library]->setblurarea(m_hplayer, channel, ba, banumber );
+	}
 	else {
 		return DVR_ERROR ;
-    }
+	}
 }
 
 int decoder::clearblurarea( int channel )
 {
 	if( m_hplayer!=NULL && library[m_library]->clearblurarea ) {
-        return library[m_library]->clearblurarea(m_hplayer, channel);
-    }
+		return library[m_library]->clearblurarea(m_hplayer, channel);
+	}
 	else {
 		return DVR_ERROR ;
-    }
+	}
 }
 
 int decoder::showzoomin(int channel, struct zoom_area * za)
@@ -1307,6 +1345,26 @@ int decoder::supportzoomin()
 	return (m_hplayer != NULL && library[m_library]->showzoomin);
 }
 
+// rotate support interfaces
+int decoder::supportrotate()
+{
+	return (m_hplayer != NULL && library[m_library] && library[m_library]->getapi("setrotation")!=NULL );
+}
+
+int decoder::setrotation(int channel, int degree)
+{
+	typedef int(*_f)(HPLAYER handle, int channel, int degree);
+	if (m_hplayer != NULL && library[m_library]) {
+		_f f = (_f)library[m_library]->getapi("setrotation");
+		if (f) {
+			return f(m_hplayer, channel, degree);
+		}
+		return DVR_ERROR;
+	}
+	return DVR_ERROR;
+}
+
+
 int decoder::g_close()
 {
 	int i; 
@@ -1315,7 +1373,7 @@ int decoder::g_close()
 		g_decoder[i].detach();
 		g_decoder[i].close();
 	}
-    g_minitrack_used=0;     //assume minitrack interface also closed
+	g_minitrack_used=0;     //assume minitrack interface also closed
 	return 0 ;
 }
 
@@ -1411,7 +1469,7 @@ int decoder::g_getcurrenttime(struct dvrtime * t )
 			if( t->year>1980 && t->year<2100 )  {
 				g_currenttime = *t ;
 				return 1 ;
-            }
+			}
 		}
 	}
 	return DVR_ERROR ; 
@@ -1457,7 +1515,7 @@ int decoder::g_getlibname(int index, LPTSTR libname)
 LPCSTR decoder::g_getlibname(int index)
 {
 	if( index<num_library ) {
-        return (LPCSTR)library[index]->modulename ;
+		return (LPCSTR)library[index]->modulename ;
 	}
 	return NULL;
 }
@@ -1525,7 +1583,7 @@ int minitrack_openserver_s( char * servername )
 			Sleep(200);						// wait a bit
 		}
 		for( i=0; i<decoder::polldevice() ; i++ ) {
-        	decoder dec ;
+			decoder dec ;
 			if( dec.open( i, PLY_PLAYBACK )>0 ) {
 				if( strcmp( dec.m_playerinfo.servername, servername )==0 ) {		// fount this server
 					dec.close();						// close this decoder
@@ -1546,20 +1604,26 @@ int minitrack_openserver_s( char * servername )
 
 int minitrack_openserver( char * servername )
 {
-    if( strcmp( g_decoder[0].getservername(), servername )==0 ) {
-        // same server, don't reopen
-        decoder::g_play();
-        return 0 ;
-    }
-    else {
-        g_maindlg->OpenDvr(PLY_PLAYBACK, CLIENTMODE_PLAYBACK, TRUE, servername);
-        if( g_decoder[0].isopen() ) {
-            return 0;
-        }
-        else {
-            return DVR_ERROR ;
-        }
-    }
+	if( strcmp( g_decoder[0].getservername(), servername )==0 ) {
+		// same server, don't reopen
+		decoder::g_play();
+		return 0 ;
+	}
+	g_decoder[0].opendvr(servername);
+	if (g_decoder[0].isopen()) {
+		g_maindlg->SetPlaymode(CLIENTMODE_PLAYBACK);
+		g_maindlg->StartPlayer();				// start player
+		return 0;
+	}
+	else {
+		g_maindlg->OpenDvr(PLY_PLAYBACK, CLIENTMODE_PLAYBACK, TRUE, servername);
+		if( g_decoder[0].isopen() ) {
+			return 0;
+		}
+		else {
+			return DVR_ERROR ;
+		}
+	}
 }
 
 //  Open DVR server use IP address or network name;
@@ -1568,9 +1632,9 @@ int minitrack_openremote( char * remoteserver )
 //	if( g_minitrack_up ) {
 		g_maindlg->ClosePlayer() ;				// close player screens
 		decoder::g_close();					// to make sure all decoder closed
-        string remote ;
+		string remote ;
 		remote = remoteserver ;
-        g_maindlg->PlayRemote( remote, PLY_PLAYBACK );
+		g_maindlg->PlayRemote( remote, PLY_PLAYBACK );
 		return 0;
 //	}
 //	return DVR_ERROR ;
@@ -1582,9 +1646,9 @@ int minitrack_openlive( char * remoteserver )
 //	if( g_minitrack_up ) {
 		g_maindlg->ClosePlayer() ;				// close player screens
 		decoder::g_close();					// to make sure all decoder closed
-        string remote ;
+		string remote ;
 		remote = remoteserver ;
-        g_maindlg->PlayRemote( remote, PLY_PREVIEW );
+		g_maindlg->PlayRemote( remote, PLY_PREVIEW );
 		return 0;
 //	}
 //	return DVR_ERROR ;
@@ -1610,7 +1674,7 @@ int minitrack_openfile( char * dvrfilename )
 //	if( g_minitrack_up ) {
 		g_maindlg->ClosePlayer() ;				// close player screens
 		decoder::g_close();					// to make sure all decoder closed
-        string fname(dvrfilename) ;
+		string fname(dvrfilename) ;
 		g_maindlg->Playfile(fname) ;
 		return 0;
 //	}
@@ -1661,7 +1725,7 @@ int minitrack_play()
 //	}
 //	return DVR_ERROR ;
 }
-    
+	
 //  Pause;
 int minitrack_pause()
 {
@@ -1671,7 +1735,7 @@ int minitrack_pause()
 //	}
 //	return DVR_ERROR ;
 }
-    
+	
 //  Stop;
 int minitrack_stop()
 {
@@ -1682,7 +1746,7 @@ int minitrack_stop()
 //	}
 //	return DVR_ERROR ;
 }
-    
+	
 //  Play fast forward;
 int minitrack_fastforward( int speed )
 {
@@ -1692,7 +1756,7 @@ int minitrack_fastforward( int speed )
 //	}
 //	return DVR_ERROR ;
 }
-    
+	
 //  Play slow forward;
 int minitrack_slowforward( int speed )
 {
@@ -1702,7 +1766,7 @@ int minitrack_slowforward( int speed )
 //	}
 //	return DVR_ERROR ;
 }
-    
+	
 //  Play one frame forward
 int minitrack_oneframeforward()
 {
@@ -1712,7 +1776,7 @@ int minitrack_oneframeforward()
 //	}
 //	return DVR_ERROR ;
 }
-    
+	
 //  Play backward;
 int minitrack_backward( int speed )
 {
@@ -1722,7 +1786,7 @@ int minitrack_backward( int speed )
 //	}
 //	return DVR_ERROR ;
 }
-    
+	
 //  Seek to specified time;
 int minitrack_seek( struct dvrtime * t )
 {
@@ -1736,19 +1800,19 @@ int minitrack_seek( struct dvrtime * t )
 //  Get current playing time;
 int minitrack_getcurrenttime( struct dvrtime * t )
 {
-    int res = DVR_ERROR ;
-    //	if( g_minitrack_up ) {
-    if( g_minitrack_decoder&&
-        g_minitrack_decoder->isopen() ) {
-            g_minitrack_used=1 ;
+	int res = DVR_ERROR ;
+	//	if( g_minitrack_up ) {
+	if( g_minitrack_decoder&&
+		g_minitrack_decoder->isopen() ) {
+			g_minitrack_used=1 ;
 			*t = g_currenttime ;
 			res = 1 ;
-            //res = g_minitrack_decoder->getcurrenttime( t );
-    }
-    //	}
-    return res ;
+			//res = g_minitrack_decoder->getcurrenttime( t );
+	}
+	//	}
+	return res ;
 }
-    
+	
 //  Get playing status;
 //  ( 0: stop, 1: pause, 90-99: slow, 100 play 101-110: fast play)
 int minitrack_getplayerstatus()            
@@ -1758,12 +1822,12 @@ int minitrack_getplayerstatus()
 //	}
 //	return DVR_ERROR ;
 }
-    
+	
 //  Get current login user name;
 int minitrack_getusername( char * buffer, int buffersize)
 {
 //	if( g_minitrack_up ) {
-        strncpy( buffer, g_username, buffersize );
+		strncpy( buffer, g_username, buffersize );
 		return (int)strlen( buffer );
 //	}
 //	return DVR_ERROR ;
@@ -1780,7 +1844,7 @@ int minitrack_senddvrdata( int protocol, void * sendbuf, int sendsize)
 //	}
 	return DVR_ERROR ;
 }
-    
+	
 // receive dvr server data;
 int minitrack_recvdvrdata( int protocol, void ** precvbuf, int * precvsize)
 {
@@ -1792,7 +1856,7 @@ int minitrack_recvdvrdata( int protocol, void ** precvbuf, int * precvsize)
 //	}
 	return DVR_ERROR ;
 }
-    
+	
 // free dvr server data	
 int minitrack_freedvrdata( void * dvrbuf)
 {
@@ -1811,7 +1875,7 @@ int minitrack_getlocation( char * locationbuffer, int buffersize )
 //	if( g_minitrack_up ) {
 		if( g_minitrack_decoder &&
 			g_minitrack_decoder->isopen() ) {
-                g_minitrack_used=1 ; ;
+				g_minitrack_used=1 ; ;
 				return g_minitrack_decoder->getlocation( locationbuffer, buffersize );
 		}
 //	}
@@ -1881,7 +1945,7 @@ int decoder::g_minitrack_stop( )
 	}
 	g_minitrack_decoder = NULL ;
 	g_minitrack_up = 0;		// minitrack service down
-    g_minitrack_used = 0 ;  // assume not using minitrack
+	g_minitrack_used = 0 ;  // assume not using minitrack
 	return 0;
 }
 

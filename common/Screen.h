@@ -181,7 +181,7 @@ public:
 	int getchinfo();
 
 	int isattached(){
-		return m_attached ;
+		return m_attached && m_decoder!=NULL && m_channel>=0 ;
 	}
 
 	// window size
@@ -191,6 +191,9 @@ public:
 	int     m_pointer_x;
 	int     m_pointer_y;
 	int     m_mouse_op;		// 0, noop, 1:blurring, 2:zoomin, 3:zoomin_on, 4: roc, 5, aoi
+
+	// rotation 
+	int     m_rotate_degree; // rotation in degree, may support 0, 90, 180, 270 only
 
     HCURSOR m_blurcursor;
     struct blur_area m_blur_area[MAX_BLUR_AREA];
@@ -212,6 +215,9 @@ public:
 	void    StartZoom();
 	void    StopZoom();
 	int		ZoomPTZ(int pan, int tilt, int zoomin);
+	// rotate support
+	int		setRotate(int degree);
+	int		rotate();
 
 	// ROC/AOI feature
 	int		m_num_polygon;

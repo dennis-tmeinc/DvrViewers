@@ -63,6 +63,8 @@ Screen::Screen(HWND hparent)
 	m_polygon = NULL;
 
 	m_mouse_op = MOUSE_OP_NONE;
+
+	m_rotate_degree = 0;
 }
 
 Screen::~Screen()
@@ -91,7 +93,7 @@ void Screen::clearcache()
 	int i;
 	memset(&m_dayinfocache_year, 0, sizeof(m_dayinfocache_year));		// clear month info cache
 	memset(&m_dayinfocache, 0, sizeof(m_dayinfocache));
-	for (i = 0;i<TIMEBARCACHESIZE;i++) {
+	for (i = 0; i < TIMEBARCACHESIZE; i++) {
 		m_timebarcache[i].clean();
 	}
 	m_nexttimebarcache = 0;
@@ -99,17 +101,19 @@ void Screen::clearcache()
 
 int Screen::getchinfo()
 {
+	memset(&m_channelinfo, 0, sizeof(m_channelinfo));
 	m_channelinfo.size = sizeof(m_channelinfo);
 	m_decoder->getchannelinfo(m_channel, &m_channelinfo);
 	if (g_ratiox == 0) {
-		if (m_channelinfo.xres <= 0) {
+		if (m_channelinfo.xres < 100 || m_channelinfo.xres > 3840) {	// 3840 is 4k UHD, consider it to be the maximum valid value for now.
 			if (m_get_chinfo_retry > 0) {
 				m_get_chinfo_retry--;
 				SetTimer(m_hWnd, TIMER_CHANNEL_INFO, 500, NULL);
 			}
 		}
 		else {
-			g_maindlg->SetScreenFormat();
+			// g_maindlg->SetScreenFormat();
+			PostMessage(g_maindlg->getHWND(), WM_SETSCREENFORMAT, NULL, NULL);
 		}
 	}
 	return 0;
@@ -151,6 +155,8 @@ int Screen::AttachDecoder(decoder * pdecoder, int channel)
 	m_zoomarea.x = 0.0;
 	m_zoomarea.y = 0.0;
 	m_zoomarea.z = 1.0;
+
+	m_rotate_degree = 0;
 
 	memset(&m_channelinfo, 0, sizeof(m_channelinfo));
 	m_channelinfo.size = sizeof(m_channelinfo);
@@ -213,7 +219,7 @@ int Screen::DetachDecoder()
 LRESULT Screen::OnTimer(UINT_PTR nIDEvent)
 {
 	if (nIDEvent == TIMER_BLUR_AGAIN) {
-		if (m_ba_number>0) {
+		if (m_ba_number > 0) {
 			m_decoder->setblurarea(m_channel, m_blur_area, m_ba_number);
 		}
 	}
@@ -230,8 +236,8 @@ int Screen::Show()
 	if (m_decoder == NULL)
 		RedrawWindow(m_hWnd, NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW);
 	if (m_decoder && m_attached == 0 && m_channel >= 0) {
-		if ( attach_channel( m_decoder, m_channel) ) {
-			if (m_ba_number>0) {
+		if (attach_channel(m_decoder, m_channel)) {
+			if (m_ba_number > 0) {
 				m_decoder->setblurarea(m_channel, m_blur_area, m_ba_number);
 				// this call failed on PLY606, so redo it after 3 seconds
 				SetTimer(m_hWnd, TIMER_BLUR_AGAIN, 3000, NULL);
@@ -267,7 +273,7 @@ int  Screen::setaudio(int onoff)
 {
 	m_audio = onoff;
 	if (m_decoder && m_attached) {
-		if (m_decoder->audioonwindow(m_hWnd, m_audio)<0) {
+		if (m_decoder->audioonwindow(m_hWnd, m_audio) < 0) {
 			m_decoder->audioon(m_channel, m_audio);
 		}
 	}
@@ -302,7 +308,7 @@ int Screen::gettimeinfo(struct dvrtime * day)
 	struct dvrtime begintime, endtime;
 	int bday = day->year * 10000 + day->month * 100 + day->day;
 
-	for (i = 0;i<TIMEBARCACHESIZE;i++) {
+	for (i = 0; i < TIMEBARCACHESIZE; i++) {
 		if (bday == m_timebarcache[i].m_day) {
 			return i;
 		}
@@ -334,13 +340,13 @@ int Screen::gettimeinfo(struct dvrtime * day)
 
 	int infosize;
 	infosize = m_decoder->getcliptimeinfo(m_channel, &begintime, &endtime, NULL, 0);
-	if (infosize>0) {
+	if (infosize > 0) {
 		m_timebarcache[m_nexttimebarcache].m_timeinfosize = infosize;
 		m_timebarcache[m_nexttimebarcache].m_cliptimeinfo = new struct cliptimeinfo[infosize];
 		m_decoder->getcliptimeinfo(m_channel, &begintime, &endtime, m_timebarcache[m_nexttimebarcache].m_cliptimeinfo, infosize);
 	}
 	infosize = m_decoder->getlockfiletimeinfo(m_channel, &begintime, &endtime, NULL, 0);
-	if (infosize>0) {
+	if (infosize > 0) {
 		m_timebarcache[m_nexttimebarcache].m_lockinfosize = infosize;
 		m_timebarcache[m_nexttimebarcache].m_locktimeinfo = new struct cliptimeinfo[infosize];
 		m_decoder->getlockfiletimeinfo(m_channel, &begintime, &endtime, m_timebarcache[m_nexttimebarcache].m_locktimeinfo, infosize);
@@ -374,7 +380,7 @@ int Screen::getdayinfo(struct dvrtime * daytime)
 {
 	int day;
 	int month = daytime->month - 1;
-	if (month<0 || month >= 12) return 0;
+	if (month < 0 || month >= 12) return 0;
 	if (m_decoder) {
 		if (m_dayinfocache_year[month] != daytime->year) {		// miss cache
 			m_dayinfocache_year[month] = daytime->year;
@@ -382,7 +388,7 @@ int Screen::getdayinfo(struct dvrtime * daytime)
 			struct dvrtime t = *daytime;
 			for (day = 1; day <= 31; day++) {
 				t.day = day;
-				if (m_decoder->getclipdayinfo(m_channel, &t)>0) {
+				if (m_decoder->getclipdayinfo(m_channel, &t) > 0) {
 					m_dayinfocache[month] |= 1 << (day - 1);
 				}
 			}
@@ -399,10 +405,12 @@ LRESULT Screen::OnPaint()
 	HDC hdc;
 	hdc = BeginPaint(m_hWnd, &ps);
 
-	if (m_attached) {
-		m_decoder->refresh(m_channel);
+	int refreshed = 0;
+	if (m_attached && m_decoder != NULL) {
+		refreshed = m_decoder->refresh(m_channel) >= 0;
 	}
-	else if ( m_backgroundimg) {
+
+	if (!refreshed && m_backgroundimg) {
 		Graphics g(hdc);
 		g.DrawImage(m_backgroundimg, 0, 0, m_width, m_height);
 	}
@@ -445,7 +453,7 @@ LRESULT Screen::OnLButtonDblClk(UINT nFlags, int x, int y)
 
 void Screen::AddBlurArea(int shape)
 {
-	if (m_decoder && m_ba_number<MAX_BLUR_AREA) {
+	if (m_decoder && m_ba_number < MAX_BLUR_AREA) {
 		m_blurshape = shape;
 		SetCapture(m_hWnd);
 		m_ba_number++;
@@ -482,11 +490,28 @@ void Screen::drawzoomarea()
 	}
 }
 
-// zoom in / out ( za related to current screen)
+// zoom in / out ( x, y, z are related to current screen, if z==0, stop zooming)
 int Screen::ShowZoomarea(float x, float y, float z)
 {
-	if (z < MIN_ZOOM_SIZE/100.0 || z > 10.0 ) {
-		z = 1.0;
+	float t;
+	// rotation adjust
+	if (m_rotate_degree == 90) {
+		t = y;
+		y = 1.0 - z - x;
+		x = t;
+	}
+	else if (m_rotate_degree == 180) {
+		x = 1.0 - z - x;
+		y = 1.0 - z - y;
+	}
+	else if (m_rotate_degree == 270) {
+		t = x;
+		x = 1.0 - z - y;
+		y = t;
+	}
+
+	if (z < 0.0001 || z > 10.0) {
+		z = 10.0;		// to stop zoom in
 	}
 	else {
 		// new zoomin size
@@ -494,11 +519,6 @@ int Screen::ShowZoomarea(float x, float y, float z)
 	}
 	if (z < MIN_ZOOM_SIZE) {
 		return -1;
-	}
-	if (z >= 1.0) {			// full zoom out
-		m_zoomarea.x = 0.0;
-		m_zoomarea.y = 0.0;
-		m_zoomarea.z = 1.0;
 	}
 	else {
 		m_zoomarea.x += x * m_zoomarea.z;
@@ -508,20 +528,25 @@ int Screen::ShowZoomarea(float x, float y, float z)
 		if (m_zoomarea.x < 0.0) {
 			m_zoomarea.x = 0.0;
 		}
-		else if (m_zoomarea.x + z > 1.0) {
-			m_zoomarea.x = 1.0 - z;
+		else if (m_zoomarea.x + m_zoomarea.z > 1.0) {
+			m_zoomarea.x = 1.0 - m_zoomarea.z;
 		}
 
 		if (m_zoomarea.y < 0.0) {
 			m_zoomarea.y = 0.0;
 		}
-		else if (m_zoomarea.y + z > 1.0) {
-			m_zoomarea.y = 1.0 - z;
+		else if (m_zoomarea.y + m_zoomarea.z > 1.0) {
+			m_zoomarea.y = 1.0 - m_zoomarea.z;
 		}
 	}
 	if (m_attached && m_decoder != NULL) {
 		m_decoder->clearlines(m_channel);
 		selectfocus();
+		if (m_zoomarea.z >= 1.0) {			// full zoom out
+			m_zoomarea.x = 0.0;
+			m_zoomarea.y = 0.0;
+			m_zoomarea.z = 1.0;
+		}
 		return m_decoder->showzoomin(m_channel, &m_zoomarea);
 	}
 	else {
@@ -539,9 +564,9 @@ void   Screen::StartZoom()
 
 void   Screen::StopZoom()
 {
-	if ( m_mouse_op == MOUSE_OP_ZOOM || m_zoomarea.z < 1.0 ) {
+	if (m_mouse_op == MOUSE_OP_ZOOM || m_zoomarea.z < 1.0) {
 		selectfocus();
-		ShowZoomarea(0,0,0);		// reset zoom area
+		ShowZoomarea(0, 0, 0);		// reset zoom area
 		m_mouse_op = MOUSE_OP_NONE;
 	}
 }
@@ -549,7 +574,7 @@ void   Screen::StopZoom()
 // update polygons to screen
 void Screen::UpdatePolygon()
 {
-	if (isattached() ) {
+	if (isattached()) {
 		m_decoder->clearlines(m_channel);
 		if (m_polygon != NULL) {
 			int po = m_num_polygon;
@@ -603,7 +628,7 @@ void   Screen::StartROC()
 		m_polygon = new AOI_polygon[MAX_POLYGON_NUMBER];
 		m_num_polygon = 1;			// use first AOI as ROC
 	}
-	if( m_polygon )
+	if (m_polygon)
 		m_mouse_op = MOUSE_OP_ROC;
 }
 
@@ -619,18 +644,18 @@ void   Screen::StartAOI()
 		m_num_polygon = 1;
 	}
 
-	if(m_num_polygon<MAX_POLYGON_NUMBER) {
+	if (m_num_polygon < MAX_POLYGON_NUMBER) {
 		m_polygon[m_num_polygon].points = 0;
 		m_mouse_op = MOUSE_OP_AOI;
 	}
 	else {
-		MessageBox(m_hWnd, _T("Maximum AOI number reached"), NULL, MB_OK| MB_ICONSTOP);
+		MessageBox(m_hWnd, _T("Maximum AOI number reached"), NULL, MB_OK | MB_ICONSTOP);
 	}
 }
 
 void   Screen::StopAOI()
 {
-	if (m_num_polygon > 0 && m_num_polygon<MAX_POLYGON_NUMBER) {
+	if (m_num_polygon > 0 && m_num_polygon < MAX_POLYGON_NUMBER) {
 		//m_num_polygon++;		// to be removed ;
 		m_polygon[m_num_polygon].points = 0;
 	}
@@ -640,7 +665,7 @@ void   Screen::StopAOI()
 
 void  Screen::RemoveAOI(int idx)
 {
-	if ( idx>=0 && idx<m_num_polygon && m_polygon != NULL ) {
+	if (idx >= 0 && idx < m_num_polygon && m_polygon != NULL) {
 		m_polygon[idx].points = 0;
 		if (idx == (m_num_polygon - 1))
 			m_num_polygon = idx;
@@ -658,7 +683,7 @@ void   Screen::ClearAOI()
 	UpdatePolygon();
 }
 
-inline double cJSON_GetFloat(cJSON * j, char * vname, double defaultvalue=0.0 )
+inline double cJSON_GetFloat(cJSON * j, char * vname, double defaultvalue = 0.0)
 {
 	cJSON *c;
 	if (j) {
@@ -684,13 +709,13 @@ inline char * cJSON_GetString(cJSON * j, char * vname)
 
 void   Screen::LoadAOI()
 {
-	cJSON * j_mdu = NULL ;
-	cJSON * j_sensor = NULL ;
+	cJSON * j_mdu = NULL;
+	cJSON * j_sensor = NULL;
 
 	// read from json file
-	char * fbuf = new char [1000000] ;
+	char * fbuf = new char[1000000];
 	FILE *faoi = fopen("r:\\aoi.json", "r");
-	int r=0;
+	int r = 0;
 	if (faoi) {
 		r = fread(fbuf, 1, 999999, faoi);
 		fclose(faoi);
@@ -759,7 +784,7 @@ void   Screen::LoadAOI()
 		}
 	}
 
-	if( j_mdu )
+	if (j_mdu)
 		cJSON_Delete(j_mdu);
 
 	UpdatePolygon();
@@ -839,7 +864,7 @@ void   Screen::SaveAOI()
 		}
 		cJSON_AddItemToObject(j_sensor, "AOI", a_AOI);
 
-		char * jsontext = cJSON_Print( j_mdu );
+		char * jsontext = cJSON_Print(j_mdu);
 
 		faoi = fopen("r:\\aoi_save.json", "w");
 		if (faoi) {
@@ -854,9 +879,9 @@ void   Screen::SaveAOI()
 }
 
 // PTZ when zoom in enabled
-int Screen::ZoomPTZ(int pan, int tilt, int zoomin )
+int Screen::ZoomPTZ(int pan, int tilt, int zoomin)
 {
-	if ( m_attached && m_decoder && m_decoder->supportzoomin()) {
+	if (m_attached && m_decoder && m_decoder->supportzoomin()) {
 		float x, y, z;
 		x = 0.1 * (float)pan;
 		y = 0.1 * (float)tilt;
@@ -878,10 +903,31 @@ int Screen::ZoomPTZ(int pan, int tilt, int zoomin )
 	return DVR_ERROR;
 }
 
+int Screen::setRotate(int degree)
+{
+	if (m_rotate_degree != degree && m_decoder != NULL && m_channel >= 0) {
+		if (m_decoder->setrotation(m_channel, degree) == 0)
+			m_rotate_degree = degree;
+	}
+	return 0;
+}
+
+int Screen::rotate()
+{
+	if (m_decoder != NULL && m_channel >= 0) {
+		int deg = m_rotate_degree + 90;
+		if (deg >= 360) {
+			deg = 0;
+		}
+		return setRotate(deg);
+	}
+	return 0;
+}
+
 LRESULT Screen::OnMouseMove(UINT nFlags, int x, int y)
 {
-	if (m_decoder && m_attached ) {
-		if (m_mouse_op == MOUSE_OP_BLUR && nFlags == MK_LBUTTON ) {		// left button down and move
+	if (m_decoder && m_attached) {
+		if (m_mouse_op == MOUSE_OP_BLUR && nFlags == MK_LBUTTON) {		// left button down and move
 			if (x < 0 ||
 				x >= m_width ||
 				y < 0 ||
@@ -921,7 +967,7 @@ LRESULT Screen::OnMouseMove(UINT nFlags, int x, int y)
 			m_blur_area[m_ba_number - 1].shape = m_blurshape;
 			m_decoder->setblurarea(m_channel, m_blur_area, m_ba_number);
 		}
-		else if (m_mouse_op == MOUSE_OP_ZOOM && (nFlags == MK_LBUTTON) ) {			// left button down and move
+		else if (m_mouse_op == MOUSE_OP_ZOOM && (nFlags == MK_LBUTTON)) {			// left button down and move
 			// draw zoomin rectangle
 			if (x < 0)
 				x = 0;
@@ -957,7 +1003,7 @@ LRESULT Screen::OnMouseMove(UINT nFlags, int x, int y)
 			}
 			drawzoomarea();
 		}
-		else if (m_mouse_op == MOUSE_OP_ROC && nFlags == MK_LBUTTON ) {
+		else if (m_mouse_op == MOUSE_OP_ROC && nFlags == MK_LBUTTON) {
 			// use first AOI as ROC
 			if (m_polygon != NULL) {
 				float x1, y1, x2, y2;
@@ -974,18 +1020,18 @@ LRESULT Screen::OnMouseMove(UINT nFlags, int x, int y)
 				UpdatePolygon();
 			}
 		}
-		else if (m_mouse_op == MOUSE_OP_AOI && m_polygon != NULL && m_num_polygon>0 ) {
+		else if (m_mouse_op == MOUSE_OP_AOI && m_polygon != NULL && m_num_polygon > 0) {
 			float fx, fy;
 			fx = (float)x / (float)m_width;
 			fy = (float)y / (float)m_height;
 			m_polygon[m_num_polygon].tail(fx, fy);
 			UpdatePolygon();
 		}
-		else if ( (nFlags == (MK_SHIFT|MK_LBUTTON) ) && m_decoder->supportzoomin() && m_zoomarea.z<1.0 ) {             // left button down and move
+		else if ((nFlags == (MK_SHIFT | MK_LBUTTON)) && m_decoder->supportzoomin() && m_zoomarea.z < 1.0) {             // left button down and move
 			float dx, dy;
 			dx = (float)(m_pointer_x - x) / (float)m_width;
 			dy = (float)(m_pointer_y - y) / (float)m_height;
-			if ( fabs(dx) > 0.001 || fabs(dy) > 0.001) {
+			if (fabs(dx) > 0.001 || fabs(dy) > 0.001) {
 				ShowZoomarea(dx, dy, 1.0);
 				m_pointer_x = x;
 				m_pointer_y = y;
@@ -1007,8 +1053,8 @@ protected:
 	}
 
 public:
-	string aoiname ;
-	AoiNameDialog( HWND hparent, int id ){
+	string aoiname;
+	AoiNameDialog(HWND hparent, int id) {
 		CreateDlg(IDD_DIALOG_AOI_NAME, hparent);
 		aoiname.printf("AOI %d", id);
 		SetDlgItemText(m_hWnd, IDC_COMBO_AOINAME, (LPCTSTR)aoiname);
@@ -1030,7 +1076,7 @@ LRESULT Screen::OnLButtonDown(UINT nFlags, int x, int y)
 		}
 	}
 	else if (m_mouse_op == MOUSE_OP_AOI) {
-		if (m_polygon != NULL && m_num_polygon>0 ) {
+		if (m_polygon != NULL && m_num_polygon > 0) {
 			float fx, fy;
 			fx = (float)x / (float)m_width;
 			fy = (float)y / (float)m_height;
@@ -1048,7 +1094,7 @@ LRESULT Screen::OnLButtonDown(UINT nFlags, int x, int y)
 #ifdef IDD_DIALOG_AOI_NAME
 				// open dialog to confirm new poly (AOI)
 				AoiNameDialog d(m_hWnd, m_num_polygon);
-				if( d.DoModal() == IDOK ) {
+				if (d.DoModal() == IDOK) {
 					polygon->name = d.aoiname;
 					m_num_polygon++;
 				}
@@ -1069,12 +1115,12 @@ LRESULT Screen::OnLButtonDown(UINT nFlags, int x, int y)
 
 LRESULT Screen::OnLButtonUp(UINT nFlags, int x, int y)
 {
-	if (GetCapture() == m_hWnd && m_mouse_op != MOUSE_OP_BLUR )
-			SetCapture(NULL);
+	if (GetCapture() == m_hWnd && m_mouse_op != MOUSE_OP_BLUR)
+		SetCapture(NULL);
 
-	if (m_mouse_op == MOUSE_OP_ZOOM ) {
-		if(m_zoomdraw.z>0.001)
-			ShowZoomarea(m_zoomdraw.x,m_zoomdraw.y,m_zoomdraw.z);
+	if (m_mouse_op == MOUSE_OP_ZOOM) {
+		if (m_zoomdraw.z > 0.001)
+			ShowZoomarea(m_zoomdraw.x, m_zoomdraw.y, m_zoomdraw.z);
 		// clear zoomin rectangle
 		m_zoomdraw.z = 0.0;
 		drawzoomarea();
@@ -1107,20 +1153,20 @@ LRESULT Screen::OnMouseWheel(UINT delta, int x, int y)
 {
 	int ctl = (int)(short)LOWORD(delta);
 
-	if ( ctl == MK_SHIFT || ( ctl == 0 && m_mouse_op == MOUSE_OP_ZOOM) ) {
+	if (ctl == MK_SHIFT || (ctl == 0 && m_mouse_op == MOUSE_OP_ZOOM)) {
 		POINT pt;
 		pt.x = x;
 		pt.y = y;
 		ScreenToClient(m_hWnd, &pt);
-		if( pt.x >= 0 && pt.x < m_width &&
-			pt.y >= 0 && pt.y < m_height)  
+		if (pt.x >= 0 && pt.x < m_width &&
+			pt.y >= 0 && pt.y < m_height)
 		{
 			float dx, dy, z;
 			if ((short int)HIWORD(delta) > 0) {
 				z = 0.8;
 			}
 			else {
-				z = 1.0 / 0.8;
+				z = 1.25;
 			}
 			dx = (1.0 - z) * (float)pt.x / (float)m_width;
 			dy = (1.0 - z) * (float)pt.y / (float)m_height;
@@ -1136,9 +1182,9 @@ LRESULT Screen::OnSetCursor()
 {
 	HCURSOR hcursor;
 	if (m_mouse_op == MOUSE_OP_BLUR ||
-			m_mouse_op == MOUSE_OP_AOI ||
-			m_mouse_op == MOUSE_OP_ROC
-			) {
+		m_mouse_op == MOUSE_OP_AOI ||
+		m_mouse_op == MOUSE_OP_ROC
+		) {
 		hcursor = LoadCursor(NULL, IDC_CROSS);
 		SetCursor(hcursor);
 	}
@@ -1157,14 +1203,14 @@ LRESULT Screen::OnRButtonDown(UINT nFlags, int x, int y)
 LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 {
 
-	int cmd = 10000 ;		// start id
+	int cmd = 10000;		// start id
 	int flag;
 	int aspect_changed = 0;
 
 	// try attache child windows 
 	if (m_surface.getHWND() == NULL) {
 		HWND hsurf = FindWindowEx(m_hWnd, NULL, NULL, NULL);
-		if( hsurf ) {
+		if (hsurf) {
 			m_surface.attach(hsurf);
 		}
 	}
@@ -1179,20 +1225,21 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 	else if (m_mouse_op == MOUSE_OP_AOI) {
 		StopAOI();
 	}
-	
+
 	if (nFlags != 0) return 0;
 
 	g_maindlg->FocusPlayer(this);
 	HMENU hMenuPop = CreatePopupMenu();
 	HMENU hMenuScreenMode = CreatePopupMenu();
 	HMENU hMenuROC = CreatePopupMenu();
+	HMENU hMenuRotate = CreatePopupMenu();
 
 	// Screen Format selection
 	int i;
 
-	int id_SCREEN_MODE = cmd ;
+	int id_SCREEN_MODE = cmd;
 	int id_SCREEN_MODE_END = 0;
-	for (i = 0;i<screenmode_table_num;i++) {
+	for (i = 0; i < screenmode_table_num; i++) {
 		if (g_screenmode == i) {
 			flag = MF_STRING | MF_CHECKED;
 		}
@@ -1252,7 +1299,7 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 	AppendMenu(hMenuScreenMode, flag, id_PAL_SCREEN, _T("Pal Screen (720:576)"));
 #endif
 
-	if (g_ratiox == 10001 ) {
+	if (g_ratiox == 10001) {
 		flag = MF_STRING | MF_CHECKED;
 	}
 	else {
@@ -1262,23 +1309,23 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 	AppendMenu(hMenuScreenMode, flag, id_FILL_SCREEN, _T("Fill Screen"));
 
 	int id_NATIVE_SCREEN = cmd++;
-	if (m_decoder != NULL && m_attached ) {
+	if (m_decoder != NULL && m_attached) {
 		m_channelinfo.size = sizeof(m_channelinfo);
 		m_decoder->getchannelinfo(m_channel, &m_channelinfo);
-		if ( m_channelinfo.xres > 0 && m_channelinfo.yres > 0) {
+		if (m_channelinfo.xres > 0 && m_channelinfo.yres > 0) {
 			string nr;
-			if (g_ratiox == 10002 ) {
+			if (g_ratiox == 10002) {
 				flag = MF_STRING | MF_CHECKED;
 			}
 			else {
 				flag = MF_STRING;
 			}
-			nr.printf( "Native (%d:%d)", m_channelinfo.xres, m_channelinfo.yres);
+			nr.printf("Native (%d:%d)", m_channelinfo.xres, m_channelinfo.yres);
 			AppendMenu(hMenuScreenMode, flag, id_NATIVE_SCREEN, (LPCTSTR)nr);
 		}
 	}
 
-	if (g_ratiox <= 0 ) {
+	if (g_ratiox <= 0) {
 		flag = MF_STRING | MF_CHECKED;
 	}
 	else {
@@ -1308,14 +1355,14 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 
 		// add on Feb 09, 2012, show gps map
 		string gpslocation;
-		if (m_decoder->getlocation(gpslocation.strsize(514), 512)>0) {
+		if (m_decoder->getlocation(gpslocation.strsize(514), 512) > 0) {
 			int l = strlen(gpslocation);
-			if (l>32) {
+			if (l > 32) {
 				float lati, longi, kmh, direction;
 				char  latiD, longiD, cdirection;
 				sscanf(((char *)gpslocation) + 12, "%9f%c%10f%c%f%c%6f",
 					&lati, &latiD, &longi, &longiD, &kmh, &cdirection, &direction);
-				if (lati>1.0 || longi>1.0) {
+				if (lati > 1.0 || longi > 1.0) {
 					AppendMenu(hMenuPop, MF_STRING, id_DISPLAY_MAP, _T("Display Map"));
 				}
 			}
@@ -1326,12 +1373,12 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 		AppendMenu(hMenuPop, MF_STRING, id_SHOW_MARK_CLIP, _T("Show Event Clip List"));
 #endif
 
-#if defined(DVRVIEWER_APP) || defined( SPARTAN_APP ) || defined( WMVIEWER_APP )
-		if (m_decoder->blur_supported() && m_mouse_op == MOUSE_OP_NONE && m_zoomarea.z==1.0 ) {
+#if defined(DVRVIEWER_APP) || defined( SPARTAN_APP ) || defined( WMVIEWER_APP ) || defined( APP_PWVIEWER )
+		if (m_decoder->blur_supported() && m_mouse_op == MOUSE_OP_NONE && m_zoomarea.z == 1.0) {
 			AppendMenu(hMenuPop, MF_SEPARATOR, NULL, NULL);
 
 			// Blur area support
-			if (m_ba_number<MAX_BLUR_AREA) {
+			if (m_ba_number < MAX_BLUR_AREA) {
 				AppendMenu(hMenuPop, MF_STRING, id_BLUR_RECTANGULAR, _T("Add Rectangular Blur Area"));
 				AppendMenu(hMenuPop, MF_STRING, id_BLUR_ELLIPSE, _T("Add Ellipse Blur Area"));
 			}
@@ -1352,24 +1399,56 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 		AppendMenu(hMenuPop, MF_STRING | MF_CHECKED, id_ZOOM_IN, _T("Zoom In"));
 		AppendMenu(hMenuPop, MF_SEPARATOR, NULL, NULL);
 	}
-	else if ( m_attached && m_decoder != NULL && m_decoder->supportzoomin() && m_channel >= 0 && m_mouse_op == MOUSE_OP_NONE ) {
+	else if (m_attached && m_decoder != NULL && m_decoder->supportzoomin() && m_channel >= 0 && m_mouse_op == MOUSE_OP_NONE) {
 		AppendMenu(hMenuPop, MF_STRING, id_ZOOM_IN, _T("Zoom In"));
 		AppendMenu(hMenuPop, MF_SEPARATOR, NULL, NULL);
 	}
+
+	int id_ROTATE_0 = cmd++;
+	int id_ROTATE_90 = cmd++;
+	int id_ROTATE_180 = cmd++;
+	int id_ROTATE_270 = cmd++;
+	if (m_attached && m_decoder != NULL && m_decoder->supportrotate() && m_channel >= 0) {
+
+		// add 0, 90, 180, 270 rotation menu
+		if (m_rotate_degree == 0)
+			AppendMenu(hMenuRotate, MF_STRING | MF_CHECKED, id_ROTATE_0, _T("0 degree"));
+		else
+			AppendMenu(hMenuRotate, MF_STRING, id_ROTATE_0, _T("0 degree"));
+
+		if (m_rotate_degree == 90)
+			AppendMenu(hMenuRotate, MF_STRING | MF_CHECKED, id_ROTATE_90, _T("90 degree"));
+		else
+			AppendMenu(hMenuRotate, MF_STRING, id_ROTATE_90, _T("90 degree"));
+
+		if (m_rotate_degree == 180)
+			AppendMenu(hMenuRotate, MF_STRING | MF_CHECKED, id_ROTATE_180, _T("180 degree"));
+		else
+			AppendMenu(hMenuRotate, MF_STRING, id_ROTATE_180, _T("180 degree"));
+
+		if (m_rotate_degree == 270)
+			AppendMenu(hMenuRotate, MF_STRING | MF_CHECKED, id_ROTATE_270, _T("270 degree"));
+		else
+			AppendMenu(hMenuRotate, MF_STRING, id_ROTATE_270, _T("270 degree"));
+
+		AppendMenu(hMenuPop, MF_POPUP, (UINT_PTR)hMenuRotate, _T("Rotation"));
+		AppendMenu(hMenuPop, MF_SEPARATOR, NULL, NULL);
+	}
+
 
 #ifdef SUPPORT_ROC_AOI
 	// support of ROC/AOI, value from 8000-8999
 	int id_AOI_LOAD = cmd++;
 	int id_AOI_SAVE = cmd++;
-	int id_ROC = cmd++ ;
-	int id_AOI = cmd++ ;
+	int id_ROC = cmd++;
+	int id_AOI = cmd++;
 	int id_AOI_CLEAR = cmd++;
-	int id_AOI_ITEM = cmd ;
+	int id_AOI_ITEM = cmd;
 
-	if ( isattached() && m_mouse_op == MOUSE_OP_NONE && SUPPORT_ROC ) {
-		
+	if (isattached() && m_mouse_op == MOUSE_OP_NONE && SUPPORT_ROC) {
+
 		AppendMenu(hMenuROC, MF_STRING, id_AOI_LOAD, _T("Load ROC/AOI"));
-		if(m_polygon!=NULL && m_num_polygon>0 )
+		if (m_polygon != NULL && m_num_polygon > 0)
 			AppendMenu(hMenuROC, MF_STRING, id_AOI_SAVE, _T("Save ROC/AOI"));
 
 		AppendMenu(hMenuROC, MF_STRING, id_AOI_CLEAR, _T("Clear All"));
@@ -1377,7 +1456,7 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 		AppendMenu(hMenuROC, MF_STRING, id_AOI, _T("Add AOI"));
 
 		if (m_polygon != NULL) {
-			for (i = 1; i < m_num_polygon ; i++) {
+			for (i = 1; i < m_num_polygon; i++) {
 				if (m_polygon[i].points > 2) {
 					string name = m_polygon[i].name;
 					if (name.isempty()) {
@@ -1398,10 +1477,10 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 
 	int id_CHANNEL_START = cmd;
 	int channel;
-	for (i = 0; i<MAXDECODER; i++) {
+	for (i = 0; i < MAXDECODER; i++) {
 		if (g_decoder[i].isopen()) {
 			cmd = id_CHANNEL_START + i * 128;
-			for (channel = 0; channel<g_decoder[i].getchannel(); channel++) {
+			for (channel = 0; channel < g_decoder[i].getchannel(); channel++) {
 				struct channel_info channelinfo;
 				memset(&channelinfo, 0, sizeof(channelinfo));
 				channelinfo.size = sizeof(channelinfo);
@@ -1420,7 +1499,7 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 		}
 	}
 	cmd += 128;
-	int id_CHANNEL_END = cmd ;
+	int id_CHANNEL_END = cmd;
 
 	SetForegroundWindow(m_hWnd);
 	POINT pt;
@@ -1428,12 +1507,15 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 	pt.y = y;
 	MapWindowPoints(m_hWnd, NULL, &pt, 1);
 
+	// Popup menu
 	cmd = TrackPopupMenu(hMenuPop, TPM_RIGHTBUTTON | TPM_RETURNCMD,
 		pt.x, pt.y,
 		0, m_hWnd, NULL);
+	DestroyMenu(hMenuRotate);
 	DestroyMenu(hMenuROC);
 	DestroyMenu(hMenuScreenMode);
 	DestroyMenu(hMenuPop);
+
 	if (cmd == id_CLOSE_PLAYER) {		// close
 		DetachDecoder();
 	}
@@ -1466,6 +1548,19 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 			StartZoom();
 		}
 	}
+	else if (cmd == id_ROTATE_0) {	// rotate 0 degree
+		setRotate(0);
+	}
+	else if (cmd == id_ROTATE_90) {	// rotate 90 degree
+		setRotate(90);
+	}
+	else if (cmd == id_ROTATE_180) {	// rotate 180 degree
+		setRotate(180);
+	}
+	else if (cmd == id_ROTATE_270) {	// rotate 270 degree
+		setRotate(270);
+	}
+
 #ifdef SUPPORT_ROC_AOI
 	else if (cmd == id_AOI_LOAD) {
 		LoadAOI();
@@ -1487,12 +1582,12 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 		RemoveAOI(cmd - id_AOI_ITEM);
 	}
 #endif
-	else if (cmd >= id_CHANNEL_START && cmd<id_CHANNEL_END) {
+	else if (cmd >= id_CHANNEL_START && cmd < id_CHANNEL_END) {
 		i = (cmd - id_CHANNEL_START) / 128;
 		channel = (cmd - id_CHANNEL_START) % 128;
 		AttachDecoder(&g_decoder[i], channel);
 	}
-	else if( cmd >= id_SCREEN_MODE && cmd < id_SCREEN_MODE_END ) {
+	else if (cmd >= id_SCREEN_MODE && cmd < id_SCREEN_MODE_END) {
 		g_singlescreenmode = 0;
 		g_screenmode = cmd - id_SCREEN_MODE;
 		reg_save("screenmode", g_screenmode);
@@ -1541,4 +1636,3 @@ LRESULT Screen::OnRButtonUp(UINT nFlags, int x, int y)
 
 	return 0;
 }
-

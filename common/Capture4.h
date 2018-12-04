@@ -17,8 +17,8 @@ public:
 
 	int     m_picturenumber ;
 	struct tvs_info * ptvs_info ;
-	string m_picturename[4] ;
-	string m_cameraname[4] ;
+	string m_picturename[16] ;
+	string m_cameraname[16] ;
 	struct dvrtime m_capturetime ;
 	string  m_filename ;
 

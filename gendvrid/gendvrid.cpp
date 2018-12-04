@@ -9,8 +9,8 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-#include "../common/cstr.h"
 #include "../common/cwin.h"
+#include "../common/cstr.h"
 
 /*
 gendvrid usage:
@@ -43,6 +43,13 @@ extern "C" {
 
 const char keygenid[] = "d735179a-d47a-47f9-97b4-a400744ef034";
 
+void AddUser(char * user, char * password, int type)
+{
+	DWORD key[8];
+	PasswordToKey(password, key);
+	AddID(user, key, type);
+}
+
 void DeleteUser( char * user )
 {
     DeleteID( user );
@@ -51,13 +58,6 @@ void DeleteUser( char * user )
 void EraseAll() 
 {
 	DeleteID("*");;
-}
-
-void AddUser( char * user, char * password, int type )
-{
-    DWORD key[8] ;
-	PasswordToKey( password, key);
-    AddID( user, key, type );
 }
 
 int APIENTRY _tWinMain(
@@ -70,7 +70,7 @@ int APIENTRY _tWinMain(
     string password ;
 
     LPWSTR *szArglist;
-    int nArgs;
+    int nArgs=0;
 
     szArglist = CommandLineToArgvW(lpCmdLine, &nArgs);
 
@@ -89,16 +89,16 @@ int APIENTRY _tWinMain(
 					SetStorage(string(szArglist[i]));
 				}
 			}
-            else if( szArglist[i][1]=='e' ) {
-                EraseAll() ;
-            }
 			else if( szArglist[i][1]=='d' ) {
 				if (nArgs > i + 1 && szArglist[i + 1][0] != '-') {
 					i++;
 					DeleteUser(string(szArglist[i]));
 				}
             }
-            else if( szArglist[i][1]=='u' ) {
+			else if (szArglist[i][1] == 'e') {
+				EraseAll();
+			}
+			else if( szArglist[i][1]=='u' ) {
 				if (nArgs > i + 1 && szArglist[i + 1][0] != '-') {
 					user = szArglist[++i];
 					if (nArgs > i + 1 && szArglist[i + 1][0] != '-') {
@@ -122,13 +122,7 @@ int APIENTRY _tWinMain(
 					AddUser(user, password, IDADMIN);
 				}
             }
-			else {
-				//printf("Unknown arg: %s\n", (char*)string(szArglist[i]));
-			}
         }
-		else {
-			//printf("Unknown arg: %s\n", (char*)string(szArglist[i]));
-		}
     }
 
     return 0;

@@ -231,6 +231,7 @@ public:
 //	int (*scanharddrive)(char * drives, char **servernames, int maxcount);
 	HPLAYER (*openharddrive)( char * path ) ;
 	HPLAYER (*openfile)( char * dvrfilename );
+	HPLAYER (*opendvr)(char * dvrname);
 
 	int(*minitrack_start)(struct dvr_func * dvrfunc, HWND mainwindow);
 	int(*minitrack_selectserver)(void);
@@ -550,6 +551,7 @@ public:
 	int openremote(char * netname, int opentype ) ;
 	int openharddrive( char * path ) ;
 	int openfile( char * dvrfilename ) ;
+	int opendvr( char * dvrname);				// open dvr by name (for playback)
 
 	int close();
 	int initsmartserver();
@@ -620,6 +622,10 @@ public:
 	int showzoomin(int channel, struct zoom_area * za);
 	int supportzoomin();
 	
+	// rotate support interfaces
+	int setrotation(int channel, int degree);
+	int supportrotate();
+
     // get rec state (PWII)
     int getrecstate();
 	int getsystemstate(string & st);

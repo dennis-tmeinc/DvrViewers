@@ -29,7 +29,26 @@ void Capture::OnPaint()
 	if( m_img ) {
         GetClientRect(GetDlgItem(m_hWnd, IDC_STATIC_PIC), &rect);
         MapWindowPoints( GetDlgItem(m_hWnd, IDC_STATIC_PIC), m_hWnd, (LPPOINT)&rect, 2 );
-        g.DrawImage(m_img, Rect(rect.left, rect.top, (rect.right-rect.left), (rect.bottom-rect.top)));
+
+		int cx, cy , draw_h, draw_w;
+		cx = (rect.right + rect.left) / 2;
+		cy = (rect.bottom + rect.top) / 2;
+		draw_w = (rect.right - rect.left);
+
+		int w, h;
+		w = m_img->GetWidth();
+		h = m_img->GetHeight();
+		if (h<700) {
+			h = w * 3 / 4;
+		}
+
+		draw_h = draw_w * h / w;
+		if (draw_h > (rect.bottom - rect.top)) {
+			draw_h = (rect.bottom - rect.top);
+			draw_w = draw_h * w / h;
+		}
+		g.DrawImage(m_img, Rect(cx - draw_w / 2, cy - draw_h / 2, draw_w, draw_h));
+        //g.DrawImage(m_img, Rect(rect.left, rect.top, (rect.right-rect.left), (rect.bottom-rect.top)));
 	}
 
     EndPaint(m_hWnd, &ps);
@@ -59,7 +78,7 @@ void Capture::OnBnClickedButtonSavefile()
 			int w, h ;
 			w = m_img->GetWidth();
 			h = m_img->GetHeight();
-			if( h<600 || w<800 ) {
+			if( h<600 ) {
 				w=800 ;
 				h=600 ;
 			}
@@ -98,15 +117,23 @@ void Capture::OnBnClickedButtonPrint()
       StartPage(printDlg.hDC);
       Graphics* graphics = new Graphics(printDlg.hDC);
 
-      
+	  int w, h;
+	  w = m_img->GetWidth();
+	  h = m_img->GetHeight();
+	  if (h<600) {
+		  w = 800;
+		  h = 600;
+	  }
+
       int hsize = GetDeviceCaps(printDlg.hDC, HORZRES);  // get hsize
 	  int vsize = GetDeviceCaps(printDlg.hDC, VERTRES);  // get vsize
       int dpix = (int)graphics->GetDpiX();
       int dpiy = (int)graphics->GetDpiY();
-	  int sizex = hsize*5/8 ;
-	  int sizey = sizex*3/4 ;
+	  int sizex = hsize*6/8 ;
+	  int sizey = sizex*h/w ;
       int left =  (hsize-sizex)/2;
 	  int top =  2*dpiy ;
+
       graphics->SetPageUnit(UnitPixel);
 
       Font        font(printDlg.hDC);

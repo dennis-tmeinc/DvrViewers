@@ -1,9 +1,0 @@
-﻿  stdafx.cpp
-  gendvrid.cpp
-  Generating code
-  28 of 28 functions (100.0%) were compiled, the rest were copied from previous compilation.
-    4 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  gendvrid.vcxproj -> D:\proj\DVR\DVRCLIENT_V3\Viewers\Release\gendvrid.exe
-  gendvrid.vcxproj -> D:\proj\DVR\DVRCLIENT_V3\Viewers\Release\gendvrid.pdb (Full PDB)

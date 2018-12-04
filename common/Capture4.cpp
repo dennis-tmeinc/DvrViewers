@@ -219,55 +219,148 @@ void	Capture4::MakeImage()
 	rect.top = 0 ;
 	rect.bottom = m_img->GetHeight() ;
 
+	int h ;
+	int w ;
+	int draw_h;
+	int draw_w;
+	int cx = 704;
+	int cy = 0 ;
+
 	Bitmap * img ;
 	if (nPictures == 1) {
 		camIdx = pictures[0] - 1; /* get the camera index number to draw */
 		img = Bitmap::FromFile((LPCTSTR)m_picturename[camIdx]);
 		if( img ) {
-			g->DrawImage(img, 352-176, 0, 704+352, 528+264 );
+			cx = 704;					// center x
+			h = img->GetHeight();
+			w = img->GetWidth();
+			draw_h = 528 + 264;
+			if (h >= 700) {		// use original picture ratial
+				draw_w = draw_h * w / h;
+			}
+			else {
+				draw_w = draw_h * 4 / 3;
+			}
+
+			// g->DrawImage(img, 352-176, 0, 704+352, 528+264 );
+			g->DrawImage(img, cx - draw_w/2, cy, draw_w, draw_h);
 			delete img ;
 		}
 	} else if (nPictures == 2) {
+		draw_w = 704;			// half page 
+		draw_h = 704 * 3 / 4;	// defalut 4x3 ratial
+
 		camIdx = pictures[0] - 1; /* get the 1st camera index number to draw */
 		img = Bitmap::FromFile((LPCTSTR)m_picturename[camIdx]);
 		if( img ) {
-			g->DrawImage(img, 0, 0, 704, 528 );
+			h = img->GetHeight();
+			w = img->GetWidth();
+			if (h >= 700) {
+				draw_h = draw_w * h / w;
+			}
+			else {
+				draw_h = draw_w * 3 / 4;
+			}
+			g->DrawImage(img, cx-draw_w, 0, draw_w, draw_h );
 			delete img ;
 		}
+
 		camIdx = pictures[1] - 1; /* get the 2nd camera index number to draw */
 		img = Bitmap::FromFile((LPCTSTR)m_picturename[camIdx]);
 		if( img ) {
-			g->DrawImage(img, 704, 0, 704, 528 );
+			h = img->GetHeight();
+			w = img->GetWidth();
+			if (h >= 700) {
+				draw_h = draw_w * h / w;
+			}
+			else {
+				draw_h = draw_w * 3 / 4;
+			}
+			g->DrawImage(img, cx, 0, draw_w, draw_h);
 			delete img ;
 		}
+
 	} else if (nPictures >= 3) {
+		draw_h = 432;				// single picture height
 		for (i = 0; i < nPictures; i++) {
 			if (pictures[i] == 1) {
 				camIdx = pictures[i] - 1; /* get the 1st camera index number to draw */
 				img = Bitmap::FromFile((LPCTSTR)m_picturename[camIdx]);
 				if( img ) {
-					g->DrawImage(img, 132, 0, 572, 429 );
+					h = img->GetHeight();
+					w = img->GetWidth();
+					if (h >= 700) {
+						draw_w = draw_h * w / h;
+						if (draw_w > cx) {
+							draw_w = cx;
+							draw_h = draw_w * h / w;
+						}
+					}
+					else {
+						draw_w = draw_h * 4 / 3;
+					}
+					g->DrawImage(img, cx-draw_w, 0, draw_w, draw_h );
+					if (draw_h > cy)
+						cy = draw_h;
 					delete img ;
 				}
 			} else if (pictures[i] == 2) {
 				camIdx = pictures[i] - 1; /* get the 2nd camera index number to draw */
 				img = Bitmap::FromFile((LPCTSTR)m_picturename[camIdx]);
 				if( img ) {
-					g->DrawImage(img, 132+572, 0, 572, 429 );
+					h = img->GetHeight();
+					w = img->GetWidth();
+					if (h >= 700) {
+						draw_w = draw_h * w / h;
+						if (draw_w > cx) {
+							draw_w = cx;
+							draw_h = draw_w * h / w;
+						}
+					}
+					else {
+						draw_w = draw_h * 4 / 3;
+					}
+					g->DrawImage(img, cx, 0, draw_w, draw_h);
+					if( draw_h > cy )
+						cy = draw_h;
 					delete img ;
 				}
 			} else if (pictures[i] == 3) {		
 				camIdx = pictures[i] - 1; /* get the 3rd camera index number to draw */
 				img = Bitmap::FromFile((LPCTSTR)m_picturename[camIdx]);
 				if( img ) {
-					g->DrawImage(img, 132, 429, 572, 429 );
+					h = img->GetHeight();
+					w = img->GetWidth();
+					if (h >= 700) {
+						draw_w = draw_h * w / h;
+						if (draw_w > cx) {
+							draw_w = cx;
+							draw_h = draw_w * h / w;
+						}
+					}
+					else {
+						draw_w = draw_h * 4 / 3;
+					}
+					g->DrawImage(img, cx-draw_w, cy, draw_w, draw_h);
 					delete img ;
 				}
 			} else if (pictures[i] == 4) {		
 				camIdx = pictures[i] - 1; /* get the 4th camera index number to draw */
 				img = Bitmap::FromFile((LPCTSTR)m_picturename[camIdx]);
 				if( img ) {
-					g->DrawImage(img, 132+572, 429, 572, 429 );
+					h = img->GetHeight();
+					w = img->GetWidth();
+					if (h >= 700) {
+						draw_w = draw_h * w / h;
+						if (draw_w > cx) {
+							draw_w = cx;
+							draw_h = draw_w * h / w;
+						}
+					}
+					else {
+						draw_w = draw_h * 4 / 3;
+					}
+					g->DrawImage(img, cx, cy, draw_w, draw_h);
 					delete img ;
 				}
 			}
@@ -284,9 +377,9 @@ void	Capture4::MakeImage()
 	} else {
 		xpos = 140 ;
 		if (nPictures == 2) {
-			y = 610 ;
+			y = 620 ;
 		} else {
-			y = 860 ;
+			y = 880 ;
 		}
 	}
 
@@ -452,7 +545,7 @@ void Capture4::OnPaint()
 	HDC hdc = BeginPaint(m_hWnd, &ps);
 	Graphics g(hdc);
 
-	RECT rect ;
+	RECT rect;
 	if( m_img ) {
 		GetClientRect(GetDlgItem(m_hWnd, IDC_STATIC_PIC), &rect);
 		MapWindowPoints( GetDlgItem(m_hWnd, IDC_STATIC_PIC), m_hWnd, (LPPOINT)&rect, 2 );

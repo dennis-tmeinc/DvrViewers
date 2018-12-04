@@ -213,19 +213,22 @@ public:
 
 };
 
+
 class WaitCursor 
 {
 protected:
-	HCURSOR m_savedcursor ;
+	static int m_count;
 public:
 	WaitCursor(){
-		m_savedcursor = ::SetCursor(LoadCursor(NULL,(LPCTSTR)IDC_WAIT));
-		ShowCursor(TRUE);
+		if (m_count++ <= 0) {
+			::SetCursor(LoadCursor(NULL, (LPCTSTR)IDC_WAIT));
+			// ShowCursor(TRUE);
+		}
 	}
 	~WaitCursor(){
-		ShowCursor(FALSE);
-		if( m_savedcursor ) {
-			::SetCursor(m_savedcursor);
+		if (--m_count <= 0 ) {
+			// ::SetCursor(LoadCursor(NULL, (LPCTSTR)IDC_ARROW));
+			// ShowCursor(FALSE);
 		}
 	}
 };
